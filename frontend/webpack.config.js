@@ -1,12 +1,24 @@
+const path = require('path');
+const dotenv = require('dotenv-webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: 'development', // faz o webpack buildar em modo development
+    output: {
+        path: path.join(__dirname, '/dist'),
+        filename: "index.bundle.js"
+    },
     plugins: [
         new htmlWebpackPlugin({
-            template: './public/index.html', // faz o webpack chamar este arquivo em localhost:8080
+            template: './public/index.html', // faz o webpack chamar este arquivo na porta selecionada
+        }),
+        new dotenv({
+            systemvars: true
         })
     ],
+    devServer: {
+        port: 8000,
+        liveReload: true
+    },
     module: {
         rules: [
             {
@@ -14,9 +26,6 @@ module.exports = {
                 exclude: /node-modules/,
                 use: {
                     loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-react', '@babel/preset-env'],
-                    }
                 }
             },
             {
