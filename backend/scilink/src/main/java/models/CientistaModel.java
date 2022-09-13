@@ -4,12 +4,14 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "TB_CIENTISTA")
-public class CientistaModel {
+public class CientistaModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_cientista;
@@ -29,6 +31,16 @@ public class CientistaModel {
     private String lattes_cientista;
     @Column(nullable = false, length = 10)
     private String snh_cientista;
+    @OneToMany
+    private List<ProjetoModel> projeto;
+    @OneToMany
+    private List<TelefoneModel> telefone;
+    @OneToMany
+    private List<RedeSocialModel> redeSocial;
+    @OneToMany
+    private List<AreaAtuacaoCientistaModel> areaAtuacaoCientista;
+    @OneToMany
+    private List<FormacaoModel> formacao;
 
     //region Getters and Setters
 
@@ -86,6 +98,41 @@ public class CientistaModel {
     }
     public void setSnh_cientista(String snh_cientista) {
         this.snh_cientista = snh_cientista;
+    }
+
+    public List<ProjetoModel> getProjeto() {
+        return projeto;
+    }
+    public void setProjeto(List<ProjetoModel> projeto) {
+        this.projeto = projeto;
+    }
+
+    public List<TelefoneModel> getTelefone() {
+        return telefone;
+    }
+    public void setTelefone(List<TelefoneModel> telefone) {
+        this.telefone = telefone;
+    }
+
+    public List<RedeSocialModel> getRedeSocial() {
+        return redeSocial;
+    }
+    public void setRedeSocial(List<RedeSocialModel> redeSocial) {
+        this.redeSocial = redeSocial;
+    }
+
+    public List<AreaAtuacaoCientistaModel> getAreaAtuacaoCientista() {
+        return areaAtuacaoCientista;
+    }
+    public void setAreaAtuacaoCientista(List<AreaAtuacaoCientistaModel> areaAtuacaoCientista) {
+        this.areaAtuacaoCientista = areaAtuacaoCientista;
+    }
+
+    public List<FormacaoModel> getFormacao() {
+        return formacao;
+    }
+    public void setFormacao(List<FormacaoModel> formacao) {
+        this.formacao = formacao;
     }
 
     //endregion
