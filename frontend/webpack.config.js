@@ -5,7 +5,8 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
-        filename: "index.bundle.js"
+        filename: "index.bundle.js",
+        publicPath: "/"
     },
     plugins: [
         new htmlWebpackPlugin({
@@ -17,7 +18,8 @@ module.exports = {
     ],
     devServer: {
         port: 8000,
-        liveReload: true
+        liveReload: true,
+        historyApiFallback: true
     },
     module: {
         rules: [
