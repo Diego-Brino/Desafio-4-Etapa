@@ -3,6 +3,7 @@ package models;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
@@ -28,6 +29,18 @@ public class AreaAtuacaoCientistaId implements Serializable {
         this.id_area_atuacao = id_area_atuacao;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AreaAtuacaoCientistaId that = (AreaAtuacaoCientistaId) o;
+        return Objects.equals(id_cientista, that.id_cientista) && Objects.equals(id_area_atuacao, that.id_area_atuacao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_cientista, id_area_atuacao);
+    }
 
     //endregion
 }

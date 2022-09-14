@@ -11,7 +11,6 @@ public class ProjetoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_projeto;
-    @Column
     @ManyToOne
     @JoinColumn(name = "id_cientista",
                 referencedColumnName = "id_cientista")
