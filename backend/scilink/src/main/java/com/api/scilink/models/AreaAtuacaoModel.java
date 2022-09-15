@@ -1,4 +1,4 @@
-package models;
+package com.api.scilink.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,6 +7,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_AREA_ATUACAO")
 public class AreaAtuacaoModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_area_atuacao;

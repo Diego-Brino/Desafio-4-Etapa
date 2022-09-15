@@ -1,4 +1,4 @@
-package models;
+package com.api.scilink.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +8,7 @@ import java.util.UUID;
 @Table(name = "TB_REDE_SOCIAL")
 public class RedeSocialModel implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_rede_social;

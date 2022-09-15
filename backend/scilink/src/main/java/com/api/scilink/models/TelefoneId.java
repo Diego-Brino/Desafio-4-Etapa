@@ -1,4 +1,4 @@
-package models;
+package com.api.scilink.models;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -9,6 +9,7 @@ import java.util.UUID;
 @Embeddable
 public class TelefoneId implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Column
     private UUID id_cientista;
     @Column(length = 2)

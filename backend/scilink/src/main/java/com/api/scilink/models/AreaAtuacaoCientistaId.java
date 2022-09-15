@@ -1,4 +1,4 @@
-package models;
+package com.api.scilink.models;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -7,12 +7,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
-public class FormacaoId implements Serializable {
+public class AreaAtuacaoCientistaId implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Column
     private UUID id_cientista;
     @Column
-    private UUID id_titulacao;
+    private UUID id_area_atuacao;
 
     //region Getters and Setters
 
@@ -23,24 +24,24 @@ public class FormacaoId implements Serializable {
         this.id_cientista = id_cientista;
     }
 
-    public UUID getId_titulacao() {
-        return id_titulacao;
+    public UUID getId_area_atuacao() {
+        return id_area_atuacao;
     }
-    public void setId_titulacao(UUID id_titulacao) {
-        this.id_titulacao = id_titulacao;
+    public void setId_area_atuacao(UUID id_area_atuacao) {
+        this.id_area_atuacao = id_area_atuacao;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FormacaoId that = (FormacaoId) o;
-        return Objects.equals(id_cientista, that.id_cientista) && Objects.equals(id_titulacao, that.id_titulacao);
+        AreaAtuacaoCientistaId that = (AreaAtuacaoCientistaId) o;
+        return Objects.equals(id_cientista, that.id_cientista) && Objects.equals(id_area_atuacao, that.id_area_atuacao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_cientista, id_titulacao);
+        return Objects.hash(id_cientista, id_area_atuacao);
     }
 
     //endregion

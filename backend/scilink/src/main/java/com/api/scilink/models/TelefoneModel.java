@@ -1,4 +1,4 @@
-package models;
+package com.api.scilink.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table(name = "TB_TELEFONE")
 public class TelefoneModel implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     private TelefoneId telefoneId;
     @ManyToOne

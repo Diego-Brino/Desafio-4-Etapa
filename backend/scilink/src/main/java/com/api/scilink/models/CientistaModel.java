@@ -1,17 +1,22 @@
-package models;
+package com.api.scilink.models;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "TB_CIENTISTA")
-public class CientistaModel implements Serializable {
+public class CientistaModel implements Serializable, UserDetails {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_cientista;
@@ -31,16 +36,65 @@ public class CientistaModel implements Serializable {
     private String lattes_cientista;
     @Column(nullable = false, length = 10)
     private String snh_cientista;
-    @OneToMany
+    @OneToMany(mappedBy = "cientista")
     private List<ProjetoModel> projeto;
-    @OneToMany
+    @OneToMany(mappedBy = "cientista")
     private List<TelefoneModel> telefone;
-    @OneToMany
+    @OneToMany(mappedBy = "cientista")
     private List<RedeSocialModel> redeSocial;
-    @OneToMany
+    @OneToMany(mappedBy = "cientista")
     private List<AreaAtuacaoCientistaModel> areaAtuacaoCientista;
-    @OneToMany
+    @OneToMany(mappedBy = "cientista")
     private List<FormacaoModel> formacao;
+
+    //region Methods
+
+    public CientistaModel () {
+
+    }
+
+    public CientistaModel (String nom_cientista, String cpf_cientista, String snh_cientista) {
+        this.nom_cientista = nom_cientista;
+        this.cpf_cientista = cpf_cientista;
+        this.snh_cientista = snh_cientista;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    //endregion
 
     //region Getters and Setters
 

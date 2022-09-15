@@ -1,4 +1,4 @@
-package models;
+package com.api.scilink.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,6 +7,8 @@ import java.util.Date;
 @Entity
 @Table(name = "TB_FORMACAO")
 public class FormacaoModel implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @EmbeddedId
     private FormacaoId formacaoId;
     @ManyToOne
