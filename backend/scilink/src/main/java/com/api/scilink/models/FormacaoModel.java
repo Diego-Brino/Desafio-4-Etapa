@@ -7,7 +7,6 @@ import java.util.Date;
 @Entity
 @Table(name = "TB_FORMACAO")
 public class FormacaoModel implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     private FormacaoId formacaoId;
@@ -21,10 +20,10 @@ public class FormacaoModel implements Serializable {
     @JoinColumn(name = "id_titulacao",
             referencedColumnName = "id_titulacao")
     private TitulacaoModel titulacao;
-    @Column
-    private Date dti_formacao;
-    @Column
-    private Date dtt_formacao;
+    @Column(name = "dti_formacao")
+    private Date dtiFormacao;
+    @Column(name = "dtt_formacao")
+    private Date dttFormacao;
 
     //region Getters and Setters
 
@@ -49,20 +48,19 @@ public class FormacaoModel implements Serializable {
         this.titulacao = titulacao;
     }
 
-    public Date getDti_formacao() {
-        return dti_formacao;
+    public Date getDtiFormacao() {
+        return dtiFormacao;
     }
-    public void setDti_formacao(Date dti_formacao) {
-        this.dti_formacao = dti_formacao;
-    }
-
-    public Date getDtt_formacao() {
-        return dtt_formacao;
-    }
-    public void setDtt_formacao(Date dtt_formacao) {
-        this.dtt_formacao = dtt_formacao;
+    public void setDtiFormacao(Date dtiFormacao) {
+        this.dtiFormacao = dtiFormacao;
     }
 
+    public Date getDttFormacao() {
+        return dttFormacao;
+    }
+    public void setDttFormacao(Date dttFormacao) {
+        this.dttFormacao = dttFormacao;
+    }
 
     //endregion
 }

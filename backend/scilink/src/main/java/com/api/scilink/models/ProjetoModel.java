@@ -8,7 +8,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_PROJETO")
 public class ProjetoModel implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,16 +16,16 @@ public class ProjetoModel implements Serializable {
     @JoinColumn(name = "id_cientista",
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
-    @Column(length = 50)
-    private String tit_projeto;
-    @Column(length = 250)
-    private String res_projeto;
-    @Column
-    private Date dti_projeto;
-    @Column
-    private Date dtt_projeto;
-    @Column(nullable = false)
-    private Boolean pub_projeto;
+    @Column(name = "tit_projeto", length = 50)
+    private String titProjeto;
+    @Column(name = "res_projeto", length = 250)
+    private String resProjeto;
+    @Column(name = "dti_projeto")
+    private Date dtiProjeto;
+    @Column(name = "dtt_projeto")
+    private Date dttProjeto;
+    @Column(name = "pub_projeto", nullable = false)
+    private Boolean pubProjeto;
 
     //region Getters and Setters
 
@@ -44,39 +43,39 @@ public class ProjetoModel implements Serializable {
         this.cientista = cientista;
     }
 
-    public String getTit_projeto() {
-        return tit_projeto;
+    public String getTitProjeto() {
+        return titProjeto;
     }
-    public void setTit_projeto(String tit_projeto) {
-        this.tit_projeto = tit_projeto;
-    }
-
-    public String getRes_projeto() {
-        return res_projeto;
-    }
-    public void setRes_projeto(String res_projeto) {
-        this.res_projeto = res_projeto;
+    public void setTitProjeto(String titProjeto) {
+        this.titProjeto = titProjeto;
     }
 
-    public Date getDti_projeto() {
-        return dti_projeto;
+    public String getResProjeto() {
+        return resProjeto;
     }
-    public void setDti_projeto(Date dti_projeto) {
-        this.dti_projeto = dti_projeto;
-    }
-
-    public Date getDtt_projeto() {
-        return dtt_projeto;
-    }
-    public void setDtt_projeto(Date dtt_projeto) {
-        this.dtt_projeto = dtt_projeto;
+    public void setResProjeto(String resProjeto) {
+        this.resProjeto = resProjeto;
     }
 
-    public Boolean getPub_projeto() {
-        return pub_projeto;
+    public Date getDtiProjeto() {
+        return dtiProjeto;
     }
-    public void setPub_projeto(Boolean pub_projeto) {
-        this.pub_projeto = pub_projeto;
+    public void setDtiProjeto(Date dtiProjeto) {
+        this.dtiProjeto = dtiProjeto;
+    }
+
+    public Date getDttProjeto() {
+        return dttProjeto;
+    }
+    public void setDttProjeto(Date dttProjeto) {
+        this.dttProjeto = dttProjeto;
+    }
+
+    public Boolean getPubProjeto() {
+        return pubProjeto;
+    }
+    public void setPubProjeto(Boolean pubProjeto) {
+        this.pubProjeto = pubProjeto;
     }
 
     //endregion

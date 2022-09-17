@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
-
     private final AuthenticationConfiguration authenticationConfiguration;
     private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
     private final AuthenticationFilter authenticationFilter;

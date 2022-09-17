@@ -1,6 +1,6 @@
 package com.api.scilink.services;
 
-import com.api.scilink.exceptions.CpfNotFoundException;
+import com.api.scilink.config.security.exceptions.CientistaNotFoundException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 
 @Service
 public class LoginService implements UserDetailsService {
     private final CientistaRepository cientistaRepository;
-
-    @Autowired
     public LoginService (CientistaRepository cientistaRepository) {
         this.cientistaRepository = cientistaRepository;
     }
@@ -27,15 +24,15 @@ public class LoginService implements UserDetailsService {
         CientistaModel cientistaModel = cientistaRepository.findCientistaModelByNomCientista(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
 
-        return new CientistaModel(cientistaModel.getNomCientista(), cientistaModel.getCpfCientista(), cientistaModel.getSnh_cientista());
+        return new CientistaModel(cientistaModel.getNomCientista(), cientistaModel.getCpfCientista(), cientistaModel.getSnhCientista());
     }
 
     //Tenta localizar o cientista, caso não encontre joga a exceção CpfNotFoundException.
     @Transactional
-    public CientistaModel loadUserByCpf (String cpf) throws CpfNotFoundException {
+    public CientistaModel loadUserByCpf (String cpf) {
         CientistaModel cientistaModel = cientistaRepository.findCientistaModelByCpfCientista(cpf)
-                .orElseThrow(() -> new CpfNotFoundException());
+                .orElseThrow(() -> new CientistaNotFoundException());
 
-        return new CientistaModel(cientistaModel.getNomCientista(), cientistaModel.getCpfCientista(), cientistaModel.getSnh_cientista());
+        return new CientistaModel(cientistaModel.getNomCientista(), cientistaModel.getCpfCientista(), cientistaModel.getSnhCientista());
     }
 }

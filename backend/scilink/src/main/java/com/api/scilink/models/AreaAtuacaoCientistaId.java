@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Embeddable
 public class AreaAtuacaoCientistaId implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Column
     private UUID id_cientista;

@@ -1,7 +1,6 @@
 package com.api.scilink.controllers;
 
 import com.api.scilink.dtos.CientistaDto;
-import com.api.scilink.exceptions.CpfNotFoundException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.LoginService;
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -23,8 +21,6 @@ public class LoginController {
     private final AuthenticationManager authenticationManager;
     private final LoginService loginService;
     private final JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
     public LoginController(AuthenticationManager authenticationManager, LoginService loginService, JwtTokenUtil jwtTokenUtil) {
         this.authenticationManager = authenticationManager;
         this.loginService = loginService;
@@ -39,7 +35,7 @@ public class LoginController {
         BeanUtils.copyProperties(cientistaDto, cientistaModel);
 
         authenticationManager.authenticate(new CpfPasswordAuthenticationToken(cientistaModel.getCpfCientista(),
-                cientistaModel.getSnh_cientista(), Boolean.FALSE));
+                cientistaModel.getSnhCientista(), Boolean.FALSE));
 
         final String token = jwtTokenUtil.doGenerateToken(new HashMap<>(), cientistaModel.getCpfCientista());
 

@@ -7,13 +7,12 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_TITULACAO")
 public class TitulacaoModel implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_titulacao;
-    @Column(length = 25, nullable = false)
-    private String nom_titulacao;
+    @Column(name = "nom_titulacao", length = 25, nullable = false)
+    private String nomTitulacao;
 
     //region Getters and Setters
 
@@ -24,11 +23,11 @@ public class TitulacaoModel implements Serializable {
         this.id_titulacao = id_titulacao;
     }
 
-    public String getNom_titulacao() {
-        return nom_titulacao;
+    public String getNomTitulacao() {
+        return nomTitulacao;
     }
-    public void setNom_titulacao(String nom_titulacao) {
-        this.nom_titulacao = nom_titulacao;
+    public void setNomTitulacao(String nomTitulacao) {
+        this.nomTitulacao = nomTitulacao;
     }
 
     //endregion

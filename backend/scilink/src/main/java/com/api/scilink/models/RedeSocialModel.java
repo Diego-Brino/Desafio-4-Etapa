@@ -7,7 +7,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_REDE_SOCIAL")
 public class RedeSocialModel implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,10 +15,10 @@ public class RedeSocialModel implements Serializable {
     @JoinColumn(name = "id_cientista",
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
-    @Column(length = 50)
-    private String end_rede_social;
-    @Column(length = 1)
-    private Character tip_rede_social;
+    @Column(name = "end_rede_social", length = 50)
+    private String endRedeSocial;
+    @Column(name = "tip_rede_social", length = 1)
+    private Character tipRedeSocial;
 
     //region Getters and Setters
 
@@ -37,20 +36,19 @@ public class RedeSocialModel implements Serializable {
         this.cientista = cientista;
     }
 
-    public String getEnd_rede_social() {
-        return end_rede_social;
+    public String getEndRedeSocial() {
+        return endRedeSocial;
     }
-    public void setEnd_rede_social(String end_rede_social) {
-        this.end_rede_social = end_rede_social;
-    }
-
-    public Character getTip_rede_social() {
-        return tip_rede_social;
-    }
-    public void setTip_rede_social(Character tip_rede_social) {
-        this.tip_rede_social = tip_rede_social;
+    public void setEndRedeSocial(String endRedeSocial) {
+        this.endRedeSocial = endRedeSocial;
     }
 
+    public Character getTipRedeSocial() {
+        return tipRedeSocial;
+    }
+    public void setTipRedeSocial(Character tipRedeSocial) {
+        this.tipRedeSocial = tipRedeSocial;
+    }
 
     //endregion
 }

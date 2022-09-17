@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 public class CpfPasswordAuthenticationToken extends AbstractAuthenticationToken {
-
     private static final long serialVersionUID = 1L;
     private final Object principal;
     private final Object credentials;

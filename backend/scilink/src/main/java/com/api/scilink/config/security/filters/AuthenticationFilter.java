@@ -21,7 +21,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
     private final LoginService loginService;
 
-    @Autowired
     public AuthenticationFilter(JwtTokenUtil jwtTokenUtil, LoginService loginService) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.loginService = loginService;
@@ -57,7 +56,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
                 CpfPasswordAuthenticationToken authenticationToken = new CpfPasswordAuthenticationToken
                         (cientistaModel.getCpfCientista(),
-                                cientistaModel.getSnh_cientista(),
+                                cientistaModel.getSnhCientista(),
                                         Boolean.TRUE);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }

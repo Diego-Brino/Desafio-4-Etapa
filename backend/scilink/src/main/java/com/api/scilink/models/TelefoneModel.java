@@ -6,7 +6,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "TB_TELEFONE")
 public class TelefoneModel implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     private TelefoneId telefoneId;

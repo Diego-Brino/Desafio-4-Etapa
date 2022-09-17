@@ -15,7 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_CIENTISTA")
 public class CientistaModel implements Serializable, UserDetails {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,17 +24,17 @@ public class CientistaModel implements Serializable, UserDetails {
     @Column(name = "cpf_cientista", nullable = false, length = 11, unique = true)
     @CPF
     private String cpfCientista;
-    @Column
-    private Date dtn_cientista;
-    @Column(nullable = false, length = 50)
+    @Column(name = "dtn_cientista")
+    private Date dtnCientista;
+    @Column(name = "email_cientista", nullable = false, length = 50)
     @Email
-    private String email_cientista;
-    @Column(length = 50)
-    private String email_alternativo_cientista;
-    @Column(nullable = false, length = 50)
-    private String lattes_cientista;
-    @Column(nullable = false, length = 10)
-    private String snh_cientista;
+    private String emailCientista;
+    @Column(name = "email_alternativo_cientista", length = 50)
+    private String emailAlternativoCientista;
+    @Column(name = "lattes_cientista", nullable = false, length = 50)
+    private String lattesCientista;
+    @Column(name = "snh_cientista", nullable = false, length = 10)
+    private String snhCientista;
     @OneToMany(mappedBy = "cientista")
     private List<ProjetoModel> projeto;
     @OneToMany(mappedBy = "cientista")
@@ -53,10 +52,10 @@ public class CientistaModel implements Serializable, UserDetails {
 
     }
 
-    public CientistaModel (String nom_cientista, String cpf_cientista, String snh_cientista) {
-        this.nomCientista = nom_cientista;
-        this.cpfCientista = cpf_cientista;
-        this.snh_cientista = snh_cientista;
+    public CientistaModel (String nomCientista, String cpfCientista, String snhCientista) {
+        this.nomCientista = nomCientista;
+        this.cpfCientista = cpfCientista;
+        this.snhCientista = snhCientista;
     }
 
     @Override
@@ -119,39 +118,39 @@ public class CientistaModel implements Serializable, UserDetails {
         this.cpfCientista = cpfCientista;
     }
 
-    public Date getDtn_cientista() {
-        return dtn_cientista;
+    public Date getDtnCientista() {
+        return dtnCientista;
     }
-    public void setDtn_cientista(Date dtn_cientista) {
-        this.dtn_cientista = dtn_cientista;
-    }
-
-    public String getEmail_cientista() {
-        return email_cientista;
-    }
-    public void setEmail_cientista(String email_cientista) {
-        this.email_cientista = email_cientista;
+    public void setDtnCientista(Date dtnCientista) {
+        this.dtnCientista = dtnCientista;
     }
 
-    public String getEmail_alternativo_cientista() {
-        return email_alternativo_cientista;
+    public String getEmailCientista() {
+        return emailCientista;
     }
-    public void setEmail_alternativo_cientista(String email_alternativo_cientista) {
-        this.email_alternativo_cientista = email_alternativo_cientista;
-    }
-
-    public String getLattes_cientista() {
-        return lattes_cientista;
-    }
-    public void setLattes_cientista(String lattes_cientista) {
-        this.lattes_cientista = lattes_cientista;
+    public void setEmailCientista(String emailCientista) {
+        this.emailCientista = emailCientista;
     }
 
-    public String getSnh_cientista() {
-        return snh_cientista;
+    public String getEmailAlternativoCientista() {
+        return emailAlternativoCientista;
     }
-    public void setSnh_cientista(String snh_cientista) {
-        this.snh_cientista = snh_cientista;
+    public void setEmailAlternativoCientista(String emailAlternativoCientista) {
+        this.emailAlternativoCientista = emailAlternativoCientista;
+    }
+
+    public String getLattesCientista() {
+        return lattesCientista;
+    }
+    public void setLattesCientista(String lattesCientista) {
+        this.lattesCientista = lattesCientista;
+    }
+
+    public String getSnhCientista() {
+        return snhCientista;
+    }
+    public void setSnhCientista(String snhCientista) {
+        this.snhCientista = snhCientista;
     }
 
     public List<ProjetoModel> getProjeto() {
