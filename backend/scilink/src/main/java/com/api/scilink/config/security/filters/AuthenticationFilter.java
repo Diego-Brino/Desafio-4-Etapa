@@ -5,6 +5,7 @@ import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.LoginService;
 import com.api.scilink.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,10 +18,10 @@ import java.io.IOException;
 
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
-
     private final JwtTokenUtil jwtTokenUtil;
     private final LoginService loginService;
 
+    @Autowired
     public AuthenticationFilter(JwtTokenUtil jwtTokenUtil, LoginService loginService) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.loginService = loginService;
@@ -29,9 +30,12 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal (HttpServletRequest request, HttpServletResponse response,
                                         FilterChain chain) throws ServletException, IOException {
+
+        //Recupera o token do header
         final String token = request.getHeader("Authorization");
         String cpf = null;
 
+        //Tenta achar o cpf do usuário
         if (token != null) {
             try {
                 cpf = jwtTokenUtil.getUsernameFromToken(token);
@@ -47,12 +51,12 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
             if(jwtTokenUtil.validateToken(token, cientistaModel)){
 
-                // Refresh the token when already authenticated
+                //Gera um novo token para o usuário
                 String newJwtToken = jwtTokenUtil.generateToken(cientistaModel);
                 response.setHeader("Authorization", newJwtToken);
 
                 CpfPasswordAuthenticationToken authenticationToken = new CpfPasswordAuthenticationToken
-                        (cientistaModel.getCpf_cientista(),
+                        (cientistaModel.getCpfCientista(),
                                 cientistaModel.getSnh_cientista(),
                                         Boolean.TRUE);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

@@ -20,11 +20,11 @@ public class CientistaModel implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id_cientista;
-    @Column(length = 50)
-    private String nom_cientista;
-    @Column(nullable = false, length = 11, unique = true)
+    @Column(name = "nom_cientista",length = 50)
+    private String nomCientista;
+    @Column(name = "cpf_cientista", nullable = false, length = 11, unique = true)
     @CPF
-    private String cpf_cientista;
+    private String cpfCientista;
     @Column
     private Date dtn_cientista;
     @Column(nullable = false, length = 50)
@@ -54,8 +54,8 @@ public class CientistaModel implements Serializable, UserDetails {
     }
 
     public CientistaModel (String nom_cientista, String cpf_cientista, String snh_cientista) {
-        this.nom_cientista = nom_cientista;
-        this.cpf_cientista = cpf_cientista;
+        this.nomCientista = nom_cientista;
+        this.cpfCientista = cpf_cientista;
         this.snh_cientista = snh_cientista;
     }
 
@@ -105,18 +105,18 @@ public class CientistaModel implements Serializable, UserDetails {
         this.id_cientista = id_cientista;
     }
 
-    public String getNom_cientista() {
-        return nom_cientista;
+    public String getNomCientista() {
+        return nomCientista;
     }
-    public void setNom_cientista(String nom_cientista) {
-        this.nom_cientista = nom_cientista;
+    public void setNomCientista(String nomCientista) {
+        this.nomCientista = nomCientista;
     }
 
-    public String getCpf_cientista() {
-        return cpf_cientista;
+    public String getCpfCientista() {
+        return cpfCientista;
     }
-    public void setCpf_cientista(String cpf_cientista) {
-        this.cpf_cientista = cpf_cientista;
+    public void setCpfCientista(String cpfCientista) {
+        this.cpfCientista = cpfCientista;
     }
 
     public Date getDtn_cientista() {

@@ -29,7 +29,6 @@ public class CpfPasswordAuthenticationToken extends AbstractAuthenticationToken 
     public Object getCredentials() {
         return credentials;
     }
-
     @Override
     public Object getPrincipal() {
         return principal;

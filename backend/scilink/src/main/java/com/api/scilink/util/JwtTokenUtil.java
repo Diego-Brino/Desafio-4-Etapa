@@ -60,7 +60,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //Enquanto o token for gerado esse algoritmo irá gerá-lo
-    private String doGenerateToken (Map<String, Object> claims, String subject) {
+    public String doGenerateToken (Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date((System.currentTimeMillis() + JWT_VALIDADE_TOKEN)))
