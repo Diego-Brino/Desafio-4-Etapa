@@ -1,17 +1,17 @@
 package com.api.scilink.controllers;
 
-import com.api.scilink.dtos.CientistaDto;
+import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
+import com.api.scilink.dtos.LoginDto;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.LoginService;
-import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.util.JwtTokenUtil;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 @RestController
@@ -30,9 +30,9 @@ public class LoginController {
     //Quando o usuário entrar na página de login, ele deverá passar suas credenciais e caso estejam válidas
     //Será gerado um token para o mesmo continuar sua navegação
     @PostMapping()
-    public ResponseEntity<?> createAuthenticationToken (@RequestBody CientistaDto cientistaDto) {
+    public ResponseEntity<?> createAuthenticationToken (@RequestBody @Valid LoginDto loginDto) {
         CientistaModel cientistaModel = new CientistaModel();
-        BeanUtils.copyProperties(cientistaDto, cientistaModel);
+        BeanUtils.copyProperties(loginDto, cientistaModel);
 
         authenticationManager.authenticate(new CpfPasswordAuthenticationToken(cientistaModel.getCpfCientista(),
                 cientistaModel.getSnhCientista(), Boolean.FALSE));

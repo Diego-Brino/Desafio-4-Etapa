@@ -1,12 +1,26 @@
 package com.api.scilink.dtos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Date;
+
 public class CientistaDto {
+    @Size(max = 50)
     private String nomCientista;
+    @NotBlank
+    @Size(max = 11)
     private String cpfCientista;
-    private String dtnCientista;
+    private Date dtnCientista;
+    @NotBlank
+    @Size(max = 50)
     private String emailCientista;
+    @Size(max = 50)
     private String emailAlternativoCientista;
+    @NotBlank
+    @Size(max = 50)
     private String lattesCientista;
+    @NotBlank
+    @Size(max = 10)
     private String snhCientista;
 
     //region Getters and Setters
@@ -25,10 +39,10 @@ public class CientistaDto {
         this.cpfCientista = cpfCientista;
     }
 
-    public String getDtnCientista() {
+    public Date getDtnCientista() {
         return dtnCientista;
     }
-    public void setDtnCientista(String dtnCientista) {
+    public void setDtnCientista(Date dtnCientista) {
         this.dtnCientista = dtnCientista;
     }
 

@@ -1,9 +1,8 @@
 package com.api.scilink.services;
 
-import com.api.scilink.config.security.exceptions.CientistaNotFoundException;
+import com.api.scilink.config.security.exceptions.CpfNaoEncontradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,7 +30,7 @@ public class LoginService implements UserDetailsService {
     @Transactional
     public CientistaModel loadUserByCpf (String cpf) {
         CientistaModel cientistaModel = cientistaRepository.findCientistaModelByCpfCientista(cpf)
-                .orElseThrow(() -> new CientistaNotFoundException());
+                .orElseThrow(() -> new CpfNaoEncontradoException());
 
         return new CientistaModel(cientistaModel.getNomCientista(), cientistaModel.getCpfCientista(), cientistaModel.getSnhCientista());
     }

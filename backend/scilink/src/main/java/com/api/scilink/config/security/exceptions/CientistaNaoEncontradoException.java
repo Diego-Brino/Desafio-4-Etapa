@@ -1,7 +1,7 @@
 package com.api.scilink.config.security.exceptions;
 
-public class CientistaNotFoundException extends RuntimeException {
-    public CientistaNotFoundException() {
+public class CientistaNaoEncontradoException extends RuntimeException {
+    public CientistaNaoEncontradoException() {
         super("Cientista não encontrado, tente novamente!");
     }
 }

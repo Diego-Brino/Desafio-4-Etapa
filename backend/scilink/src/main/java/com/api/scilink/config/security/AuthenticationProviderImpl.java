@@ -1,6 +1,6 @@
 package com.api.scilink.config.security;
 
-import com.api.scilink.config.security.exceptions.CientistaNotFoundException;
+import com.api.scilink.config.security.exceptions.CpfNaoEncontradoException;
 import com.api.scilink.config.security.exceptions.SenhaIncorretaException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
@@ -21,7 +21,7 @@ public class AuthenticationProviderImpl implements org.springframework.security.
     public Authentication authenticate(Authentication authentication) {
         CientistaModel cientistaModel  = cientistaRepository
                 .findCientistaModelByCpfCientista(authentication.getPrincipal().toString())
-                .orElseThrow(() -> new CientistaNotFoundException());
+                .orElseThrow(() -> new CpfNaoEncontradoException());
 
         if (!authentication.getCredentials().toString().equals(cientistaModel.getSnhCientista())) {
             throw new SenhaIncorretaException();

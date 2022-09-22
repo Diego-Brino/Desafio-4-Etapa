@@ -5,7 +5,6 @@ import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.LoginService;
 import com.api.scilink.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -39,16 +38,16 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             try {
                 cpf = jwtTokenUtil.getUsernameFromToken(token);
             } catch (IllegalArgumentException e) {
-                System.out.println("Impossível de recuperar o token!");
+                throw new IllegalArgumentException("Impossível recuperar o token!");
             } catch (ExpiredJwtException e) {
-                System.out.println("O token já está expirado!");
+                System.out.println("Token expirado!");
             }
         }
 
         if (cpf != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             CientistaModel cientistaModel = loginService.loadUserByCpf(jwtTokenUtil.getUsernameFromToken(token));
 
-            if(jwtTokenUtil.validateToken(token, cientistaModel)){
+            if(jwtTokenUtil.tokenIsValid(token, cientistaModel)){
 
                 //Gera um novo token para o usuário
                 String newJwtToken = jwtTokenUtil.generateToken(cientistaModel);
