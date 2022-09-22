@@ -2,7 +2,7 @@ package com.api.scilink.config.security.filters;
 
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.models.CientistaModel;
-import com.api.scilink.services.LoginService;
+import com.api.scilink.services.UserServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,11 +18,11 @@ import java.io.IOException;
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
-    private final LoginService loginService;
+    private final UserServiceImpl userServiceImpl;
 
-    public AuthenticationFilter(JwtTokenUtil jwtTokenUtil, LoginService loginService) {
+    public AuthenticationFilter(JwtTokenUtil jwtTokenUtil, UserServiceImpl userServiceImpl) {
         this.jwtTokenUtil = jwtTokenUtil;
-        this.loginService = loginService;
+        this.userServiceImpl = userServiceImpl;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (cpf != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            CientistaModel cientistaModel = loginService.loadUserByCpf(jwtTokenUtil.getUsernameFromToken(token));
+            CientistaModel cientistaModel = userServiceImpl.loadUserByCpf(jwtTokenUtil.getUsernameFromToken(token));
 
             if(jwtTokenUtil.tokenIsValid(token, cientistaModel)){
 

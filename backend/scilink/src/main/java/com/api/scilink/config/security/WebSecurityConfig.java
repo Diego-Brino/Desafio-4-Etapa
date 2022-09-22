@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/user/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

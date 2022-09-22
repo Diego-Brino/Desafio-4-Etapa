@@ -1,5 +1,8 @@
 package com.api.scilink.dtos;
 
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -7,20 +10,23 @@ import java.util.Date;
 public class CientistaDto {
     @Size(max = 50)
     private String nomCientista;
-    @NotBlank
-    @Size(max = 11)
+    @NotBlank(message = "O CPF é obrigatório!")
+    @Size(max = 11, message = "Por favor, digite um cpf válido!")
+    @CPF(message = "Por favor, digite um cpf válido!")
     private String cpfCientista;
     private Date dtnCientista;
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "O e-mail é obrigatório!")
+    @Email(message = "Por favor, digite um e-mail válido!")
+    @Size(max = 50, message = "O e-mail deve conter no máximo 50 caracteres!")
     private String emailCientista;
-    @Size(max = 50)
+    @Email(message = "Por favor, digite um e-mail válido!")
+    @Size(max = 50, message = "O e-mail deve conter no máximo 50 caracteres!")
     private String emailAlternativoCientista;
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "O lattes é obrigatório!")
+    @Size(max = 50, message = "O lattes deve conter no máximo 50 caracteres!")
     private String lattesCientista;
-    @NotBlank
-    @Size(max = 10)
+    @NotBlank(message = "A Senha é obrigatória!")
+    @Size(max = 10, message = "A senha deve conter no máximo 10 caracteres!")
     private String snhCientista;
 
     //region Getters and Setters
