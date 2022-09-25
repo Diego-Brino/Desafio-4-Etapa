@@ -5,6 +5,7 @@ import com.api.scilink.controllers.UserController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -58,6 +59,12 @@ public class UserHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleLattesJaCadastradoException (LattesJaCadastradoException execption) {
         LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro("O body enviado é inválido!");
+        return new ResponseEntity<>(body, status);
     }
 
     @Override

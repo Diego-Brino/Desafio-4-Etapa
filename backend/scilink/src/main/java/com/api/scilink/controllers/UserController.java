@@ -8,6 +8,7 @@ import com.api.scilink.services.UserServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,6 @@ public class UserController {
         CientistaModel cientistaModel = new CientistaModel();
         BeanUtils.copyProperties(cientistaDto, cientistaModel);
 
-        return ResponseEntity.ok().body(userServiceImpl.saveCientista(cientistaModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userServiceImpl.saveCientista(cientistaModel));
     }
 }
