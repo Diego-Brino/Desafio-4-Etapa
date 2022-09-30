@@ -1,7 +1,7 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
 import {Box, Stack, styled, useTheme, width} from "@mui/system";
-import {theme} from "../../providers/themes";
+import {theme} from "../../themes";
 import {Button, Input, Link, TextField, Typography} from "@mui/material";
 import Center from "../../layouts/Center";
 import logo from "../../../public/assets/images/logo.svg";
@@ -19,7 +19,9 @@ function LoginLogo(){
 }
 
 const LogoWrapper = styled(Box)({
-    width: "100%",
+    position: "absolute",
+    left: "25px",
+    top: "25px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

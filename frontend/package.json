@@ -28,12 +28,15 @@
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.5",
     "@mui/system": "^5.10.5",
+    "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
-    "react-router-dom": "^6.3.0"
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
