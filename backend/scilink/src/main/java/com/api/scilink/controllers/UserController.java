@@ -6,6 +6,7 @@ import com.api.scilink.dtos.LoginDto;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.UserServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
+import com.api.scilink.util.LogInfoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends LogInfoUtil {
     private final AuthenticationManager authenticationManager;
     private final UserServiceImpl userServiceImpl;
     private final JwtTokenUtil jwtTokenUtil;
@@ -36,6 +37,8 @@ public class UserController {
         CientistaModel cientistaModel = new CientistaModel();
         BeanUtils.copyProperties(loginDto, cientistaModel);
 
+        printLogInfo("Usuário tentando conexão!");
+
         authenticationManager.authenticate(new CpfPasswordAuthenticationToken(cientistaModel.getCpfCientista(),
                 cientistaModel.getSnhCientista(), Boolean.FALSE));
 
@@ -51,6 +54,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> cadastroNovoCientista (@RequestBody @Valid CientistaDto cientistaDto) {
+        printLogInfo("Novo cadastro iniciado!");
         CientistaModel cientistaModel = new CientistaModel();
         BeanUtils.copyProperties(cientistaDto, cientistaModel);
 

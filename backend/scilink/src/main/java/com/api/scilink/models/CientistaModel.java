@@ -17,8 +17,9 @@ import java.util.UUID;
 public class CientistaModel implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_cientista;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cientista_sequence")
+    @SequenceGenerator(name = "cientista_sequence", sequenceName = "SEQ_IDCIENTISTA", allocationSize = 1)
+    private Integer id_cientista;
     @Column(name = "nom_cientista",length = 50)
     private String nomCientista;
     @Column(name = "cpf_cientista", nullable = false, length = 11, unique = true)
@@ -97,10 +98,10 @@ public class CientistaModel implements Serializable, UserDetails {
 
     //region Getters and Setters
 
-    public UUID getId_cientista() {
+    public Integer getId_cientista() {
         return id_cientista;
     }
-    public void setId_cientista(UUID id_cientista) {
+    public void setId_cientista(Integer id_cientista) {
         this.id_cientista = id_cientista;
     }
 

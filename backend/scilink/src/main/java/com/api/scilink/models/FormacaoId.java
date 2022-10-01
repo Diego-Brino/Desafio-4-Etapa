@@ -10,23 +10,23 @@ import java.util.UUID;
 public class FormacaoId implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column
-    private UUID id_cientista;
+    private Integer id_cientista;
     @Column
-    private UUID id_titulacao;
+    private Integer id_titulacao;
 
     //region Getters and Setters
 
-    public UUID getId_cientista() {
+    public Integer getId_cientista() {
         return id_cientista;
     }
-    public void setId_cientista(UUID id_cientista) {
+    public void setId_cientista(Integer id_cientista) {
         this.id_cientista = id_cientista;
     }
 
-    public UUID getId_titulacao() {
+    public Integer getId_titulacao() {
         return id_titulacao;
     }
-    public void setId_titulacao(UUID id_titulacao) {
+    public void setId_titulacao(Integer id_titulacao) {
         this.id_titulacao = id_titulacao;
     }
 

@@ -38,9 +38,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             try {
                 cpf = jwtTokenUtil.getUsernameFromToken(token);
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Impossível recuperar o token!");
+                throw new IllegalArgumentException("[ERRO] Impossível recuperar o token!");
             } catch (ExpiredJwtException e) {
-                System.out.println("Token expirado!");
+                System.out.println("[INFO] Token expirado!");
             }
         }
 

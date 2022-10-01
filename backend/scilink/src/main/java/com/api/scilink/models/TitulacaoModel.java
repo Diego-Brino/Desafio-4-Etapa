@@ -9,17 +9,18 @@ import java.util.UUID;
 public class TitulacaoModel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_titulacao;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "titulacao_sequence")
+    @SequenceGenerator(name = "titulacao_sequence", sequenceName = "SEQ_IDTITULACAO", allocationSize = 1)
+    private Integer id_titulacao;
     @Column(name = "nom_titulacao", length = 25, nullable = false)
     private String nomTitulacao;
 
     //region Getters and Setters
 
-    public UUID getId_titulacao() {
+    public Integer getId_titulacao() {
         return id_titulacao;
     }
-    public void setId_titulacao(UUID id_titulacao) {
+    public void setId_titulacao(Integer id_titulacao) {
         this.id_titulacao = id_titulacao;
     }
 
