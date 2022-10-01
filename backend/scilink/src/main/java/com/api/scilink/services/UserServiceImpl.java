@@ -1,9 +1,9 @@
 package com.api.scilink.services;
 
-import com.api.scilink.config.security.exceptions.CpfJaCadastradoException;
-import com.api.scilink.config.security.exceptions.CpfNaoEncontradoException;
-import com.api.scilink.config.security.exceptions.EmailJaCadastradoException;
-import com.api.scilink.config.security.exceptions.LattesJaCadastradoException;
+import com.api.scilink.exceptions.CpfJaCadastradoException;
+import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.EmailJaCadastradoException;
+import com.api.scilink.exceptions.LattesJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.util.LogInfoUtil;

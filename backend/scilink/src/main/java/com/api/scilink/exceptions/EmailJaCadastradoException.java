@@ -1,4 +1,4 @@
-package com.api.scilink.config.security.exceptions;
+package com.api.scilink.exceptions;
 
 public class EmailJaCadastradoException extends RuntimeException {
     public EmailJaCadastradoException() {

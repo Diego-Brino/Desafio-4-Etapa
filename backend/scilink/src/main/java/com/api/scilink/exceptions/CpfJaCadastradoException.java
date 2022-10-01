@@ -1,4 +1,4 @@
-package com.api.scilink.config.security.exceptions;
+package com.api.scilink.exceptions;
 
 public class CpfJaCadastradoException extends RuntimeException{
     public CpfJaCadastradoException() {

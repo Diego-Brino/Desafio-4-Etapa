@@ -1,7 +1,7 @@
 package com.api.scilink.handlers;
 
-import com.api.scilink.config.security.exceptions.*;
 import com.api.scilink.controllers.UserController;
+import com.api.scilink.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
