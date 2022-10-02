@@ -32,7 +32,6 @@ theme = createTheme({
 });
 
 theme = createTheme(theme,{
-
     components: {
         MuiLink: {
             variants: [

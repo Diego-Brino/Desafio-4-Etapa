@@ -6,6 +6,7 @@ import theme from "./themes";
 import CssBaseline from "@mui/material/CssBaseline";
 import LoginPage from "./pages/LoginPage";
 import {Provider} from "react-redux";
+import CadastroPage from "./pages/CadastroPage";
 
 function App(){
 
@@ -17,6 +18,7 @@ function App(){
                     <Routes>
                         <Route path='/'>
                             <Route path='login' element={<LoginPage/>}/>
+                            <Route path='cadastro' element={<CadastroPage/>}/>
                         </Route>
                     </Routes>
                 </BrowserRouter>

@@ -6,11 +6,10 @@ import theme from "../../themes";
 import Center from "../../layouts/Center";
 import rocket from "../../../public/assets/images/rocket.svg";
 import PageContainer from "../../layouts/PageContainer";
-import LoginForm from "./LoginForm";
+import CadastroForm from "./CadastroForm";
 import Logo from "../../components/Logo";
-import CadastroForm from "../Cadastro/CadastroForm";
 
-function LoginDesktopLayout() {
+function CadastroDesktopLayout() {
 
     const theme = useTheme();
 
@@ -40,4 +39,4 @@ const Separator = styled(Box)({
     backgroundColor: theme.palette.secondary.main
 })
 
-export default LoginDesktopLayout;
+export default CadastroDesktopLayout;

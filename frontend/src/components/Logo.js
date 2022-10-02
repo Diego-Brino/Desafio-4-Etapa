@@ -1,12 +1,12 @@
 import React from "react";
-import Center from "../../layouts/Center";
-import logo from "../../../public/assets/images/logo.svg";
+import Center from "../layouts/Center";
+import logo from "../../public/assets/images/logo.svg";
 import {Typography} from "@mui/material";
 import {breakpoints, Stack, useTheme} from "@mui/system";
-import useResize from "../../hooks/useResize";
-import theme from "../../themes";
+import useResize from "../hooks/useResize";
+import theme from "../themes";
 
-function LoginLogo(props){
+function Logo(props){
 
     const theme = useTheme();
 
@@ -22,4 +22,4 @@ function LoginLogo(props){
     )
 }
 
-export default LoginLogo;
+export default Logo;

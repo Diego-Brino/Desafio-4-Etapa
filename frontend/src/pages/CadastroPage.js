@@ -12,8 +12,10 @@ import Align from "../layouts/Align";
 import useResize from "../hooks/useResize";
 import LoginDesktopLayout from "../features/Login/LoginDesktopLayout";
 import LoginMobileLayout from "../features/Login/LoginMobileLayout";
+import CadastroMobileLayout from "../features/Cadastro/CadastroMobileLayout";
+import CadastroDesktopLayout from "../features/Cadastro/CadastroDesktopLayout";
 
-function LoginPage() {
+function CadastroPage() {
 
     const theme = useTheme();
 
@@ -21,11 +23,11 @@ function LoginPage() {
         <PageContainer>
             <Center>
                 {useResize().width < theme.breakpoints['lg'] ?
-                    (<LoginMobileLayout/>) : (<LoginDesktopLayout/>)
+                    (<CadastroMobileLayout/>) : (<CadastroDesktopLayout/>)
                 }
             </Center>
         </PageContainer>
     );
 }
 
-export default LoginPage;
+export default CadastroPage;

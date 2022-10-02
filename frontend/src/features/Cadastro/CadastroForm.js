@@ -10,26 +10,35 @@ import {setAuthToken} from "../../services/slices/authSlice";
 import useResize from "../../hooks/useResize";
 import InputMask from "react-input-mask";
 
-function LoginForm() {
+function CadastroForm() {
 
     const theme = useTheme();
     const dispatch = useDispatch();
 
-    const [credentials, setCredentials] = useState({cpfCientista: "", snhCientista: ""});
+    const [cadastro, setCadastro] = useState({
+        lattesCientista: "",
+        cpfCientista: "",
+        emailCientista: "",
+        snhCientista: ""
+    });
     const [errorMessage, setErrorMessage] = useState("");
 
     const inputCpfRef = useRef("");
     const inputSenhaRef = useRef("");
+    const inputEmailRef = useRef("");
+    const inputLattesRef = useRef("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if(credentials.cpfCientista == "999.999.999-99" && credentials.snhCientista == "admin"){
-            setErrorMessage("")
-            console.log("LOGADO");
+        if(cadastro.emailCientista == "teste@teste.com"){
+            setErrorMessage("email já cadastrado")
         }
-        else {
-            setErrorMessage("cpf ou senha inválidos")
+        else if(cadastro.cpfCientista == "999.999.999-99"){
+            setErrorMessage("cpf já cadastrado")
+        }
+        else{
+            setErrorMessage("");
+            console.log('CADASTRADO')
         }
 
     }
@@ -43,14 +52,15 @@ function LoginForm() {
                             variant={useResize().width > theme.breakpoints['lg'] ? 'h4' : 'h3'}
                             align={useResize().width > theme.breakpoints['lg'] ? 'left' : 'center'}
                             fontWeight="bold">
-                            Login</Typography>
+                            Cadastro
+                        </Typography>
                         <InputMask
                             mask="999.999.999-99"
-                            value={credentials.cpfCientista}
+                            value={cadastro.cpfCientista}
                             disabled={false}
                             maskChar={null}
                             onChange={e => {
-                                setCredentials(prevCredentials => ({...prevCredentials, cpfCientista: e.target.value}));
+                                setCadastro(prev => ({...prev, cpfCientista: e.target.value}));
                             }}>
                             {() => <TextField
                                 label="CPF"
@@ -63,14 +73,39 @@ function LoginForm() {
                                 inputRef={inputCpfRef}/>}
                         </InputMask>
                         <TextField
+                            label="Lattes"
+                            variant={"outlined"}
+                            fullWidth
+                            type={"text"}
+                            required
+                            error={errorMessage != ""}
+                            inputRef={inputLattesRef}
+                            onChange={e => {
+                                setCadastro(prev => ({...prev, lattesCientista: e.target.value}));
+                            }}
+                        />
+                        <TextField
+                            label="Email"
+                            variant={"outlined"}
+                            fullWidth
+                            type={"email"}
+                            required
+                            error={errorMessage != ""}
+                            inputRef={inputEmailRef}
+                            onChange={e => {
+                                setCadastro(prev => ({...prev, emailCientista: e.target.value}));
+                            }}
+                        />
+                        <TextField
                             label="Senha"
                             variant={"outlined"}
-                            fullWidth type={"password"}
+                            fullWidth
+                            type={"password"}
                             required
                             error={errorMessage != ""}
                             inputRef={inputSenhaRef}
                             onChange={e => {
-                                setCredentials(prevCredentials => ({...prevCredentials, snhCientista: e.target.value}));
+                                setCadastro(prev => ({...prev, snhCientista: e.target.value}));
                             }}
                         />
                         {errorMessage != "" &&
@@ -78,11 +113,11 @@ function LoginForm() {
                         }
                         <Center>
                             <Button variant="contained" fullWidth type={"submit"}>
-                                <Typography variant={"button"}>Entrar</Typography>
+                                <Typography variant={"button"}>Cadastrar</Typography>
                             </Button>
                         </Center>
                         <Typography variant="body1" textAlign={"center"}>
-                            Não possui conta?&nbsp;<Link as={RouterLink} to={"#"} variant={"underline-secondary"}>Cadastre-se aqui</Link>
+                            Já possui conta?&nbsp;<Link as={RouterLink} to={"#"} variant={"underline-secondary"}>Entre aqui</Link>
                         </Typography>
                     </Stack>
                 </form>
@@ -106,4 +141,4 @@ const FormPanel = styled(Box)({
 })
 
 
-export default LoginForm;
+export default CadastroForm;
