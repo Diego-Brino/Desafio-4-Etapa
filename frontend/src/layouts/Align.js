@@ -1,14 +1,14 @@
 import React from "react";
 import {Box, styled} from "@mui/system";
 
-function Center(props){
+function Align(props){
     return(
         <Box
             width="100%"
             height="100%"
             display="flex"
             justifyContent="center"
-            alignItems="center"
+            alignItems={props.align}
             flexDirection="column"
             sx={props.sx}>
             {props.children}
@@ -16,4 +16,4 @@ function Center(props){
     )
 }
 
-export default Center;
+export default Align;

@@ -1,31 +1,25 @@
 import React from "react";
-import {Link as RouterLink} from "react-router-dom";
-import {Box, Stack, styled, useTheme, width} from "@mui/system";
-import {theme} from "../../themes";
-import {Button, Input, Link, TextField, Typography} from "@mui/material";
 import Center from "../../layouts/Center";
 import logo from "../../../public/assets/images/logo.svg";
+import {Typography} from "@mui/material";
+import {breakpoints, Stack, useTheme} from "@mui/system";
+import useResize from "../../hooks/useResize";
+import theme from "../../themes";
 
-function LoginLogo(){
+function LoginLogo(props){
 
     const theme = useTheme();
 
     return(
-        <LogoWrapper>
-            <img src={logo} width={"auto"} height={"70px"} alt="logo"/>
-            <Typography variant={"h2"} fontWeight={"bold"} >SciLink</Typography>
-        </LogoWrapper>
-    );
+        <Stack direction='row' spacing={3}>
+                <img
+                    src={logo}
+                    width={useResize().width > theme.breakpoints['lg'] ? '90px' : '50px'}
+                    style={{filter: 'invert(100%) sepia(3%) saturate(185%) hue-rotate(227deg) brightness(112%) contrast(87%)'}}
+                />
+                <Typography variant={useResize().width > theme.breakpoints['lg'] ? 'h1' : 'h2'} fontWeight='bold' textAlign='center'>SciLink</Typography>
+        </Stack>
+    )
 }
-
-const LogoWrapper = styled(Box)({
-    position: "absolute",
-    left: "25px",
-    top: "25px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "10px"
-})
 
 export default LoginLogo;

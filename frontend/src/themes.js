@@ -3,30 +3,58 @@ import {responsiveFontSizes} from "@mui/material";
 import {breakpoints} from "@mui/system";
 
 let theme = createTheme();
-let mode;
+
 theme = createTheme({
+    breakpoints: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1920,
+    },
+    palette: {
+        primary: {
+            main: '#00ADB5'
+        },
+        secondary: {
+            main: '#393E46',
+        },
+        tertiary: {
+            main: '#222831'
+        },
+        text: {
+            primary: '#EEEEEE',
+        },
+        background: {
+            default: '#222831',
+        },
+    },
+});
+
+theme = createTheme(theme,{
+
     components: {
         MuiLink: {
             variants: [
                 {
                     props: { variant: "underline-black"},
                     style: {
-                        color: '#0d0d0d',
+                        color: theme.palette.common.black,
                         textDecoration: "none",
                         '&:hover': {
-                            color: '#0d0d0d',
-                            textDecoration: "underline #0d0d0d",
+                            color: theme.palette.common.black,
+                            textDecoration: "underline" + theme.palette.common.black,
                         }
                     },
                 },
                 {
                     props: { variant: "underline-secondary"},
                     style: {
-                        color: '#fa2061',
+                        color: theme.palette.primary.main,
                         textDecoration: "none",
                         "&:hover": {
-                            color: '#fa2061',
-                            textDecoration: "underline #fa2061",
+                            color: theme.palette.primary.main,
+                            textDecoration: "underline " + theme.palette.primary.main,
                         },
                     },
                 },
@@ -50,23 +78,20 @@ theme = createTheme({
                     [theme.breakpoints.up('lg')]: {
                         maxWidth: "1920px"
                     },
+                    width: '85%',
+                    [theme.breakpoints.down('sm')]: {
+                        width: '100%',
+                    },
                 }
             }
         },
         MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: theme.palette.text.primary,
+                }
+            },
             variants: [
-                {
-                    props: {variant: "h1"},
-                    style: {
-                        fontWeight: "bold",
-                    },
-                },
-                {
-                    props: {variant: "h2"},
-                    style: {
-                        fontWeight: "bold",
-                    },
-                },
                 {
                     props: {variant: "body1"},
                     style: {
@@ -91,17 +116,10 @@ theme = createTheme({
                 },
             ]
         },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    height: "47.5px",
-                    minWidth: "100px"
-                }
-            },
-        },
         MuiInputBase: {
             styleOverrides: {
                 root: {
+                    color: theme.palette.text.primary,
                     [theme.breakpoints.up('sm')]: {
                         fontSize: "18px"
                     },
@@ -114,6 +132,7 @@ theme = createTheme({
         MuiInputLabel: {
             styleOverrides: {
                 root: {
+                    color: theme.palette.text.primary,
                     [theme.breakpoints.up('sm')]: {
                         fontSize: "18px"
                     },
@@ -122,10 +141,27 @@ theme = createTheme({
                     },
                 },
             },
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    color: theme.palette.text.primary,
+                }
+            }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    "& > fieldset" : {
+                        borderColor: theme.palette.text.primary
+                    }
+                }
+            }
         }
     },
     typography: {
         fontFamily: 'Roboto, sans-serif',
+        color: theme.palette.text.primary,
         button: {
             textTransform: 'none'
         },
@@ -134,20 +170,8 @@ theme = createTheme({
         xs: 0,
         sm: 600,
         md: 900,
-        lg: 1440,
+        lg: 1200,
         xl: 1920,
-    },
-    palette: {
-        primary: {
-            main: '#4cc5cd'
-        },
-        secondary: {
-            main: '#fa2061'
-        },
-        base: {
-            white: '#f2f2f2',
-            black: '#0d0d0d'
-        }
     },
 });
 theme = responsiveFontSizes(theme);
