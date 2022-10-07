@@ -1,12 +1,11 @@
 package com.api.scilink.handlers;
 
-import com.api.scilink.config.security.exceptions.CientistaNaoEncontradoException;
-import com.api.scilink.config.security.exceptions.CpfNaoEncontradoException;
-import com.api.scilink.config.security.exceptions.SenhaIncorretaException;
-import com.api.scilink.controllers.LoginController;
+import com.api.scilink.controllers.UserController;
+import com.api.scilink.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,8 +16,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
-@ControllerAdvice(basePackageClasses = LoginController.class)
-public class LoginHandler extends ResponseEntityExceptionHandler {
+@ControllerAdvice(basePackageClasses = UserController.class)
+public class UserHandler extends ResponseEntityExceptionHandler {
     private LinkedHashMap<Object, Object> _preencherMensagensDeErro(String message) {
         LinkedHashMap<Object, Object> body = new LinkedHashMap<>();
         body.put("timestamp", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(LocalDateTime.now()));
@@ -42,6 +41,30 @@ public class LoginHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleSenhaIncorretaException (SenhaIncorretaException execption) {
         LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(CpfJaCadastradoException.class)
+    public ResponseEntity<Object> handleCpfJaCadastradoException (CpfJaCadastradoException execption) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ResponseEntity<Object> handleEmailJaCadastradoException (EmailJaCadastradoException execption) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(LattesJaCadastradoException.class)
+    public ResponseEntity<Object> handleLattesJaCadastradoException (LattesJaCadastradoException execption) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro("O body enviado é inválido!");
+        return new ResponseEntity<>(body, status);
     }
 
     @Override

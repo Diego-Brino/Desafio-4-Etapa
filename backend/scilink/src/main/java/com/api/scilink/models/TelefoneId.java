@@ -10,7 +10,7 @@ import java.util.UUID;
 public class TelefoneId implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column
-    private UUID id_cientista;
+    private Integer id_cientista;
     @Column(length = 2)
     private Integer ddd_telefone;
     @Column(length = 10)
@@ -18,10 +18,10 @@ public class TelefoneId implements Serializable {
 
     //region Getters and Setters
 
-    public UUID getId_cientista() {
+    public Integer getId_cientista() {
         return id_cientista;
     }
-    public void setId_cientista(UUID id_cientista) {
+    public void setId_cientista(Integer id_cientista) {
         this.id_cientista = id_cientista;
     }
 

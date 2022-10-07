@@ -9,6 +9,9 @@ import java.util.UUID;
 
 @Repository
 public interface CientistaRepository extends JpaRepository<CientistaModel, UUID> {
-    public Optional<CientistaModel> findCientistaModelByNomCientista(String NomCientista);
-    public Optional<CientistaModel> findCientistaModelByCpfCientista(String CpfCientista);
+    public Optional<CientistaModel> findCientistaModelByNomCientista(String nomCientista);
+    public Optional<CientistaModel> findCientistaModelByCpfCientista(String cpfCientista);
+    public Boolean existsByCpfCientista (String cpfCientista);
+    public Boolean existsByEmailCientista (String emailCientista);
+    public Boolean existsByLattesCientista (String lattesCientista);
 }

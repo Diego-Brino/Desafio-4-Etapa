@@ -10,8 +10,9 @@ import java.util.UUID;
 public class ProjetoModel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_projeto;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "projeto_sequence")
+    @SequenceGenerator(name = "projeto_sequence", sequenceName = "SEQ_IDPROJETO", allocationSize = 1)
+    private Integer id_projeto;
     @ManyToOne
     @JoinColumn(name = "id_cientista",
                 referencedColumnName = "id_cientista")
@@ -29,10 +30,10 @@ public class ProjetoModel implements Serializable {
 
     //region Getters and Setters
 
-    public UUID getId_projeto() {
+    public Integer getId_projeto() {
         return id_projeto;
     }
-    public void setId_projeto(UUID id_projeto) {
+    public void setId_projeto(Integer id_projeto) {
         this.id_projeto = id_projeto;
     }
 
