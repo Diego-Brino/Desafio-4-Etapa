@@ -82,7 +82,7 @@ function LoginForm() {
                             </Button>
                         </Center>
                         <Typography variant="body1" textAlign={"center"}>
-                            Não possui conta?&nbsp;<Link as={RouterLink} to={"#"} variant={"underline-secondary"}>Cadastre-se aqui</Link>
+                            Não possui conta?&nbsp;<Link as={RouterLink} to={"/cadastro"} variant={"underline-secondary"}>Cadastre-se aqui</Link>
                         </Typography>
                     </Stack>
                 </form>

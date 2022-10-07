@@ -10,7 +10,7 @@ theme = createTheme({
         sm: 600,
         md: 900,
         lg: 1200,
-        xl: 1920,
+        xl: 1536,
     },
     palette: {
         primary: {
@@ -30,7 +30,6 @@ theme = createTheme({
         },
     },
 });
-
 theme = createTheme(theme,{
     components: {
         MuiLink: {
@@ -69,20 +68,6 @@ theme = createTheme(theme,{
                     },
                 }
             ]
-        },
-        MuiContainer: {
-            styleOverrides: {
-                root: {
-                    height: "100%",
-                    [theme.breakpoints.up('lg')]: {
-                        maxWidth: "1920px"
-                    },
-                    width: '85%',
-                    [theme.breakpoints.down('sm')]: {
-                        width: '100%',
-                    },
-                }
-            }
         },
         MuiTypography: {
             styleOverrides: {

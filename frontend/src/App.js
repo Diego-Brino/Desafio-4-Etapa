@@ -4,9 +4,9 @@ import store from "./services/store";
 import {ThemeProvider} from "@mui/system";
 import theme from "./themes";
 import CssBaseline from "@mui/material/CssBaseline";
-import LoginPage from "./pages/LoginPage";
+import PageLogin from "./pages/PageLogin";
 import {Provider} from "react-redux";
-import CadastroPage from "./pages/CadastroPage";
+import PageCadastro from "./pages/PageCadastro";
 
 function App(){
 
@@ -17,8 +17,8 @@ function App(){
                 <BrowserRouter>
                     <Routes>
                         <Route path='/'>
-                            <Route path='login' element={<LoginPage/>}/>
-                            <Route path='cadastro' element={<CadastroPage/>}/>
+                            <Route path='login' element={<PageLogin/>}/>
+                            <Route path='cadastro' element={<PageCadastro/>}/>
                         </Route>
                     </Routes>
                 </BrowserRouter>

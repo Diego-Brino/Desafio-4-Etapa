@@ -117,7 +117,7 @@ function CadastroForm() {
                             </Button>
                         </Center>
                         <Typography variant="body1" textAlign={"center"}>
-                            Já possui conta?&nbsp;<Link as={RouterLink} to={"#"} variant={"underline-secondary"}>Entre aqui</Link>
+                            Já possui conta?&nbsp;<Link as={RouterLink} to={"/login"} variant={"underline-secondary"}>Entre aqui</Link>
                         </Typography>
                     </Stack>
                 </form>
