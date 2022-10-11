@@ -1,16 +1,13 @@
 import React from "react";
 import {Box, Container, Stack, styled} from '@mui/system';
 import {useTheme} from "@mui/system";
-import {Grid} from "@mui/material";
 import theme from "../themes";
 import Center from "../layouts/Center";
 import rocket from "../../public/assets/images/rocket.svg";
-import PageContainer from "../layouts/PageContainer";
-import LoginForm from "../features/Login/LoginForm";
 import Logo from "../components/Logo";
-import Align from "../layouts/Align";
 import useResize from "../hooks/useResize";
 import CadastroForm from "../features/Cadastro/CadastroForm";
+import {Separator} from "../components/Separator";
 
 function PageCadastro() {
 
@@ -41,14 +38,6 @@ function PageCadastro() {
         </Box>
     );
 }
-
-const Separator = styled(Box)({
-    height: '100%',
-    minWidth: '6px',
-    width: '6px',
-    borderRadius: '15px',
-    backgroundColor: theme.palette.secondary.main
-})
 
 const LayoutStack = styled(Stack)({
     width: "100%",

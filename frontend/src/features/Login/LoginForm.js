@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack, styled, useTheme, width} from "@mui/system";
 import theme from "../../themes";
 import {Button, Input, Link, TextField, Typography} from "@mui/material";
@@ -14,6 +14,7 @@ function LoginForm() {
 
     const theme = useTheme();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({cpfCientista: "", snhCientista: ""});
     const [errorMessage, setErrorMessage] = useState("");
@@ -26,7 +27,7 @@ function LoginForm() {
 
         if(credentials.cpfCientista == "999.999.999-99" && credentials.snhCientista == "admin"){
             setErrorMessage("")
-            console.log("LOGADO");
+            navigate("/pesquisar-projetos");
         }
         else {
             setErrorMessage("cpf ou senha inválidos")
@@ -97,9 +98,11 @@ const FormPanel = styled(Box)({
         width: "100vw",
         padding: "25px 15%",
     },
+    [theme.breakpoints.up('lg')]: {
+        width: "375px",
+        minWidth: '375px',
+    },
     borderRadius: "5px",
-    width: "375px",
-    minWidth: '375px',
     backgroundColor: theme.palette.secondary.main,
     padding: "25px 25px",
     boxShadow: "#00000030 0px 19px 38px, #00000022 0px 15px 12px",

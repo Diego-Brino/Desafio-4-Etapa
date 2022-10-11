@@ -24,10 +24,14 @@ theme = createTheme({
         },
         text: {
             primary: '#EEEEEE',
+            secondary: '#222831',
         },
         background: {
             default: '#222831',
         },
+        error: {
+            main: '#f00'
+        }
     },
 });
 theme = createTheme(theme,{
@@ -59,10 +63,10 @@ theme = createTheme(theme,{
                 {
                     props: { variant: "no-underline"},
                     style: {
-                        color: '#0d0d0d',
+                        color: theme.palette.text.primary,
                         textDecoration: "none",
                         "&:hover": {
-                            color: '#0d0d0d',
+                            color: theme.palette.text.primary,
                             textDecoration: "none",
                         },
                     },
@@ -100,16 +104,11 @@ theme = createTheme(theme,{
                 },
             ]
         },
+
         MuiInputBase: {
             styleOverrides: {
                 root: {
                     color: theme.palette.text.primary,
-                    [theme.breakpoints.up('sm')]: {
-                        fontSize: "18px"
-                    },
-                    [theme.breakpoints.down('sm')]: {
-                        fontSize: "16px"
-                    },
                 },
             },
         },
@@ -117,12 +116,6 @@ theme = createTheme(theme,{
             styleOverrides: {
                 root: {
                     color: theme.palette.text.primary,
-                    [theme.breakpoints.up('sm')]: {
-                        fontSize: "18px"
-                    },
-                    [theme.breakpoints.down('sm')]: {
-                        fontSize: "16px"
-                    },
                 },
             },
         },
@@ -141,6 +134,24 @@ theme = createTheme(theme,{
                     }
                 }
             }
+        },
+        MuiDivider: {
+            styleOverrides:{
+                root:{
+                    backgroundColor: theme.palette.text.primary
+                }
+            }
+        },
+        MuiChip: {
+            styleOverrides:{
+                root:{
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.text.secondary,
+                    ".MuiChip-deleteIcon": {
+                        color: theme.palette.common.black
+                    }
+                }
+            }
         }
     },
     typography: {
@@ -155,7 +166,7 @@ theme = createTheme(theme,{
         sm: 600,
         md: 900,
         lg: 1200,
-        xl: 1920,
+        xl: 1440,
     },
 });
 theme = responsiveFontSizes(theme);

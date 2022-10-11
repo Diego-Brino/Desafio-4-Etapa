@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack, styled, useTheme, width} from "@mui/system";
 import theme from "../../themes";
 import {Button, Input, Link, TextField, Typography} from "@mui/material";
@@ -14,6 +14,7 @@ function CadastroForm() {
 
     const theme = useTheme();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [cadastro, setCadastro] = useState({
         lattesCientista: "",
@@ -38,7 +39,7 @@ function CadastroForm() {
         }
         else{
             setErrorMessage("");
-            console.log('CADASTRADO')
+            navigate("/login");
         }
 
     }
@@ -130,11 +131,13 @@ const FormPanel = styled(Box)({
     [theme.breakpoints.down('lg')]: {
         height: '100%',
         width: "100vw",
-        padding: "25px 15%",
+    },
+    [theme.breakpoints.up('lg')]: {
+        height: '100%',
+        width: "375px",
+        minWidth: '375px',
     },
     borderRadius: "5px",
-    width: "375px",
-    minWidth: '375px',
     backgroundColor: theme.palette.secondary.main,
     padding: "25px 25px",
     boxShadow: "#00000030 0px 19px 38px, #00000022 0px 15px 12px",
