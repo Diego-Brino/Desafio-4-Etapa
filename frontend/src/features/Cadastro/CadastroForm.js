@@ -47,7 +47,7 @@ function CadastroForm() {
     return (
         <FormPanel>
             <Center>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style={{width: "100%"}}>
                     <Stack spacing={4}>
                         <Typography
                             variant={useResize().width > theme.breakpoints['lg'] ? 'h4' : 'h3'}
@@ -131,9 +131,9 @@ const FormPanel = styled(Box)({
     [theme.breakpoints.down('lg')]: {
         height: '100%',
         width: "100vw",
+        padding: "25px 15%",
     },
     [theme.breakpoints.up('lg')]: {
-        height: '100%',
         width: "375px",
         minWidth: '375px',
     },

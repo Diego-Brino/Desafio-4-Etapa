@@ -11,7 +11,7 @@ function Logo(props){
     const theme = useTheme();
 
     return(
-        <Stack direction='row' spacing={3} sx={{alignItems:"center"}}>
+        <Stack direction='row' spacing={3} alignItems="center" justifyContent="center">
                 <img
                     src={logo}
                     width={useResize().width > theme.breakpoints['lg'] ? '90px' : '50px'}

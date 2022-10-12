@@ -38,7 +38,7 @@ function LoginForm() {
     return (
         <FormPanel>
             <Center>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style={{width: "100%"}}>
                     <Stack spacing={4}>
                         <Typography
                             variant={useResize().width > theme.breakpoints['lg'] ? 'h4' : 'h3'}
