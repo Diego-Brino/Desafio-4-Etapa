@@ -3,7 +3,7 @@ import Center from "../layouts/Center";
 import logo from "../../public/assets/images/logo.png";
 import {Typography} from "@mui/material";
 import {breakpoints, Stack, useTheme} from "@mui/system";
-import useResize from "../hooks/useResize";
+import useLayout from "../hooks/useLayout";
 import theme from "../themes";
 
 function Logo(props){
@@ -14,12 +14,12 @@ function Logo(props){
         <Stack direction='row' spacing={3} alignItems="center" justifyContent="center">
                 <img
                     src={logo}
-                    width={useResize().width > theme.breakpoints['lg'] ? '90px' : '50px'}
-                    height={useResize().width > theme.breakpoints['lg'] ? '90px' : '50px'}
+                    width={useLayout().width > theme.breakpoints['lg'] ? '90px' : '50px'}
+                    height={useLayout().width > theme.breakpoints['lg'] ? '90px' : '50px'}
                     style={{filter: 'invert(100%) sepia(3%) saturate(185%) hue-rotate(227deg) brightness(112%) contrast(87%)'}}
                     alt='logo'
                 />
-                <Typography variant={useResize().width > theme.breakpoints['lg'] ? 'h1' : 'h2'} fontWeight='bold' textAlign='center'>SciLink</Typography>
+                <Typography variant={useLayout().width > theme.breakpoints['lg'] ? 'h1' : 'h2'} fontWeight='bold' textAlign='center'>SciLink</Typography>
         </Stack>
     )
 }

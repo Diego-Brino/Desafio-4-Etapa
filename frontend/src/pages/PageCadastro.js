@@ -5,7 +5,7 @@ import theme from "../themes";
 import Center from "../layouts/Center";
 import rocket from "../../public/assets/images/rocket.svg";
 import Logo from "../components/Logo";
-import useResize from "../hooks/useResize";
+import useLayout from "../hooks/useLayout";
 import CadastroForm from "../features/Cadastro/CadastroForm";
 import {Separator} from "../components/Separator";
 
@@ -17,7 +17,7 @@ function PageCadastro() {
         <Box component={Container} height="100vh" sx={{overflowX: "hidden"}}>
             <Center>
                 <LayoutStack>
-                    <StackItem flex={useResize().width > theme.breakpoints['lg'] ? 6 : 4}>
+                    <StackItem flex={useLayout().width > theme.breakpoints['lg'] ? 6 : 4}>
                         <Center>
                             <Stack direction="column" spacing={3}>
                                 <Logo/>
@@ -25,7 +25,7 @@ function PageCadastro() {
                             </Stack>
                         </Center>
                     </StackItem>
-                    {useResize().width > theme.breakpoints['lg'] &&
+                    {useLayout().width > theme.breakpoints['lg'] &&
                         <Separator/>
                     }
                     <StackItem flex={6}>

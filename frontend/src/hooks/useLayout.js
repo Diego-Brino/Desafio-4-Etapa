@@ -1,7 +1,11 @@
 import {useEffect, useState} from "react";
+import theme from "../themes";
+import {useTheme} from "@mui/system";
 
 
-export default function useResize (){
+export default function useLayout (){
+
+    const theme = useTheme();
 
     const [windowSize, setWindowSize] = useState({
         width: undefined,
@@ -24,5 +28,7 @@ export default function useResize (){
         return () => window.removeEventListener("resize", handleResize);
     }, [])
 
-    return windowSize;
+    console.log(windowSize.width > theme.breakpoints['lg'] ? 'desktop' : 'mobile')
+
+    return windowSize.width > theme.breakpoints['lg'] ? 'desktop' : 'mobile';
 }

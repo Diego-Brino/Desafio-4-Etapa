@@ -10,24 +10,31 @@ import PageCadastro from "./pages/PageCadastro";
 import PagePesquisarProjetos from "./pages/PagePesquisarProjetos";
 import PagePerfil from "./pages/PagePerfil";
 import PageMeusProjetos from "./pages/PageMeusProjetos";
+import useLayout from "./hooks/useLayout";
+import {Typography} from "@mui/material";
+import {LayoutProvider} from "./providers/LayoutProvider";
 
 function App(){
+
+    const [layout, setlayout] = useState('desktop');
 
     return(
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/'>
-                            <Route path='login' element={<PageLogin/>}/>
-                            <Route path='cadastro' element={<PageCadastro/>}/>
-                            <Route path='perfil' element={<PagePerfil/>}/>
-                            <Route path='meus-projetos' element={<PageMeusProjetos/>}/>
-                            <Route path='pesquisar-projetos' element={<PagePesquisarProjetos/>}/>
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                <LayoutProvider>
+                    <CssBaseline/>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path='/'>
+                                <Route path='login' element={<PageLogin/>}/>
+                                <Route path='cadastro' element={<PageCadastro/>}/>
+                                <Route path='perfil' element={<PagePerfil/>}/>
+                                <Route path='meus-projetos' element={<PageMeusProjetos/>}/>
+                                <Route path='pesquisar-projetos' element={<PagePesquisarProjetos/>}/>
+                            </Route>
+                        </Routes>
+                    </BrowserRouter>
+                </LayoutProvider>
             </ThemeProvider>
         </Provider>
     )

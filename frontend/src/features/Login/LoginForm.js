@@ -7,7 +7,7 @@ import Center from "../../layouts/Center";
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import {setAuthToken} from "../../services/slices/authSlice";
-import useResize from "../../hooks/useResize";
+import useLayout from "../../hooks/useLayout";
 import InputMask from "react-input-mask";
 
 function LoginForm() {
@@ -41,8 +41,8 @@ function LoginForm() {
                 <form onSubmit={handleSubmit} style={{width: "100%"}}>
                     <Stack spacing={4}>
                         <Typography
-                            variant={useResize().width > theme.breakpoints['lg'] ? 'h4' : 'h3'}
-                            align={useResize().width > theme.breakpoints['lg'] ? 'left' : 'center'}
+                            variant={useLayout().width > theme.breakpoints['lg'] ? 'h4' : 'h3'}
+                            align={useLayout().width > theme.breakpoints['lg'] ? 'left' : 'center'}
                             fontWeight="bold">
                             Login</Typography>
                         <InputMask
