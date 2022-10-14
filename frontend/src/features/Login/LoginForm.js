@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack, styled, useTheme, width} from "@mui/system";
 import theme from "../../themes";
@@ -9,12 +9,14 @@ import {useDispatch} from "react-redux";
 import {setAuthToken} from "../../services/slices/authSlice";
 import useLayout from "../../hooks/useLayout";
 import InputMask from "react-input-mask";
+import {LayoutContext} from "../../providers/LayoutProvider";
 
 function LoginForm() {
 
     const theme = useTheme();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const layout = useContext(LayoutContext);
 
     const [credentials, setCredentials] = useState({cpfCientista: "", snhCientista: ""});
     const [errorMessage, setErrorMessage] = useState("");
@@ -41,10 +43,11 @@ function LoginForm() {
                 <form onSubmit={handleSubmit} style={{width: "100%"}}>
                     <Stack spacing={4}>
                         <Typography
-                            variant={useLayout().width > theme.breakpoints['lg'] ? 'h4' : 'h3'}
-                            align={useLayout().width > theme.breakpoints['lg'] ? 'left' : 'center'}
+                            variant={layout === 'desktop' ? 'h4' : 'h5'}
+                            align={layout === 'desktop' ? 'left' : 'center'}
                             fontWeight="bold">
-                            Login</Typography>
+                            Login
+                        </Typography>
                         <InputMask
                             mask="999.999.999-99"
                             value={credentials.cpfCientista}
@@ -79,7 +82,7 @@ function LoginForm() {
                         }
                         <Center>
                             <Button variant="contained" fullWidth type={"submit"}>
-                                <Typography variant={"button"}>Entrar</Typography>
+                                <Typography variant='button'>Entrar</Typography>
                             </Button>
                         </Center>
                         <Typography variant="body1" textAlign={"center"}>

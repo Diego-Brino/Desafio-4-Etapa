@@ -10,53 +10,35 @@ import useLayout from "../hooks/useLayout";
 import {Separator} from "../components/Separator";
 import {Typography} from "@mui/material";
 import {LayoutContext} from "../providers/LayoutProvider";
+import PageContainer from "../layouts/PageContainer";
+import Presentation from "../components/Presentation";
 
 function PageLogin() {
 
     const theme = useTheme();
-    const layout = useContext(LayoutContext)
-
+    const layout = useContext(LayoutContext);
 
     return (
-        <Box component={Container} height="100vh">
-            <Typography>{layout}</Typography>
+        <PageContainer>
             <Center>
-                <LayoutStack>
-                    <StackItem flex={useLayout().width > theme.breakpoints['lg'] ? 6 : 4}>
-                        <Center>
-                            <Stack direction="column" spacing={3} justifyContent='center'>
-                                <Logo/>
-                                <object type="image/svg+xml" data={rocket} width="100%">svg-animation</object>
-                            </Stack>
-                        </Center>
-                    </StackItem>
+                <Stack direction={layout === "desktop" ? 'row' : 'column'} width='100%'>
+                    <Box display='flex' flexDirection='column' flex={layout === "desktop" ? 6 : 4} padding='50px 75px'>
+                        <Box alignSelf='flex-end' width='min-content'>
+                            <Presentation/>
+                        </Box>
+                    </Box>
                     {layout === 'desktop' &&
                         <Separator/>
                     }
-                    <StackItem flex={6}>
-                        <Center>
+                    <Box display='flex' flexDirection='column' flex={6} padding='50px 75px'>
+                        <Box alignSelf='flex-start' width='min-content'>
                             <LoginForm/>
-                        </Center>
-                    </StackItem>
-                </LayoutStack>
+                        </Box>
+                    </Box>
+                </Stack>
             </Center>
-        </Box>
+        </PageContainer>
     );
 }
-
-const LayoutStack = styled(Stack)({
-    width: "100%",
-    [theme.breakpoints.up('lg')] : {
-        flexDirection: "row"
-    },
-    [theme.breakpoints.down('lg')] : {
-        height: "100%",
-        flexDirection: "column"
-    }
-})
-
-const StackItem = styled(Box)({
-    padding: "25px",
-})
 
 export default PageLogin;

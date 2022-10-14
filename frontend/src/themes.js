@@ -79,30 +79,6 @@ theme = createTheme(theme,{
                     color: theme.palette.text.primary,
                 }
             },
-            variants: [
-                {
-                    props: {variant: "body1"},
-                    style: {
-                        [theme.breakpoints.up('sm')]: {
-                            fontSize: "18px"
-                        },
-                        [theme.breakpoints.down('sm')]: {
-                            fontSize: "16px"
-                        },
-                    },
-                },
-                {
-                    props: {variant: "button"},
-                    style: {
-                        [theme.breakpoints.up('sm')]: {
-                            fontSize: "18px"
-                        },
-                        [theme.breakpoints.down('sm')]: {
-                            fontSize: "16px"
-                        },
-                    },
-                },
-            ]
         },
 
         MuiInputBase: {
