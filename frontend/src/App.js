@@ -21,10 +21,10 @@ function App(){
             <ThemeProvider theme={theme}>
                 <LayoutProvider>
                     <CssBaseline/>
-                    <BrowserRouter>
+                    <BrowserRouter basename={process.env.PUBLIC_URL}>
                         <Routes>
                             <Route path='/'>
-                                <Route path='login' element={<PageLogin/>}/>
+                                <Route path='login' index element={<PageLogin/>}/>
                                 <Route path='cadastro' element={<PageCadastro/>}/>
                                 <Route path='perfil' element={<PagePerfil/>}/>
                                 <Route path='meus-projetos' element={<PageMeusProjetos/>}/>
