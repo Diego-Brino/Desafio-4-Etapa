@@ -19,21 +19,27 @@ function PageLogin() {
     const layout = useContext(LayoutContext);
 
     return (
-        <PageContainer>
+        <PageContainer sx={{height: "100vh"}}>
             <Center>
-                <Stack direction={layout === "desktop" ? 'row' : 'column'} width='100%'>
-                    <Box display='flex' flexDirection='column' flex={layout === "desktop" ? 6 : 4} padding='50px 75px'>
-                        <Box alignSelf='flex-end' width='min-content'>
-                            <Presentation/>
-                        </Box>
+                <Stack direction={layout === "desktop" ? 'row' : 'column'} width='100%' height={layout === "desktop" ? '80%' : '100%'}>
+                    <Box display='flex' flexDirection='column' flex={layout === "desktop" ? 6 : 4} padding='5%'>
+                        <Center>
+                            <Box alignSelf={layout === "desktop" ? 'flex-end' : 'center'} width='min-content'>
+                                <Presentation/>
+                            </Box>
+                        </Center>
                     </Box>
                     {layout === 'desktop' &&
-                        <Separator/>
+                        <Center sx={{flex: '0'}}>
+                            <Separator/>
+                        </Center>
                     }
-                    <Box display='flex' flexDirection='column' flex={6} padding='50px 75px'>
-                        <Box alignSelf='flex-start' width='min-content'>
-                            <LoginForm/>
-                        </Box>
+                    <Box display='flex' flexDirection='column' flex={6} padding='5%'>
+                        <Center>
+                            <Box alignSelf={layout === "desktop" ? 'flex-start' : 'center'} width={layout === "desktop" ? 'min-content' : '100%'}>
+                                <LoginForm/>
+                            </Box>
+                        </Center>
                     </Box>
                 </Stack>
             </Center>

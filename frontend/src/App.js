@@ -16,8 +16,6 @@ import {LayoutProvider} from "./providers/LayoutProvider";
 
 function App(){
 
-    const [layout, setlayout] = useState('desktop');
-
     return(
         <Provider store={store}>
             <ThemeProvider theme={theme}>
