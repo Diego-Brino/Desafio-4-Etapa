@@ -12,6 +12,7 @@ import PageContainer from "../layouts/PageContainer";
 import Presentation from "../components/Presentation";
 import LoginForm from "../features/Login/LoginForm";
 import {LayoutContext} from "../providers/LayoutProvider";
+import LayoutPresentation from "../layouts/LayoutPresentation";
 
 function PageCadastro() {
 
@@ -19,47 +20,14 @@ function PageCadastro() {
     const layout = useContext(LayoutContext);
 
     return (
-        <PageContainer sx={{height: "100vh"}}>
+        <PageContainer sx={{height:"100vh"}}>
             <Center>
-                <Stack direction={layout === "desktop" ? 'row' : 'column'} width='100%' height={layout === "desktop" ? '80%' : '100%'}>
-                    <Box display='flex' flexDirection='column' flex={layout === "desktop" ? 6 : 4} padding='5%'>
-                        <Center>
-                            <Box alignSelf={layout === "desktop" ? 'flex-end' : 'center'} width='min-content'>
-                                <Presentation/>
-                            </Box>
-                        </Center>
-                    </Box>
-                    {layout === 'desktop' &&
-                        <Center sx={{flex: '0'}}>
-                            <Separator/>
-                        </Center>
-                    }
-                    <Box display='flex' flexDirection='column' flex={6} padding='5%'>
-                        <Center>
-                            <Box alignSelf={layout === "desktop" ? 'flex-start' : 'center'} width={layout === "desktop" ? 'min-content' : '100%'}>
-                                <CadastroForm/>
-                            </Box>
-                        </Center>
-                    </Box>
-                </Stack>
+                <LayoutPresentation>
+                    <CadastroForm/>
+                </LayoutPresentation>
             </Center>
         </PageContainer>
     );
 }
-
-const LayoutStack = styled(Stack)({
-    width: "100%",
-    [theme.breakpoints.up('lg')] : {
-        flexDirection: "row"
-    },
-    [theme.breakpoints.down('lg')] : {
-        height: "100%",
-        flexDirection: "column"
-    }
-})
-
-const StackItem = styled(Box)({
-    padding: "25px",
-})
 
 export default PageCadastro;

@@ -1,5 +1,5 @@
 import React, {createContext, useState} from "react";
-import {BrowserRouter, Outlet, Route, Routes} from "react-router-dom";
+import {BrowserRouter, HashRouter, Outlet, Route, Routes} from "react-router-dom";
 import store from "./services/store";
 import {Box, ThemeProvider} from "@mui/system";
 import theme from "./themes";
@@ -21,7 +21,7 @@ function App(){
             <ThemeProvider theme={theme}>
                 <LayoutProvider>
                     <CssBaseline/>
-                    <BrowserRouter>
+                    <HashRouter>
                         <Routes>
                             <Route path='/'>
                                 <Route path='login' element={<PageLogin/>}/>
@@ -31,7 +31,7 @@ function App(){
                                 <Route path='pesquisar-projetos' element={<PagePesquisarProjetos/>}/>
                             </Route>
                         </Routes>
-                    </BrowserRouter>
+                    </HashRouter>
                 </LayoutProvider>
             </ThemeProvider>
         </Provider>

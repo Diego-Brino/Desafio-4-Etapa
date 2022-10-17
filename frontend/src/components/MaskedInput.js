@@ -10,8 +10,9 @@ function MaskedInput(props){
             maskChar={null}
             onChange={props.onChange}>
             {() => <TextField
+                sx={props.sx}
                 label={props.label}
-                variant={"outlined"}
+                variant={"filled"}
                 fullWidth
                 type={"text"}
                 required={props.required}
