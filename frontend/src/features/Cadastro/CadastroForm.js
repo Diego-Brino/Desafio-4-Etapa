@@ -1,16 +1,12 @@
-import React, {useContext, useRef, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
-import {Box, Stack, styled, useTheme, width} from "@mui/system";
+import {Box, styled, useTheme} from "@mui/system";
 import theme from "../../themes";
-import {Alert, Button, Input, Link, TextField, Typography} from "@mui/material";
+import {Alert, Button, Link, TextField, Typography} from "@mui/material";
 import Center from "../../layouts/Center";
-import axios from "axios";
 import {useDispatch} from "react-redux";
-import {setAuthToken} from "../../services/slices/authSlice";
-import useLayout from "../../hooks/useLayout";
-import InputMask from "react-input-mask";
 import MaskedInput from "../../components/MaskedInput";
-import Form from "../../components/Form";
+import AuthForm from "../../components/AuthForm";
 import {LayoutContext} from "../../providers/LayoutProvider";
 
 function CadastroForm() {
@@ -45,7 +41,7 @@ function CadastroForm() {
     }
 
     return (
-        <Form onSubmit={handleSubmit} heading='Cadastro' sx={layout=== 'desktop' ? {width: "375px"} : {width: "100%"}}>
+        <AuthForm onSubmit={handleSubmit} heading='Cadastro' sx={layout=== 'desktop' ? {width: "375px"} : {width: "100%"}}>
             <MaskedInput
                 mask='999.999.999-99' value={cadastro.cpfCientista}
                 label='Cpf' required={true}
@@ -87,7 +83,7 @@ function CadastroForm() {
             <Typography variant="body1" textAlign={"center"}>
                 Já possui conta?&nbsp;<Link as={RouterLink} to={"/login"} variant={"underline-secondary"}>Entre aqui</Link>
             </Typography>
-        </Form>
+        </AuthForm>
     );
 }
 

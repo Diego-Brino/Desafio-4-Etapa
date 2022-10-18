@@ -1,24 +1,10 @@
-import React, {useContext, useRef, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
-import {Box, color, Stack, styled, useTheme, width} from "@mui/system";
-import theme from "../../themes";
-import {
-    Alert,
-    Button, Checkbox, FormControlLabel,
-    Link,
-    TextField,
-    Typography
-} from "@mui/material";
-import Center from "../../layouts/Center";
-import axios from "axios";
+import {Stack, useTheme} from "@mui/system";
+import {Alert, Button, Checkbox, FormControlLabel, Link, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {setAuthToken} from "../../services/slices/authSlice";
-import useLayout from "../../hooks/useLayout";
-import InputMask from "react-input-mask";
 import {LayoutContext} from "../../providers/LayoutProvider";
-import Form from "../../components/Form";
-import MaskedInput from "../../components/MaskedInput";
-import {CheckBox} from "@mui/icons-material";
+import AuthForm from "../../components/AuthForm";
 
 function LoginForm() {
 
@@ -44,8 +30,8 @@ function LoginForm() {
     }
 
     return (
-        <Form onSubmit={handleSubmit} heading='Login'
-              sx={layout === 'desktop' ? {width: "350px"} : {width: "100%", maxWidth: "350px"}}>
+        <AuthForm onSubmit={handleSubmit} heading='Login'
+                  sx={layout === 'desktop' ? {width: "350px"} : {width: "100%", maxWidth: "350px"}}>
             <TextField
                 inputProps={{color: theme.palette.text.secondary}}
                 label="Cpf"
@@ -87,7 +73,7 @@ function LoginForm() {
                     <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
                 </Typography>
             </Stack>
-        </Form>
+        </AuthForm>
     );
 }
 

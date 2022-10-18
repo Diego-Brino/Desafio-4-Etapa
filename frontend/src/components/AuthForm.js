@@ -5,15 +5,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import {LayoutContext} from "../providers/LayoutProvider";
 import Center from "../layouts/Center";
 
-function Form(props){
+function AuthForm(props){
 
     const theme = useTheme();
     const layout = useContext(LayoutContext);
 
     return(
-        <Box
-            sx={props.sx}
-            borderRadius="5px" padding="25px 25px">
+        <Box sx={props.sx} padding="25px 25px">
             <Center>
                 <Stack spacing={4} width='100%'>
                     <Typography variant='h3' align='center' fontWeight="bold">
@@ -30,4 +28,4 @@ function Form(props){
     )
 }
 
-export default Form;
+export default AuthForm;
