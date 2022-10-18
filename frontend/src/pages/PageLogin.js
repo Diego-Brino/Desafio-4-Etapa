@@ -20,11 +20,9 @@ function PageLogin() {
     const layout = useContext(LayoutContext);
 
     return (
-        <Center>
-            <LayoutPresentation>
-                <LoginForm/>
-            </LayoutPresentation>
-        </Center>
+        <LayoutPresentation>
+            <LoginForm/>
+        </LayoutPresentation>
     );
 }
 

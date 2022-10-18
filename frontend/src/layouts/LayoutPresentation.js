@@ -1,31 +1,37 @@
 import PageContainer from "./PageContainer";
 import Center from "./Center";
-import {Box, Stack, useTheme} from "@mui/system";
+import {Box, Container, Stack, useTheme} from "@mui/system";
 import Presentation from "../components/Presentation";
 import {Separator} from "../components/Separator";
 import React, {useContext} from "react";
 import {LayoutContext} from "../providers/LayoutProvider";
+import {Grid} from "@mui/material";
 
-function LayoutPresentation(props){
+function LayoutPresentation(props) {
 
     const layout = useContext(LayoutContext);
     const theme = useTheme();
 
-    return(
+    return (
         <>
-            <Box width={layout === 'desktop' ? "50vw" : "100vw"} height={layout === 'desktop' ? "100vh" : "50vh"} position={layout === 'desktop' ? 'absolute' : 'relative'} right={0} top={layout === 'desktop' ? 0 : 'auto'} bottom={layout === 'desktop' ? 'auto' : 0} zIndex={-1} sx={{backgroundColor: theme.palette.secondary.main}}
-            <Stack direction={layout === "desktop" ? 'row' : 'column'} width='100%'>
-                <Box display='flex' flexDirection='column' flex={layout === "desktop" ? 6 : 4} padding='25px'>
-                    <Center>
-                        <Presentation/>
-                    </Center>
-                </Box>
-                <Box display='flex' flexDirection='column' flex={6} padding='25px'>
-                    <Center>
-                        {props.children}
-                    </Center>
-                </Box>
-            </Stack>
+            <Grid container sx={{minHeight: '100vh'}} position='absolute'>
+                <Grid item xs={12} lg={6} zIndex={-1} height='50vh' sx={{backgroundColor: theme.palette.primary.main}}/>
+                <Grid item xs={12} lg={6} zIndex={-1} height='60vh' sx={{backgroundColor: theme.palette.secondary.main}}/>
+            </Grid>
+            <Container>
+                <Grid container sx={{minHeight: '100vh'}}>
+                    <Grid item xs={12} lg={6} padding='25px'>
+                        <Center>
+                            <Presentation/>
+                        </Center>
+                    </Grid>
+                    <Grid item xs={12} lg={6} padding='25px'>
+                        <Center>
+                            {props.children}
+                        </Center>
+                    </Grid>
+                </Grid>
+            </Container>
         </>
     )
 }
