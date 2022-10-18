@@ -13,15 +13,10 @@ function Form(props){
     return(
         <Box
             sx={props.sx}
-            borderRadius="5px" padding="25px 25px"
-            backgroundColor={theme.palette.secondary.main}
-            boxShadow="#00000030 0px 19px 38px, #00000022 0px 15px 12px">
+            borderRadius="5px" padding="25px 25px">
             <Center>
                 <Stack spacing={4} width='100%'>
-                    <Typography
-                        variant='h4'
-                        align={layout === 'desktop' ? 'left' : 'center'}
-                        fontWeight="bold">
+                    <Typography variant='h3' align='center' fontWeight="bold">
                         {props.heading}
                     </Typography>
                     <form onSubmit={props.onSubmit}>

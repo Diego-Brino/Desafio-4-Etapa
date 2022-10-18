@@ -14,24 +14,22 @@ theme = createTheme({
     },
     palette: {
         primary: {
-            main: '#00ADB5'
-        },
-        secondary: {
-            main: '#393E46',
-        },
-        tertiary: {
             main: '#222831'
         },
+        secondary: {
+            main: '#FEFEFE'
+        },
+        tertiary: {
+            main: '#00ADB5',
+        },
         text: {
-            primary: '#EEEEEE',
-            secondary: '#222831',
+            primary: '#222831',
+            secondary: '#FEFEFE',
         },
         background: {
             default: '#222831',
+            other: '#393E46',
         },
-        error: {
-            main: '#f00'
-        }
     },
 });
 theme = createTheme(theme,{
@@ -39,13 +37,13 @@ theme = createTheme(theme,{
         MuiLink: {
             variants: [
                 {
-                    props: { variant: "underline-black"},
+                    props: { variant: "primary"},
                     style: {
-                        color: theme.palette.common.black,
+                        color: theme.palette.primary.main,
                         textDecoration: "none",
                         '&:hover': {
-                            color: theme.palette.common.black,
-                            textDecoration: "underline" + theme.palette.common.black,
+                            color: theme.palette.primary.main,
+                            textDecoration: "underline" + theme.palette.primary.main,
                         }
                     },
                 },
@@ -80,7 +78,6 @@ theme = createTheme(theme,{
                 }
             },
         },
-
         MuiInputBase: {
             styleOverrides: {
                 root: {
@@ -99,16 +96,17 @@ theme = createTheme(theme,{
             styleOverrides: {
                 root: {
                     color: theme.palette.text.primary,
-                }
-            }
-        },
-        MuiOutlinedInput: {
-            styleOverrides: {
-                root: {
-                    "& > fieldset" : {
-                        borderColor: theme.palette.text.primary
+                },
+                variants:[
+                    {
+                        props: { variant: 'black' },
+                        style: {
+                            "& > fieldset" : {
+                                borderColor: theme.palette.text.secondary
+                            }
+                        },
                     }
-                }
+                ]
             }
         },
         MuiDivider: {
@@ -128,10 +126,17 @@ theme = createTheme(theme,{
                     }
                 }
             }
+        },
+        MuiCheckbox: {
+            styleOverrides:{
+                root:{
+                    color: theme.palette.primary.main,
+                }
+            }
         }
     },
     typography: {
-        fontFamily: 'Roboto, sans-serif',
+        fontFamily: 'Helvetica, sans-serif',
         color: theme.palette.text.primary,
         button: {
             textTransform: 'none'
