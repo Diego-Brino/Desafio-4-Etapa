@@ -5,12 +5,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import {LayoutContext} from "../providers/LayoutProvider";
 import Center from "../layouts/Center";
 
-function AuthForm(props){
+function AuthForm(props) {
 
     const theme = useTheme();
     const layout = useContext(LayoutContext);
 
-    return(
+    return (
         <Box sx={props.sx} padding="25px 25px">
             <Center>
                 <Stack spacing={4} width='100%'>
