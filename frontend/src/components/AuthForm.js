@@ -11,7 +11,7 @@ function AuthForm(props) {
     const layout = useContext(LayoutContext);
 
     return (
-        <Box sx={props.sx} padding="25px 25px">
+        <Box sx={layout === 'desktop' ? {width: "350px"} : {width: "100%", maxWidth: "350px"}} padding="25px 25px">
             <Center>
                 <Stack spacing={4} width='100%'>
                     <Typography variant='h3' align='center' fontWeight="bold">

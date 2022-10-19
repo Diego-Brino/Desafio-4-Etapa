@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {useTheme} from '@mui/system';
-import LoginForm from "../features/Login/Form/LoginForm";
+import LoginForm from "../features/Login/LoginForm";
 import {LayoutContext} from "../providers/LayoutProvider";
 import LayoutAuth from "../layouts/LayoutAuth";
 
