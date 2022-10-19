@@ -14,8 +14,7 @@ public class ProjetoModel implements Serializable {
     @SequenceGenerator(name = "projeto_sequence", sequenceName = "SEQ_IDPROJETO", allocationSize = 1)
     private Integer id_projeto;
     @ManyToOne
-    @JoinColumn(name = "id_cientista",
-                referencedColumnName = "id_cientista")
+    @JoinColumn(name = "id_cientista")
     private CientistaModel cientista;
     @Column(name = "tit_projeto", length = 50)
     private String titProjeto;
@@ -26,7 +25,7 @@ public class ProjetoModel implements Serializable {
     @Column(name = "dtt_projeto")
     private Date dttProjeto;
     @Column(name = "pub_projeto", nullable = false)
-    private Boolean pubProjeto;
+    private Integer pubProjeto;
 
     //region Getters and Setters
 
@@ -72,10 +71,10 @@ public class ProjetoModel implements Serializable {
         this.dttProjeto = dttProjeto;
     }
 
-    public Boolean getPubProjeto() {
+    public Integer getPubProjeto() {
         return pubProjeto;
     }
-    public void setPubProjeto(Boolean pubProjeto) {
+    public void setPubProjeto(Integer pubProjeto) {
         this.pubProjeto = pubProjeto;
     }
 
