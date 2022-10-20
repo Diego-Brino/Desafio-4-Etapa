@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {LayoutContext} from "../../providers/LayoutProvider";
 import AuthForm from "../../components/AuthForm";
 import InputMask from "react-input-mask";
+import {motion} from "framer-motion";
 
 function LoginForm() {
 
@@ -28,7 +29,7 @@ function LoginForm() {
             navigate("/pesquisar-projetos");
         } else {
             setError(true)
-            setErrorMessage("Cpf ou Senha inválido(a)!")
+            setErrorMessage("CPF ou Senha inválido(a)!")
         }
 
     }
@@ -43,76 +44,56 @@ function LoginForm() {
     }
 
     return (
-        <AuthForm onSubmit={handleSubmit} heading='Login'>
-            <InputCpf error={error} onChange={handleOnChangeInputCpf}/>
-            <Stack direction='column' spacing={1}>
-                <InputSenha error={error} onChange={handleOnChangeInputSenha}/>
-                <InputLembrarSenha onChange={handleOnChangeInputLembrarSenha}/>
-            </Stack>
-            {error &&
-                <Alert severity="error">
-                    {errorMessage}
-                </Alert>
-            }
-            <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                <Button variant="contained" sx={{width: '50%'}} type={"submit"}>
-                    <Typography variant='button' color='secondary'>Entrar</Typography>
-                </Button>
-                <Typography variant="body1" textAlign={"center"}>
-                    <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
-                </Typography>
-            </Stack>
-        </AuthForm>
+        <motion.div initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 0.5}}>
+            <AuthForm onSubmit={handleSubmit} heading='Login'>
+                <InputMask
+                    mask='999.999.999-99'
+                    maskChar={''}
+                    onChange={handleOnChangeInputCpf}>
+                    {() => <TextField
+                        autoFocus={true}
+                        inputProps={{color: theme.palette.text.secondary}}
+                        label="CPF"
+                        variant="filled"
+                        type="text"
+                        error={error}
+                        required={true}
+                    />}
+                </InputMask>
+                <Stack direction='column' spacing={1}>
+                    <TextField
+                        inputProps={{color: theme.palette.text.secondary}}
+                        label="Senha"
+                        variant="filled"
+                        type="password"
+                        error={error}
+                        required={true}
+                        onChange={handleOnChangeInputSenha}
+                    />
+                    <FormControlLabel
+                        sx={{width: 'min-content'}}
+                        control={<Checkbox onChange={handleOnChangeInputLembrarSenha}/>}
+                        label={<Typography sx={{userSelect: 'none'}} whiteSpace='nowrap'>Lembrar Senha</Typography>}
+                    />
+                </Stack>
+                {error &&
+                    <Alert severity="error">
+                        {errorMessage}
+                    </Alert>
+                }
+                <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                    <Button variant="contained" sx={{width: '50%'}} type={"submit"}>
+                        <Typography color='secondary'>Entrar</Typography>
+                    </Button>
+                    <Typography variant="body1" textAlign={"center"}>
+                        <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
+                    </Typography>
+                </Stack>
+            </AuthForm>
+        </motion.div>
     );
-}
-
-function InputCpf(props) {
-
-    const theme = useTheme();
-
-    return (
-        <InputMask
-            mask='999.999.999-99'
-            maskChar={''}
-            onChange={props.onChange}>
-            {() => <TextField
-                inputProps={{color: theme.palette.text.secondary}}
-                label="Cpf"
-                variant="filled"
-                type="text"
-                error={props.error}
-                required={true}
-            />}
-        </InputMask>
-    )
-}
-function InputSenha(props) {
-
-    const theme = useTheme();
-
-    return (
-        <TextField
-            inputProps={{color: theme.palette.text.secondary}}
-            label="Senha"
-            variant="filled"
-            type="password"
-            error={props.error}
-            required={true}
-            onChange={props.onChange}
-        />
-    )
-}
-function InputLembrarSenha(props) {
-
-    const theme = useTheme();
-
-    return (
-        <FormControlLabel
-            sx={{width: 'min-content'}}
-            control={<Checkbox value={props.value} onChange={props.onChange}/>}
-            label={<Typography whiteSpace='nowrap'>Lembrar Senha</Typography>}
-        />
-    )
 }
 
 export default LoginForm;

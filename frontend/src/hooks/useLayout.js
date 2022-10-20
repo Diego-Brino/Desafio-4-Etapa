@@ -28,7 +28,5 @@ export default function useLayout (){
         return () => window.removeEventListener("resize", handleResize);
     }, [])
 
-    console.log(windowSize.width > theme.breakpoints['lg'] ? 'desktop' : 'mobile')
-
     return windowSize.width > theme.breakpoints['lg'] ? 'desktop' : 'mobile';
 }

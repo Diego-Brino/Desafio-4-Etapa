@@ -4,7 +4,7 @@
   "description": "Desafio da 4 Etapa de Engenharia de Software da UNAERP: Projeto SciLink para empresa ADITHO",
   "main": "index.js",
   "homepage": "https://diegomanucci.github.io/SciLink/",
-  "scripts" : {
+  "scripts": {
     "serve": "webpack serve --mode development",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
@@ -33,6 +33,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "file-loader": "^6.2.0",
+    "framer-motion": "^7.6.1",
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
