@@ -1,5 +1,8 @@
 package com.api.scilink.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ProjetoDto {
@@ -11,8 +14,12 @@ public class ProjetoDto {
     private String lattesCientista;
     private String titProjeto;
     private String resProjeto;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dtiProjeto;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dttProjeto;
+    @NotNull
+    private Integer pubProjeto;
 
     //region Getters and Setters
 
@@ -84,6 +91,13 @@ public class ProjetoDto {
     }
     public void setDttProjeto(Date dttProjeto) {
         this.dttProjeto = dttProjeto;
+    }
+
+    public Integer getPubProjeto() {
+        return pubProjeto;
+    }
+    public void setPubProjeto(Integer pubProjeto) {
+        this.pubProjeto = pubProjeto;
     }
 
     //endregion

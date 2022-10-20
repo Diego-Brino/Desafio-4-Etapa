@@ -52,7 +52,7 @@ public class UserController extends LogInfoUtil {
                 .body(token);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/cadastrarCientista")
     public ResponseEntity<?> cadastroNovoCientista (@RequestBody @Valid CientistaDto cientistaDto) {
         printLogInfo("Novo cadastro iniciado!");
         CientistaModel cientistaModel = new CientistaModel();
