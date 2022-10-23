@@ -1,6 +1,5 @@
 package com.api.scilink.services;
 
-import com.api.scilink.dtos.ProjetoDto;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.ProjetoModel;
 

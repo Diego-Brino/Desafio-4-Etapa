@@ -1,5 +1,6 @@
 package com.api.scilink.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
@@ -14,6 +15,7 @@ public class CientistaDto {
     @Size(max = 11, message = "Por favor, digite um cpf válido!")
     @CPF(message = "Por favor, digite um cpf válido!")
     private String cpfCientista;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dtnCientista;
     @NotBlank(message = "O e-mail é obrigatório!")
     @Email(message = "Por favor, digite um e-mail válido!")
