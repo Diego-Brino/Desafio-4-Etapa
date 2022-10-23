@@ -3,6 +3,7 @@ package com.api.scilink.controllers;
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.dtos.CientistaDto;
 import com.api.scilink.dtos.LoginDto;
+import com.api.scilink.exceptions.CpfJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.UserServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
@@ -59,5 +60,13 @@ public class UserController extends LogInfoUtil {
         BeanUtils.copyProperties(cientistaDto, cientistaModel);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userServiceImpl.saveCientista(cientistaModel));
+    }
+
+    @PostMapping("/validarCpf/{CPF}")
+    public ResponseEntity<?> validarCpf (@PathVariable(value = "CPF") String cpf) {
+        if (userServiceImpl.existsCientistaByCpf(cpf)) {
+            throw new CpfJaCadastradoException();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Cpf válido para utilizar!");
     }
 }

@@ -6,4 +6,5 @@ public interface UserService {
     CientistaModel loadUserByCpf (String cpf);
     CientistaModel saveCientista (CientistaModel cientistaModel);
     CientistaModel findCientistaModelByCpfCientista (String cpfCientista);
+    Boolean existsCientistaByCpf (String cpfCientista);
 }

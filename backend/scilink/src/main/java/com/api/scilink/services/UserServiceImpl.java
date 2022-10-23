@@ -62,8 +62,13 @@ public class UserServiceImpl extends LogInfoUtil implements UserService, UserDet
     }
 
     @Override
-    public CientistaModel findCientistaModelByCpfCientista(String cpfCientista) {
+    public CientistaModel findCientistaModelByCpfCientista (String cpfCientista) {
         return cientistaRepository.findCientistaModelByCpfCientista(cpfCientista)
                 .orElseThrow(() -> new CpfNaoEncontradoException());
+    }
+
+    @Override
+    public Boolean existsCientistaByCpf (String cpfCientista) {
+        return cientistaRepository.existsByCpfCientista(cpfCientista);
     }
 }
