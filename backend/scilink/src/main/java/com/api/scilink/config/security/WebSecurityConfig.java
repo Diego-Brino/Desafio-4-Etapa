@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/*").permitAll()
+                .antMatchers("/user/validarCpf/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
