@@ -2,7 +2,7 @@ package com.api.scilink.controllers;
 
 import com.api.scilink.dtos.CientistaDto;
 import com.api.scilink.models.CientistaModel;
-import com.api.scilink.services.CientistaServiceImpl;
+import com.api.scilink.services.cientista.CientistaServiceImpl;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/scilink")
+@RequestMapping("/scilink") //TODO - TROCAR PARA CIENTISTA / Criar visualização de perfil / Editar / EndPoint para area de atuação, curso, titulação
 public class CientistaController extends LogInfoUtil {
     private final CientistaServiceImpl cientistaServiceImpl;
     public CientistaController(CientistaServiceImpl cientistaServiceImpl) {

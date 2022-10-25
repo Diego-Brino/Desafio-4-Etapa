@@ -1,4 +1,4 @@
-package com.api.scilink.services;
+package com.api.scilink.services.projeto;
 
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.ProjetoModel;

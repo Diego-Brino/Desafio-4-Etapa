@@ -3,9 +3,9 @@ package com.api.scilink.controllers;
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.dtos.CientistaDto;
 import com.api.scilink.dtos.LoginDto;
-import com.api.scilink.exceptions.CpfJaCadastradoException;
+import com.api.scilink.exceptions.user.CpfJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
-import com.api.scilink.services.UserServiceImpl;
+import com.api.scilink.services.user.UserServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/user")
+@RequestMapping("/user") //TODO - TROCAR PARA /AUTH
 public class UserController extends LogInfoUtil {
     private final AuthenticationManager authenticationManager;
     private final UserServiceImpl userServiceImpl;
@@ -33,7 +33,7 @@ public class UserController extends LogInfoUtil {
 
     //Quando o usuário entrar na página de login, ele deverá passar suas credenciais e caso estejam válidas
     //Será gerado um token para o mesmo continuar sua navegação
-    @PostMapping("/login")
+    @PostMapping({"/login", ""})
     public ResponseEntity<?> createAuthenticationToken (@RequestBody @Valid LoginDto loginDto) {
         CientistaModel cientistaModel = new CientistaModel();
         BeanUtils.copyProperties(loginDto, cientistaModel);

@@ -1,7 +1,9 @@
 package com.api.scilink.handlers;
 
 import com.api.scilink.controllers.UserController;
-import com.api.scilink.exceptions.*;
+import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
+import com.api.scilink.exceptions.user.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,38 +28,38 @@ public class UserHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CientistaNaoEncontradoException.class)
-    public ResponseEntity<Object> handleCientistaNotFoundException (CientistaNaoEncontradoException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleCientistaNotFoundException (CientistaNaoEncontradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(CpfNaoEncontradoException.class)
-    public ResponseEntity<Object> handleCpfNotFoundException (CpfNaoEncontradoException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleCpfNotFoundException (CpfNaoEncontradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(SenhaIncorretaException.class)
-    public ResponseEntity<Object> handleSenhaIncorretaException (SenhaIncorretaException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleSenhaIncorretaException (SenhaIncorretaException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(CpfJaCadastradoException.class)
-    public ResponseEntity<Object> handleCpfJaCadastradoException (CpfJaCadastradoException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleCpfJaCadastradoException (CpfJaCadastradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(EmailJaCadastradoException.class)
-    public ResponseEntity<Object> handleEmailJaCadastradoException (EmailJaCadastradoException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleEmailJaCadastradoException (EmailJaCadastradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(LattesJaCadastradoException.class)
-    public ResponseEntity<Object> handleLattesJaCadastradoException (LattesJaCadastradoException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleLattesJaCadastradoException (LattesJaCadastradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
@@ -74,8 +76,8 @@ public class UserHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleIllegalArgumentException (IllegalArgumentException execption) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(execption.getMessage());
+    public ResponseEntity<Object> handleIllegalArgumentException (IllegalArgumentException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 }

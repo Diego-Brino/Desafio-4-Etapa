@@ -1,6 +1,6 @@
-package com.api.scilink.services;
+package com.api.scilink.services.projeto;
 
-import com.api.scilink.exceptions.NenhumProjetoCadastradoException;
+import com.api.scilink.exceptions.projeto.NenhumProjetoCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.ProjetoModel;
 import com.api.scilink.repositories.ProjetoRepository;

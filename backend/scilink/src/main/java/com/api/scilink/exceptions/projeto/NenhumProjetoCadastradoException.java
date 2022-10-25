@@ -1,4 +1,4 @@
-package com.api.scilink.exceptions;
+package com.api.scilink.exceptions.projeto;
 
 public class NenhumProjetoCadastradoException extends RuntimeException {
     public NenhumProjetoCadastradoException() {

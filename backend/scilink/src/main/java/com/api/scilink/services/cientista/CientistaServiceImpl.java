@@ -1,7 +1,7 @@
-package com.api.scilink.services;
+package com.api.scilink.services.cientista;
 
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
-import com.api.scilink.exceptions.NenhumCientistaCadastradoException;
+import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.util.LogInfoUtil;

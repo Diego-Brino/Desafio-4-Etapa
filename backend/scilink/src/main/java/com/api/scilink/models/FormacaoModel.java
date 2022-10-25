@@ -20,6 +20,8 @@ public class FormacaoModel implements Serializable {
     @JoinColumn(name = "id_titulacao",
             referencedColumnName = "id_titulacao")
     private TitulacaoModel titulacao;
+
+    //TODO - Criar tabela curso e sincronizar o ID.
     @Column(name = "dti_formacao")
     private Date dtiFormacao;
     @Column(name = "dtt_formacao")

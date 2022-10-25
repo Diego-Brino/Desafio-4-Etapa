@@ -2,7 +2,7 @@ package com.api.scilink.config.security.filters;
 
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.models.CientistaModel;
-import com.api.scilink.services.UserServiceImpl;
+import com.api.scilink.services.user.UserServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.core.context.SecurityContextHolder;

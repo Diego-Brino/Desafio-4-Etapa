@@ -3,8 +3,8 @@ package com.api.scilink.controllers;
 import com.api.scilink.dtos.ProjetoDto;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.ProjetoModel;
-import com.api.scilink.services.CientistaServiceImpl;
-import com.api.scilink.services.ProjetoServiceImpl;
+import com.api.scilink.services.cientista.CientistaServiceImpl;
+import com.api.scilink.services.projeto.ProjetoServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/scilink")
+@RequestMapping("/scilink") //TODO - TROCAR PARA PROJETOS
 public class ProjetoController extends LogInfoUtil {
     private final JwtTokenUtil jwtTokenUtil;
     private final ProjetoServiceImpl projetoServiceImpl;
@@ -45,7 +45,7 @@ public class ProjetoController extends LogInfoUtil {
         return ResponseEntity.status(HttpStatus.OK).body(listaProjetosDto);
     }
 
-    @GetMapping("/meusProjetos")
+    @GetMapping("/meusProjetos") //TODO - TR0CAR PARA /Nome do cara e verificar se sou eu para listar projetos privados.
     public ResponseEntity<?> buscarMeusProjetos (@RequestHeader("Authorization") String token) {
         printLogInfo("iniciando busca por todos os meus projetos!");
         List<ProjetoDto> listaProjetosDto = new ArrayList<>();
@@ -75,4 +75,6 @@ public class ProjetoController extends LogInfoUtil {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Projeto cadastrado com sucesso!");
     }
+
+    //TODO - EDITAR PROJETO
 }

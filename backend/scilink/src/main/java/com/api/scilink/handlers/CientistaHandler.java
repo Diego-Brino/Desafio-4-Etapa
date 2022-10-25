@@ -1,9 +1,7 @@
 package com.api.scilink.handlers;
 
 import com.api.scilink.controllers.CientistaController;
-import com.api.scilink.controllers.ProjetoController;
-import com.api.scilink.exceptions.NenhumCientistaCadastradoException;
-import com.api.scilink.exceptions.NenhumProjetoCadastradoException;
+import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

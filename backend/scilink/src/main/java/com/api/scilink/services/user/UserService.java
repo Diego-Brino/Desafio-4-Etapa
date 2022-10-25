@@ -1,4 +1,4 @@
-package com.api.scilink.services;
+package com.api.scilink.services.user;
 
 import com.api.scilink.models.CientistaModel;
 

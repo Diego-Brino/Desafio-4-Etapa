@@ -1,4 +1,4 @@
-package com.api.scilink.exceptions;
+package com.api.scilink.exceptions.user;
 
 public class LattesJaCadastradoException extends RuntimeException {
     public LattesJaCadastradoException() {
