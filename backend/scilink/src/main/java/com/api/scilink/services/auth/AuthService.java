@@ -1,8 +1,8 @@
-package com.api.scilink.services.user;
+package com.api.scilink.services.auth;
 
 import com.api.scilink.models.CientistaModel;
 
-public interface UserService {
+public interface AuthService {
     CientistaModel loadUserByCpf (String cpf);
     CientistaModel saveCientista (CientistaModel cientistaModel);
     Boolean existsCientistaByCpf (String cpfCientista);

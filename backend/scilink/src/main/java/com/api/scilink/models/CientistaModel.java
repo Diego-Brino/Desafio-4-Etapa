@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_CIENTISTA")
@@ -21,31 +20,31 @@ public class CientistaModel implements Serializable, UserDetails {
     @SequenceGenerator(name = "cientista_sequence", sequenceName = "SEQ_IDCIENTISTA", allocationSize = 1)
     private Integer id_cientista;
     @Column(name = "nom_cientista",length = 50)
-    private String nomCientista;
+    private String nome;
     @Column(name = "cpf_cientista", nullable = false, length = 11, unique = true)
     @CPF
-    private String cpfCientista;
+    private String cpf;
     @Column(name = "dtn_cientista")
-    private Date dtnCientista;
+    private Date dataNascimento;
     @Column(name = "email_cientista", nullable = false, length = 50)
     @Email
-    private String emailCientista;
+    private String email;
     @Column(name = "email_alternativo_cientista", length = 50)
-    private String emailAlternativoCientista;
+    private String emailAlternativo;
     @Column(name = "lattes_cientista", nullable = false, length = 50)
-    private String lattesCientista;
+    private String lattes;
     @Column(name = "snh_cientista", nullable = false, length = 10)
-    private String snhCientista;
+    private String senha;
     @OneToMany(mappedBy = "cientista")
-    private List<ProjetoModel> projeto;
+    private List<ProjetoModel> projetos;
     @OneToMany(mappedBy = "cientista")
-    private List<TelefoneModel> telefone;
+    private List<TelefoneModel> telefones;
     @OneToMany(mappedBy = "cientista")
-    private List<RedeSocialModel> redeSocial;
+    private List<RedeSocialModel> redesSociais;
     @OneToMany(mappedBy = "cientista")
-    private List<AreaAtuacaoCientistaModel> areaAtuacaoCientista;
+    private List<AreaAtuacaoCientistaModel> areasAtuacao;
     @OneToMany(mappedBy = "cientista")
-    private List<FormacaoModel> formacao;
+    private List<FormacaoModel> formacoes;
 
     //region Methods
 
@@ -53,10 +52,10 @@ public class CientistaModel implements Serializable, UserDetails {
 
     }
 
-    public CientistaModel (String nomCientista, String cpfCientista, String snhCientista) {
-        this.nomCientista = nomCientista;
-        this.cpfCientista = cpfCientista;
-        this.snhCientista = snhCientista;
+    public CientistaModel (String nome, String cpf, String senha) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
     }
 
     @Override
@@ -105,88 +104,88 @@ public class CientistaModel implements Serializable, UserDetails {
         this.id_cientista = id_cientista;
     }
 
-    public String getNomCientista() {
-        return nomCientista;
+    public String getNome() {
+        return nome;
     }
-    public void setNomCientista(String nomCientista) {
-        this.nomCientista = nomCientista;
-    }
-
-    public String getCpfCientista() {
-        return cpfCientista;
-    }
-    public void setCpfCientista(String cpfCientista) {
-        this.cpfCientista = cpfCientista;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Date getDtnCientista() {
-        return dtnCientista;
+    public String getCpf() {
+        return cpf;
     }
-    public void setDtnCientista(Date dtnCientista) {
-        this.dtnCientista = dtnCientista;
-    }
-
-    public String getEmailCientista() {
-        return emailCientista;
-    }
-    public void setEmailCientista(String emailCientista) {
-        this.emailCientista = emailCientista;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getEmailAlternativoCientista() {
-        return emailAlternativoCientista;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
-    public void setEmailAlternativoCientista(String emailAlternativoCientista) {
-        this.emailAlternativoCientista = emailAlternativoCientista;
-    }
-
-    public String getLattesCientista() {
-        return lattesCientista;
-    }
-    public void setLattesCientista(String lattesCientista) {
-        this.lattesCientista = lattesCientista;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
-    public String getSnhCientista() {
-        return snhCientista;
+    public String getEmail() {
+        return email;
     }
-    public void setSnhCientista(String snhCientista) {
-        this.snhCientista = snhCientista;
-    }
-
-    public List<ProjetoModel> getProjeto() {
-        return projeto;
-    }
-    public void setProjeto(List<ProjetoModel> projeto) {
-        this.projeto = projeto;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public List<TelefoneModel> getTelefone() {
-        return telefone;
+    public String getEmailAlternativo() {
+        return emailAlternativo;
     }
-    public void setTelefone(List<TelefoneModel> telefone) {
-        this.telefone = telefone;
-    }
-
-    public List<RedeSocialModel> getRedeSocial() {
-        return redeSocial;
-    }
-    public void setRedeSocial(List<RedeSocialModel> redeSocial) {
-        this.redeSocial = redeSocial;
+    public void setEmailAlternativo(String emailAlternativo) {
+        this.emailAlternativo = emailAlternativo;
     }
 
-    public List<AreaAtuacaoCientistaModel> getAreaAtuacaoCientista() {
-        return areaAtuacaoCientista;
+    public String getLattes() {
+        return lattes;
     }
-    public void setAreaAtuacaoCientista(List<AreaAtuacaoCientistaModel> areaAtuacaoCientista) {
-        this.areaAtuacaoCientista = areaAtuacaoCientista;
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
     }
 
-    public List<FormacaoModel> getFormacao() {
-        return formacao;
+    public String getSenha() {
+        return senha;
     }
-    public void setFormacao(List<FormacaoModel> formacao) {
-        this.formacao = formacao;
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public List<ProjetoModel> getProjetos() {
+        return projetos;
+    }
+    public void setProjetos(List<ProjetoModel> projetos) {
+        this.projetos = projetos;
+    }
+
+    public List<TelefoneModel> getTelefones() {
+        return telefones;
+    }
+    public void setTelefones(List<TelefoneModel> telefones) {
+        this.telefones = telefones;
+    }
+
+    public List<RedeSocialModel> getRedesSociais() {
+        return redesSociais;
+    }
+    public void setRedesSociais(List<RedeSocialModel> redesSociais) {
+        this.redesSociais = redesSociais;
+    }
+
+    public List<AreaAtuacaoCientistaModel> getAreasAtuacao() {
+        return areasAtuacao;
+    }
+    public void setAreasAtuacao(List<AreaAtuacaoCientistaModel> areasAtuacao) {
+        this.areasAtuacao = areasAtuacao;
+    }
+
+    public List<FormacaoModel> getFormacoes() {
+        return formacoes;
+    }
+    public void setFormacoes(List<FormacaoModel> formacoes) {
+        this.formacoes = formacoes;
     }
 
     //endregion

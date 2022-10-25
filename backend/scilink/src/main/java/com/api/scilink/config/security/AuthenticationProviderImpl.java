@@ -21,10 +21,10 @@ public class AuthenticationProviderImpl extends LogInfoUtil implements org.sprin
     @Override
     public Authentication authenticate(Authentication authentication) {
         CientistaModel cientistaModel  = cientistaRepository
-                .findCientistaModelByCpfCientista(authentication.getPrincipal().toString())
+                .findCientistaModelByCpf(authentication.getPrincipal().toString())
                 .orElseThrow(() -> new CpfNaoEncontradoException());
 
-        if (!authentication.getCredentials().toString().equals(cientistaModel.getSnhCientista())) {
+        if (!authentication.getCredentials().toString().equals(cientistaModel.getSenha())) {
             printLogErro("Senha digitada incorreta!");
             throw new SenhaIncorretaException();
         }

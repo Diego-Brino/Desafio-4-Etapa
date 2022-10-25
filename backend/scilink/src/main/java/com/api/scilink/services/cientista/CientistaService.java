@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CientistaService {
     List<CientistaModel> buscarTodosOsCientistas ();
-    CientistaModel findCientistaModelByCpfCientista (String cpfCientista);
+    CientistaModel findCientistaByCpf (String cpfCientista);
 }

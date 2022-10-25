@@ -1,6 +1,6 @@
 package com.api.scilink.handlers;
 
-import com.api.scilink.controllers.UserController;
+import com.api.scilink.controllers.AuthController;
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.user.*;
@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
-@ControllerAdvice(basePackageClasses = UserController.class)
-public class UserHandler extends ResponseEntityExceptionHandler {
+@ControllerAdvice(basePackageClasses = AuthController.class)
+public class AuthHandler extends ResponseEntityExceptionHandler {
     private LinkedHashMap<Object, Object> _preencherMensagensDeErro(String message) {
         LinkedHashMap<Object, Object> body = new LinkedHashMap<>();
         body.put("timestamp", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(LocalDateTime.now()));

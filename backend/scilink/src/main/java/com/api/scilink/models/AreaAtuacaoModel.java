@@ -2,7 +2,6 @@ package com.api.scilink.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_AREA_ATUACAO")
@@ -14,7 +13,7 @@ public class AreaAtuacaoModel implements Serializable {
     private Integer id_area_atuacao;
 
     @Column(name = "nom_area_atuacao", length = 25, nullable = false)
-    private String nomAreaAtuacao;
+    private String nome;
 
     //region Getters and Setters
 
@@ -25,11 +24,11 @@ public class AreaAtuacaoModel implements Serializable {
         this.id_area_atuacao = id_area_atuacao;
     }
 
-    public String getNomAreaAtuacao() {
-        return nomAreaAtuacao;
+    public String getNome() {
+        return nome;
     }
-    public void setNomAreaAtuacao(String nomAreaAtuacao) {
-        this.nomAreaAtuacao = nomAreaAtuacao;
+    public void setNome(String nomAreaAtuacao) {
+        this.nome = nomAreaAtuacao;
     }
 
     //endregion

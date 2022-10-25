@@ -11,10 +11,10 @@ public class TelefoneId implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column
     private Integer id_cientista;
-    @Column(length = 2)
-    private Integer ddd_telefone;
-    @Column(length = 10)
-    private String num_telefone;
+    @Column(name = "ddd_telefone",length = 2)
+    private Integer ddd;
+    @Column(name = "num_telefone", length = 10)
+    private String numero;
 
     //region Getters and Setters
 
@@ -25,18 +25,18 @@ public class TelefoneId implements Serializable {
         this.id_cientista = id_cientista;
     }
 
-    public Integer getDdd_telefone() {
-        return ddd_telefone;
+    public Integer getDdd() {
+        return ddd;
     }
-    public void setDdd_telefone(Integer ddd_telefone) {
-        this.ddd_telefone = ddd_telefone;
+    public void setDdd(Integer ddd) {
+        this.ddd = ddd;
     }
 
-    public String getNum_telefone() {
-        return num_telefone;
+    public String getNumero() {
+        return numero;
     }
-    public void setNum_telefone(String num_telefone) {
-        this.num_telefone = num_telefone;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     @Override
@@ -44,12 +44,12 @@ public class TelefoneId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TelefoneId that = (TelefoneId) o;
-        return Objects.equals(id_cientista, that.id_cientista) && Objects.equals(ddd_telefone, that.ddd_telefone) && Objects.equals(num_telefone, that.num_telefone);
+        return Objects.equals(id_cientista, that.id_cientista) && Objects.equals(ddd, that.ddd) && Objects.equals(numero, that.numero);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_cientista, ddd_telefone, num_telefone);
+        return Objects.hash(id_cientista, ddd, numero);
     }
 
     //endregion

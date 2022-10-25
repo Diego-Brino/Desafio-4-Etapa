@@ -70,6 +70,6 @@ public final class JwtTokenUtil implements Serializable {
 
     //Verifica se o token é valido
     public Boolean tokenIsValid(String token, CientistaModel cientistaModel) {
-        return !isTokenExpired(token) && getUsernameFromToken(token).equals(cientistaModel.getCpfCientista());
+        return !isTokenExpired(token) && getUsernameFromToken(token).equals(cientistaModel.getCpf());
     }
 }

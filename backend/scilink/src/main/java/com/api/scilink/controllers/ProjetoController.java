@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/scilink") //TODO - TROCAR PARA PROJETOS
+@RequestMapping("/projetos")
 public class ProjetoController extends LogInfoUtil {
     private final JwtTokenUtil jwtTokenUtil;
     private final ProjetoServiceImpl projetoServiceImpl;
@@ -29,7 +29,7 @@ public class ProjetoController extends LogInfoUtil {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
-    @GetMapping("/projetos")
+    @GetMapping()
     public ResponseEntity<?> buscarTodosOsProjetos () {
         printLogInfo("Iniciando busca por todos os projetos!");
         List<ProjetoDto> listaProjetosDto = new ArrayList<>();
@@ -49,7 +49,7 @@ public class ProjetoController extends LogInfoUtil {
     public ResponseEntity<?> buscarMeusProjetos (@RequestHeader("Authorization") String token) {
         printLogInfo("iniciando busca por todos os meus projetos!");
         List<ProjetoDto> listaProjetosDto = new ArrayList<>();
-        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaModelByCpfCientista(jwtTokenUtil.getUsernameFromToken(token));
+        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaByCpf(jwtTokenUtil.getUsernameFromToken(token));
 
         for (ProjetoModel projetoModel : projetoServiceImpl.buscarTodosOsMeusProjetos(cientistaModel)) {
             ProjetoDto projetoDtoTemp = new ProjetoDto();
@@ -67,7 +67,7 @@ public class ProjetoController extends LogInfoUtil {
                                                @RequestHeader("Authorization") String token) {
         printLogInfo("Novo cadastro iniciado!");
         ProjetoModel projetoModel = new ProjetoModel();
-        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaModelByCpfCientista(jwtTokenUtil.getUsernameFromToken(token));
+        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaByCpf(jwtTokenUtil.getUsernameFromToken(token));
         BeanUtils.copyProperties(projetoDto, projetoModel);
         projetoModel.setCientista(cientistaModel);
 

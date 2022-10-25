@@ -17,8 +17,8 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
     }
 
     @Override
-    public CientistaModel findCientistaModelByCpfCientista (String cpfCientista) {
-        return cientistaRepository.findCientistaModelByCpfCientista(cpfCientista)
+    public CientistaModel findCientistaByCpf (String cpfCientista) {
+        return cientistaRepository.findCientistaModelByCpf(cpfCientista)
                 .orElseThrow(() -> new CpfNaoEncontradoException());
     }
 

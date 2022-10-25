@@ -1,6 +1,7 @@
 package com.api.scilink.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
@@ -10,76 +11,87 @@ import java.util.Date;
 
 public class CientistaDto {
     @Size(max = 50)
-    private String nomCientista;
+    private String nome;
     @NotBlank(message = "O CPF é obrigatório!")
     @Size(max = 11, message = "Por favor, digite um cpf válido!")
     @CPF(message = "Por favor, digite um cpf válido!")
-    private String cpfCientista;
+    private String cpf;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dtnCientista;
+    private Date dataNascimento;
     @NotBlank(message = "O e-mail é obrigatório!")
     @Email(message = "Por favor, digite um e-mail válido!")
     @Size(max = 50, message = "O e-mail deve conter no máximo 50 caracteres!")
-    private String emailCientista;
+    private String email;
     @Email(message = "Por favor, digite um e-mail válido!")
     @Size(max = 50, message = "O e-mail deve conter no máximo 50 caracteres!")
-    private String emailAlternativoCientista;
+    private String emailAlternativo;
     @NotBlank(message = "O lattes é obrigatório!")
     @Size(max = 50, message = "O lattes deve conter no máximo 50 caracteres!")
-    private String lattesCientista;
+    private String lattes;
     @NotBlank(message = "A Senha é obrigatória!")
     @Size(max = 10, message = "A senha deve conter no máximo 10 caracteres!")
-    private String snhCientista;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String senha;
+
+//    private List<ProjetoDto> projetos;
+//
+//    private List<TelefoneDto> telefones;
+//
+//    private List<RedeSocialDto> redesSociais;
+//
+//    private List<AreaAtuacaoCientistaDto> areasAtuacao;
+//
+//    private List<FormacaoDto> formacoes;
 
     //region Getters and Setters
 
-    public String getNomCientista() {
-        return nomCientista;
+    public String getNome() {
+        return nome;
     }
-    public void setNomCientista(String nomCientista) {
-        this.nomCientista = nomCientista;
-    }
-
-    public String getCpfCientista() {
-        return cpfCientista;
-    }
-    public void setCpfCientista(String cpfCientista) {
-        this.cpfCientista = cpfCientista;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Date getDtnCientista() {
-        return dtnCientista;
+    public String getCpf() {
+        return cpf;
     }
-    public void setDtnCientista(Date dtnCientista) {
-        this.dtnCientista = dtnCientista;
-    }
-
-    public String getEmailCientista() {
-        return emailCientista;
-    }
-    public void setEmailCientista(String emailCientista) {
-        this.emailCientista = emailCientista;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getEmailAlternativoCientista() {
-        return emailAlternativoCientista;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
-    public void setEmailAlternativoCientista(String emailAlternativoCientista) {
-        this.emailAlternativoCientista = emailAlternativoCientista;
-    }
-
-    public String getLattesCientista() {
-        return lattesCientista;
-    }
-    public void setLattesCientista(String lattesCientista) {
-        this.lattesCientista = lattesCientista;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
-    public String getSnhCientista() {
-        return snhCientista;
+    public String getEmail() {
+        return email;
     }
-    public void setSnhCientista(String snhCientista) {
-        this.snhCientista = snhCientista;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmailAlternativo() {
+        return emailAlternativo;
+    }
+    public void setEmailAlternativo(String emailAlternativo) {
+        this.emailAlternativo = emailAlternativo;
+    }
+
+    public String getLattes() {
+        return lattes;
+    }
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     //endregion

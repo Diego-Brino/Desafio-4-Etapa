@@ -17,14 +17,14 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/scilink") //TODO - TROCAR PARA CIENTISTA / Criar visualização de perfil / Editar / EndPoint para area de atuação, curso, titulação
+@RequestMapping("/cientistas") //TODO - Criar visualização de perfil / Editar / EndPoint para area de atuação, curso, titulação
 public class CientistaController extends LogInfoUtil {
     private final CientistaServiceImpl cientistaServiceImpl;
     public CientistaController(CientistaServiceImpl cientistaServiceImpl) {
         this.cientistaServiceImpl = cientistaServiceImpl;
     }
 
-    @GetMapping("/cientistas")
+    @GetMapping()
     public ResponseEntity<?> buscarTodosOsCientistas () { //TODO - Recuperar suas áreas de atuacao
         printLogInfo("Iniciando busca por todos os cientistas!");
         List<CientistaDto> listaCientistaDto = new ArrayList<>();
@@ -32,7 +32,6 @@ public class CientistaController extends LogInfoUtil {
         for (CientistaModel cientistaModel : cientistaServiceImpl.buscarTodosOsCientistas()) {
             CientistaDto cientistaDtoTemp = new CientistaDto();
             BeanUtils.copyProperties(cientistaModel, cientistaDtoTemp);
-            cientistaDtoTemp.setSnhCientista(null);
 
             listaCientistaDto.add(cientistaDtoTemp);
         }

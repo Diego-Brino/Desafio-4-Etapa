@@ -13,19 +13,19 @@ public class FormacaoModel implements Serializable {
     @ManyToOne
     @MapsId("id_cientista")
     @JoinColumn(name = "id_cientista",
-            referencedColumnName = "id_cientista")
+                referencedColumnName = "id_cientista")
     private CientistaModel cientista;
     @ManyToOne
     @MapsId("id_titulacao")
     @JoinColumn(name = "id_titulacao",
-            referencedColumnName = "id_titulacao")
+                referencedColumnName = "id_titulacao")
     private TitulacaoModel titulacao;
 
     //TODO - Criar tabela curso e sincronizar o ID.
     @Column(name = "dti_formacao")
-    private Date dtiFormacao;
+    private Date dataInicio;
     @Column(name = "dtt_formacao")
-    private Date dttFormacao;
+    private Date dataTermino;
 
     //region Getters and Setters
 
@@ -50,18 +50,18 @@ public class FormacaoModel implements Serializable {
         this.titulacao = titulacao;
     }
 
-    public Date getDtiFormacao() {
-        return dtiFormacao;
+    public Date getDataInicio() {
+        return dataInicio;
     }
-    public void setDtiFormacao(Date dtiFormacao) {
-        this.dtiFormacao = dtiFormacao;
+    public void setDataInicio(Date dtiFormacao) {
+        this.dataInicio = dtiFormacao;
     }
 
-    public Date getDttFormacao() {
-        return dttFormacao;
+    public Date getDataTermino() {
+        return dataTermino;
     }
-    public void setDttFormacao(Date dttFormacao) {
-        this.dttFormacao = dttFormacao;
+    public void setDataTermino(Date dttFormacao) {
+        this.dataTermino = dttFormacao;
     }
 
     //endregion

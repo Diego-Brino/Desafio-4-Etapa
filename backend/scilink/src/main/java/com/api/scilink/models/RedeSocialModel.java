@@ -2,7 +2,6 @@ package com.api.scilink.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_REDES_SOCIAIS")
@@ -17,9 +16,9 @@ public class RedeSocialModel implements Serializable {
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
     @Column(name = "end_rede_social", length = 50)
-    private String endRedeSocial;
+    private String endereco;
     @Column(name = "tip_rede_social", length = 1)
-    private Character tipRedeSocial;
+    private Character tipo;
 
     //region Getters and Setters
 
@@ -37,18 +36,18 @@ public class RedeSocialModel implements Serializable {
         this.cientista = cientista;
     }
 
-    public String getEndRedeSocial() {
-        return endRedeSocial;
+    public String getEndereco() {
+        return endereco;
     }
-    public void setEndRedeSocial(String endRedeSocial) {
-        this.endRedeSocial = endRedeSocial;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public Character getTipRedeSocial() {
-        return tipRedeSocial;
+    public Character getTipo() {
+        return tipo;
     }
-    public void setTipRedeSocial(Character tipRedeSocial) {
-        this.tipRedeSocial = tipRedeSocial;
+    public void setTipo(Character tipo) {
+        this.tipo = tipo;
     }
 
     //endregion

@@ -6,98 +6,111 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ProjetoDto {
-    private String nomCientista;
-    private String cpfCientista;
-    private Date dtnCientista;
-    private String emailCientista;
-    private String emailAlternativoCientista;
-    private String lattesCientista;
-    private String titProjeto;
-    private String resProjeto;
+    //region Atributos do Cientista
+
+    //Nome do cientista
+    private String nome;
+
+    //Cpf do cientista
+    private String cpf;
+
+    //Data de nascimento do cientista
+    private Date dataNascimento;
+
+    //E-mail do cientista
+    private String email;
+
+    //E-mail alternativo do cientista
+    private String emailAlternativo;
+
+    //endregion
+    private String lattes;
+    private String titulo;
+    private String resumo;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dtiProjeto;
+    private Date dataInicio;
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dttProjeto;
+    private Date dataTermino;
     @NotNull
-    private Integer pubProjeto;
+    private Integer publico;
 
     //region Getters and Setters
 
-    public String getNomCientista() {
-        return nomCientista;
+    public String getNome() {
+        return nome;
     }
-    public void setNomCientista(String nomCientista) {
-        this.nomCientista = nomCientista;
-    }
-
-    public String getCpfCientista() {
-        return cpfCientista;
-    }
-    public void setCpfCientista(String cpfCientista) {
-        this.cpfCientista = cpfCientista;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Date getDtnCientista() {
-        return dtnCientista;
+    public String getCpf() {
+        return cpf;
     }
-    public void setDtnCientista(Date dtnCientista) {
-        this.dtnCientista = dtnCientista;
-    }
-
-    public String getEmailCientista() {
-        return emailCientista;
-    }
-    public void setEmailCientista(String emailCientista) {
-        this.emailCientista = emailCientista;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getEmailAlternativoCientista() {
-        return emailAlternativoCientista;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
-    public void setEmailAlternativoCientista(String emailAlternativoCientista) {
-        this.emailAlternativoCientista = emailAlternativoCientista;
-    }
-
-    public String getLattesCientista() {
-        return lattesCientista;
-    }
-    public void setLattesCientista(String lattesCientista) {
-        this.lattesCientista = lattesCientista;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
-    public String getTitProjeto() {
-        return titProjeto;
+    public String getEmail() {
+        return email;
     }
-    public void setTitProjeto(String titProjeto) {
-        this.titProjeto = titProjeto;
-    }
-
-    public String getResProjeto() {
-        return resProjeto;
-    }
-    public void setResProjeto(String resProjeto) {
-        this.resProjeto = resProjeto;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Date getDtiProjeto() {
-        return dtiProjeto;
+    public String getEmailAlternativo() {
+        return emailAlternativo;
     }
-    public void setDtiProjeto(Date dtiProjeto) {
-        this.dtiProjeto = dtiProjeto;
-    }
-
-    public Date getDttProjeto() {
-        return dttProjeto;
-    }
-    public void setDttProjeto(Date dttProjeto) {
-        this.dttProjeto = dttProjeto;
+    public void setEmailAlternativo(String emailAlternativo) {
+        this.emailAlternativo = emailAlternativo;
     }
 
-    public Integer getPubProjeto() {
-        return pubProjeto;
+    public String getLattes() {
+        return lattes;
     }
-    public void setPubProjeto(Integer pubProjeto) {
-        this.pubProjeto = pubProjeto;
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getResumo() {
+        return resumo;
+    }
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataTermino() {
+        return dataTermino;
+    }
+    public void setDataTermino(Date dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public Integer getPublico() {
+        return publico;
+    }
+    public void setPublico(Integer publico) {
+        this.publico = publico;
     }
 
     //endregion

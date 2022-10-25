@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProjetoRepository extends JpaRepository<ProjetoModel, Integer> {
-//    List<ProjetoModel> findAllByPubProjeto (Integer pubProjeto);
-    List<ProjetoModel> findAllByPubProjeto (Integer pubProjeto);
+    List<ProjetoModel> findAllByPublico (Integer publico);
     List<ProjetoModel> findAllByCientista (CientistaModel cientistaModel);
 }
