@@ -4,7 +4,6 @@ import {Chip, Divider, Grid, InputAdornment, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import GridLayout from "../layouts/GridLayout";
 import CardProjeto from "../components/CardProjeto";
-import {projetos} from "../services/testData";
 
 function PagePesquisarProjetos() {
 

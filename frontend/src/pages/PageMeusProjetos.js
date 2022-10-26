@@ -1,23 +1,8 @@
 import React, {useState} from "react";
-import {Box, Container, Stack, styled, width} from '@mui/system';
-import {useTheme} from "@mui/system";
-import {
-    AppBar,
-    Button,
-    Chip,
-    Divider,
-    Grid,
-    InputAdornment,
-    Link,
-    List,
-    ListItem, Modal,
-    TextField,
-    Typography
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import {Box, Stack, useTheme} from '@mui/system';
+import {Button, Divider, Grid, Modal, TextField, Typography} from "@mui/material";
 import GridLayout from "../layouts/GridLayout";
 import CardProjeto from "../components/CardProjeto";
-import {projetos} from "../services/testData";
 
 function PageMeusProjetos() {
 
@@ -37,18 +22,18 @@ function PageMeusProjetos() {
                     <Divider/>
                     <Grid container columnSpacing={'25px'} rowSpacing={'25px'}
                           sx={{marginLeft: '-25px !important', marginTop: '0 !important'}}>
-                        {
-                            meusProjetos.map((projeto, index) => {
-                                return (
-                                    <CardProjeto
-                                        key={index}
-                                        title={projeto.titulo}
-                                        description={projeto.descricao}
-                                        author={'Diego Brino'}
-                                    />
-                                )
-                            })
-                        }
+                        {/*{*/}
+                        {/*    meusProjetos.map((projeto, index) => {*/}
+                        {/*        return (*/}
+                        {/*            <CardProjeto*/}
+                        {/*                key={index}*/}
+                        {/*                title='aaaa'*/}
+                        {/*                description='aaaa'*/}
+                        {/*                author={'Diego Brino'}*/}
+                        {/*            />*/}
+                        {/*        )*/}
+                        {/*    })*/}
+                        {/*}*/}
                     </Grid>
                 </Stack>
             </GridLayout>

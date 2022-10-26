@@ -1,0 +1,46 @@
+import React, {useState} from "react";
+import {FormControl, IconButton, InputAdornment, TextField} from "@mui/material";
+import InputMask from "react-input-mask";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {useTheme} from "@mui/system";
+
+function InputText(props) {
+
+    const theme = useTheme();
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleOnClick = (e) => {
+        setShowPassword(!showPassword);
+    }
+
+    return (
+        <FormControl error={props.error} required={props.required}>
+            <TextField
+                required={props.required}
+                variant="filled"
+                name={props.name}
+                autoFocus={props.autoFocus}
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end" color={theme.palette.primary.main}>
+                            <IconButton onClick={handleOnClick}>
+                                {showPassword
+                                    ? <Visibility/>
+                                    : <VisibilityOff/>
+                                }
+                            </IconButton>
+                        </InputAdornment>),
+                }}
+                inputProps={props.inputProps}
+                label={props.label}
+                value={props.value}
+                onChange={props.onChange}
+                type={showPassword ? 'text' : 'password'}
+            />
+        </FormControl>
+    )
+}
+
+export default InputText;

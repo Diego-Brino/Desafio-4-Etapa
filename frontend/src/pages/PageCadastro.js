@@ -10,7 +10,7 @@ function PageCadastro() {
     const layout = useContext(LayoutContext);
 
     return (
-        <LayoutAuth content={<CadastroForm/>}/>
+        <CadastroForm/>
     );
 }
 

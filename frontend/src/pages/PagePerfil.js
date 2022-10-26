@@ -1,17 +1,12 @@
 import React from "react";
-import {Box, Stack, useTheme} from "@mui/system";
+import {Stack, useTheme} from "@mui/system";
 import GridLayout from "../layouts/GridLayout";
-import {Button, Grid, InputAdornment, InputLabel, TextField, Typography} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-import {perfil} from "../services/testData";
-import {Label} from "@mui/icons-material";
+import {Button, Grid, InputLabel, TextField, Typography} from "@mui/material";
 import Center from "../layouts/Center";
 
 function PagePerfil() {
 
     const theme = useTheme();
-
-    const meuPerfil = perfil;
 
     return (
         <GridLayout pageTitle='Perfil'>
@@ -25,31 +20,31 @@ function PagePerfil() {
                             <Grid item xs={12} md={6} lg={4}>
                                 <Stack spacing={1}>
                                     <InputLabel>Nome</InputLabel>
-                                    <TextField value={meuPerfil.nome}/>
+                                    <TextField value='aaa'/>
                                 </Stack>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                                 <Stack spacing={1}>
                                     <InputLabel>Lattes</InputLabel>
-                                    <TextField value={meuPerfil.lattes}/>
+                                    <TextField value='aaaa'/>
                                 </Stack>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                                 <Stack spacing={1}>
                                     <InputLabel>Cpf</InputLabel>
-                                    <TextField value={meuPerfil.cpf}/>
+                                    <TextField value='aaaa'/>
                                 </Stack>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                                 <Stack spacing={1}>
                                     <InputLabel>Email</InputLabel>
-                                    <TextField value={meuPerfil.email}/>
+                                    <TextField value='aaaa'/>
                                 </Stack>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                                 <Stack spacing={1}>
                                     <InputLabel>Email Alternativo</InputLabel>
-                                    <TextField value={meuPerfil.emailAlternativo}/>
+                                    <TextField value='aaaa'/>
                                 </Stack>
                             </Grid>
                         </Grid>
@@ -60,31 +55,31 @@ function PagePerfil() {
                         <Grid item xs={12} md={6} lg={4}>
                             <Stack spacing={1}>
                                 <InputLabel>Instagram</InputLabel>
-                                <TextField value={meuPerfil.instagram}/>
+                                <TextField value='aaaa'/>
                             </Stack>
                         </Grid>
                         <Grid item xs={12} md={6} lg={4}>
                             <Stack spacing={1}>
                                 <InputLabel>Facebook</InputLabel>
-                                <TextField value={meuPerfil.facebook}/>
+                                <TextField value='aaaa'/>
                             </Stack>
                         </Grid>
                         <Grid item xs={12} md={6} lg={4}>
                             <Stack spacing={1}>
                                 <InputLabel>LinkedIn</InputLabel>
-                                <TextField value={meuPerfil.linkedin}/>
+                                <TextField value='aaaa'/>
                             </Stack>
                         </Grid>
                         <Grid item xs={12} md={6} lg={4}>
                             <Stack spacing={1}>
                                 <InputLabel>Youtube</InputLabel>
-                                <TextField value={meuPerfil.youtube}/>
+                                <TextField value='aaaa'/>
                             </Stack>
                         </Grid>
                         <Grid item xs={12} md={6} lg={4}>
                             <Stack spacing={1}>
                                 <InputLabel>TikTok</InputLabel>
-                                <TextField value={meuPerfil.tiktok}/>
+                                <TextField value='aaaa'/>
                             </Stack>
                         </Grid>
                     </Grid>

@@ -7,6 +7,10 @@ import {LayoutContext} from "../providers/LayoutProvider";
 import {Grid, Typography} from "@mui/material";
 import logo from "../../public/assets/images/logo.png";
 import rocket from "../../public/assets/images/rocket.svg";
+import {Outlet, Route, Routes} from "react-router-dom";
+import PageCadastro from "../pages/PageCadastro";
+import PagePerfil from "../pages/PagePerfil";
+import PageLogin from "../pages/PageLogin";
 
 function LayoutAuth(props) {
 
@@ -42,7 +46,7 @@ function LayoutAuth(props) {
             </Grid>
             <Grid item xs={12} lg={6} padding='25px' sx={{backgroundColor: theme.palette.secondary.main}}>
                 <Center>
-                    {props.content}
+                    <Outlet/>
                 </Center>
             </Grid>
         </Grid>
