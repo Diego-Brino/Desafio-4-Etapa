@@ -5,5 +5,7 @@ import com.api.scilink.models.CientistaModel;
 public interface AuthService {
     CientistaModel loadUserByCpf (String cpf);
     CientistaModel saveCientista (CientistaModel cientistaModel);
-    Boolean existsCientistaByCpf (String cpfCientista);
+    Boolean existsCientistaByCpf (String cpf);
+    Boolean existsCientistaByLattes (String lattes);
+    Boolean existsCientistaByEmail (String email);
 }

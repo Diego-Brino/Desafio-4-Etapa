@@ -1,9 +1,9 @@
 package com.api.scilink.services.auth;
 
-import com.api.scilink.exceptions.user.CpfJaCadastradoException;
+import com.api.scilink.exceptions.auth.CpfJaCadastradoException;
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
-import com.api.scilink.exceptions.user.EmailJaCadastradoException;
-import com.api.scilink.exceptions.user.LattesJaCadastradoException;
+import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
+import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.util.LogInfoUtil;
@@ -62,7 +62,17 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
     }
 
     @Override
-    public Boolean existsCientistaByCpf (String cpfCientista) {
-        return cientistaRepository.existsByCpf(cpfCientista);
+    public Boolean existsCientistaByCpf (String cpf) {
+        return cientistaRepository.existsByCpf(cpf);
+    }
+
+    @Override
+    public Boolean existsCientistaByLattes (String lattes) {
+        return cientistaRepository.existsByLattes(lattes);
+    }
+
+    @Override
+    public Boolean existsCientistaByEmail (String email) {
+        return cientistaRepository.existsByEmail(email);
     }
 }
