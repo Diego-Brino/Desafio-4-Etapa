@@ -47,12 +47,6 @@ public class AuthHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(SenhaIncorretaException.class)
-    public ResponseEntity<Object> handleSenhaIncorretaException (SenhaIncorretaException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "senha");
-        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
-    }
-
     @ExceptionHandler(CpfInvalidoException.class)
     public ResponseEntity<Object> handleCpfInvalidoException (CpfInvalidoException exception) {
         LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "cpf");
@@ -80,6 +74,18 @@ public class AuthHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(LattesJaCadastradoException.class)
     public ResponseEntity<Object> handleLattesJaCadastradoException (LattesJaCadastradoException exception) {
         LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "lattes");
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(TelefoneJaCadastradoException.class)
+    public ResponseEntity<Object> handleTelefoneJaCadastradoException (TelefoneJaCadastradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "telefone");
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(SenhaIncorretaException.class)
+    public ResponseEntity<Object> handleSenhaIncorretaException (SenhaIncorretaException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "senha");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 

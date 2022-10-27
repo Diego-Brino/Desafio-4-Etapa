@@ -1,11 +1,14 @@
 package com.api.scilink.services.auth;
 
-import com.api.scilink.exceptions.auth.CpfJaCadastradoException;
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.auth.CpfJaCadastradoException;
 import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
 import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
+import com.api.scilink.exceptions.auth.TelefoneJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
+import com.api.scilink.repositories.TelefoneRepository;
+import com.api.scilink.services.telefone.TelefoneServiceImpl;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,8 +20,10 @@ import javax.transaction.Transactional;
 @Service
 public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDetailsService {
     private final CientistaRepository cientistaRepository;
-    public AuthServiceImpl(CientistaRepository cientistaRepository) {
+    private final TelefoneServiceImpl telefoneServiceImpl;
+    public AuthServiceImpl(CientistaRepository cientistaRepository, TelefoneServiceImpl telefoneServiceImpl) {
         this.cientistaRepository = cientistaRepository;
+        this.telefoneServiceImpl = telefoneServiceImpl;
     }
 
     @Override
@@ -36,7 +41,7 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
     @Transactional
     public CientistaModel loadUserByCpf (String cpf) {
         CientistaModel cientistaModel = cientistaRepository.findCientistaModelByCpf(cpf)
-                .orElseThrow(() -> new CpfNaoEncontradoException());
+                .orElseThrow(CpfNaoEncontradoException::new);
 
         printLogInfo("Usuário logado!");
         return new CientistaModel(cientistaModel.getNome(), cientistaModel.getCpf(), cientistaModel.getSenha());
@@ -48,31 +53,48 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
         if (cientistaRepository.existsByCpf(cientistaModel.getCpf())) {
             printLogErro("O Cpf informado já está cadastrado!");
             throw new CpfJaCadastradoException();
-        } else if (cientistaRepository.existsByEmail(cientistaModel.getEmail())) {
+        }
+        if (cientistaRepository.existsByEmail(cientistaModel.getEmail())) {
             printLogErro("O E-mail informado já está cadastrado!");
             throw new EmailJaCadastradoException();
-        } else if (cientistaRepository.existsByLattes(cientistaModel.getLattes())) {
+        }
+        if (cientistaRepository.existsByLattes(cientistaModel.getLattes())) {
             printLogErro("O Lattes informado já está cadastrado!");
             throw new LattesJaCadastradoException();
-        } else {
-            printLogInfo("Cientista cadastrado!");
-            cientistaRepository.save(cientistaModel);
-            return cientistaModel;
         }
+        if (!cientistaModel.getTelefones().isEmpty()) {
+            cientistaModel.getTelefones().forEach(telefoneModel -> {
+                if (telefoneServiceImpl.existsTelefoneModelByDddAndNumero
+                        (telefoneModel.getTelefoneId().getDdd(),
+                         telefoneModel.getTelefoneId().getNumero())
+                   ) {
+                    printLogErro("O telefone informado já está cadastrado!");
+                    throw new TelefoneJaCadastradoException();
+                }
+            });
+        }
+        printLogInfo("Cientista cadastrado!");
+        cientistaRepository.save(cientistaModel);
+        telefoneServiceImpl.cadastrarListaTelefoneModels(cientistaRepository
+                .findCientistaModelByCpf(cientistaModel.getCpf()).get().getTelefones());
+        return cientistaModel;
     }
 
     @Override
     public Boolean existsCientistaByCpf (String cpf) {
+        printLogInfo("Verificando existência de um cientista pelo cpf!");
         return cientistaRepository.existsByCpf(cpf);
     }
 
     @Override
     public Boolean existsCientistaByLattes (String lattes) {
+        printLogInfo("Verificando existência de um cientista pelo lattes!");
         return cientistaRepository.existsByLattes(lattes);
     }
 
     @Override
     public Boolean existsCientistaByEmail (String email) {
+        printLogInfo("Verificando existência de um cientista pelo email!");
         return cientistaRepository.existsByEmail(email);
     }
 }

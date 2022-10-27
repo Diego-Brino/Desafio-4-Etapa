@@ -95,5 +95,12 @@ public class CientistaDto {
         this.senha = senha;
     }
 
+    public List<TelefoneDto> getTelefones() {
+        return telefones;
+    }
+    public void setTelefones(List<TelefoneDto> telefones) {
+        this.telefones = telefones;
+    }
+
     //endregion
 }

@@ -3,8 +3,11 @@ package com.api.scilink.controllers;
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.dtos.CientistaDto;
 import com.api.scilink.dtos.LoginDto;
+import com.api.scilink.dtos.TelefoneDto;
 import com.api.scilink.exceptions.auth.*;
 import com.api.scilink.models.CientistaModel;
+import com.api.scilink.models.TelefoneId;
+import com.api.scilink.models.TelefoneModel;
 import com.api.scilink.services.auth.AuthServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
@@ -17,7 +20,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -56,9 +61,14 @@ public class AuthController extends LogInfoUtil {
     public ResponseEntity<?> cadastroNovoCientista (@RequestBody @Valid CientistaDto cientistaDto) {
         printLogInfo("Novo cadastro iniciado!");
         CientistaModel cientistaModel = new CientistaModel();
-        BeanUtils.copyProperties(cientistaDto, cientistaModel);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(authServiceImpl.saveCientista(cientistaModel));
+        BeanUtils.copyProperties(cientistaDto, cientistaModel);
+        if (!cientistaDto.getTelefones().isEmpty()) {
+            cientistaModel.setTelefones(_retornaListaTelefonesModel(cientistaDto, cientistaModel));
+        }
+
+        authServiceImpl.saveCientista(cientistaModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cientistaDto);
     }
 
     @PostMapping("/{valor}")
@@ -92,5 +102,18 @@ public class AuthController extends LogInfoUtil {
             default:
                 return ResponseEntity.status(HttpStatus.OK).body("Parâmetro informado é inválido!");
         }
+    }
+
+    private List<TelefoneModel> _retornaListaTelefonesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
+        List<TelefoneModel> listaTelefoneModel = new ArrayList<>();
+
+        cientistaDto.getTelefones().forEach(telefoneDto -> {
+            TelefoneId telefoneIdTemp = new TelefoneId();
+            BeanUtils.copyProperties(telefoneDto, telefoneIdTemp);
+            TelefoneModel telefoneModelTemp = new TelefoneModel(telefoneIdTemp, cientistaModel);
+            listaTelefoneModel.add(telefoneModelTemp);
+        });
+
+        return listaTelefoneModel;
     }
 }

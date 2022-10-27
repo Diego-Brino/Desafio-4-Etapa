@@ -39,6 +39,23 @@ public class TelefoneId implements Serializable {
         this.numero = numero;
     }
 
+    //endregion
+
+    //region constructors
+
+    public TelefoneId() {
+
+    }
+    public TelefoneId (Integer id_cientista, Integer ddd, String numero) {
+        this.id_cientista = id_cientista;
+        this.ddd = ddd;
+        this.numero = numero;
+    }
+
+    //endregion
+
+    //region methods
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
