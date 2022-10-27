@@ -37,6 +37,8 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/auth/*").permitAll()
                 .antMatchers("/auth/*?*").permitAll()
+                .antMatchers("/titulacoes").permitAll()
+                .antMatchers("/areasAtuacao").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

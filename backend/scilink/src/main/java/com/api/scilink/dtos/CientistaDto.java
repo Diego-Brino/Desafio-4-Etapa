@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 public class CientistaDto {
     @Size(max = 50)
@@ -34,13 +35,13 @@ public class CientistaDto {
     private String senha;
 
 //    private List<ProjetoDto> projetos;
-//
-//    private List<TelefoneDto> telefones;
-//
+
+    private List<TelefoneDto> telefones;
+
 //    private List<RedeSocialDto> redesSociais;
-//
+
 //    private List<AreaAtuacaoCientistaDto> areasAtuacao;
-//
+
 //    private List<FormacaoDto> formacoes;
 
     //region Getters and Setters

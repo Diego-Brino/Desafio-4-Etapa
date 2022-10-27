@@ -26,12 +26,12 @@ public class CientistaController extends LogInfoUtil {
         printLogInfo("Iniciando busca por todos os cientistas!");
         List<CientistaDto> listaCientistaDto = new ArrayList<>();
 
-        for (CientistaModel cientistaModel : cientistaServiceImpl.buscarTodosOsCientistas()) {
+        cientistaServiceImpl.buscarTodosOsCientistas().forEach(cientistaModel -> {
             CientistaDto cientistaDtoTemp = new CientistaDto();
             BeanUtils.copyProperties(cientistaModel, cientistaDtoTemp);
 
             listaCientistaDto.add(cientistaDtoTemp);
-        }
+        });
 
         return ResponseEntity.status(HttpStatus.OK).body(listaCientistaDto);
     }

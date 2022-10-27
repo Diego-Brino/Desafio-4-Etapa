@@ -27,6 +27,14 @@ public class AuthHandler extends ResponseEntityExceptionHandler {
         return body;
     }
 
+    private LinkedHashMap<Object, Object> _preencherMensagensDeErro(String message, String attribute) {
+        LinkedHashMap<Object, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(LocalDateTime.now()));
+        body.put("message", message);
+        body.put("attribute", attribute);
+        return body;
+    }
+
     @ExceptionHandler(CientistaNaoEncontradoException.class)
     public ResponseEntity<Object> handleCientistaNotFoundException (CientistaNaoEncontradoException exception) {
         LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
@@ -35,43 +43,43 @@ public class AuthHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CpfNaoEncontradoException.class)
     public ResponseEntity<Object> handleCpfNotFoundException (CpfNaoEncontradoException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "cpf");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(SenhaIncorretaException.class)
     public ResponseEntity<Object> handleSenhaIncorretaException (SenhaIncorretaException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "senha");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(CpfInvalidoException.class)
     public ResponseEntity<Object> handleCpfInvalidoException (CpfInvalidoException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "cpf");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(CpfJaCadastradoException.class)
     public ResponseEntity<Object> handleCpfJaCadastradoException (CpfJaCadastradoException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "cpf");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(EmailInvalidoException.class)
     public ResponseEntity<Object> handleEmailInvalidoException (EmailInvalidoException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "email");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(EmailJaCadastradoException.class)
     public ResponseEntity<Object> handleEmailJaCadastradoException (EmailJaCadastradoException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "email");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(LattesJaCadastradoException.class)
     public ResponseEntity<Object> handleLattesJaCadastradoException (LattesJaCadastradoException exception) {
-        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "lattes");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
