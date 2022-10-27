@@ -35,10 +35,8 @@ public class CientistaDto {
     private String senha;
 
 //    private List<ProjetoDto> projetos;
-
     private List<TelefoneDto> telefones;
-
-//    private List<RedeSocialDto> redesSociais;
+    private List<RedeSocialDto> redesSociais;
 
 //    private List<AreaAtuacaoCientistaDto> areasAtuacao;
 
@@ -100,6 +98,13 @@ public class CientistaDto {
     }
     public void setTelefones(List<TelefoneDto> telefones) {
         this.telefones = telefones;
+    }
+
+    public List<RedeSocialDto> getRedesSociais() {
+        return redesSociais;
+    }
+    public void setRedesSociais(List<RedeSocialDto> redesSociais) {
+        this.redesSociais = redesSociais;
     }
 
     //endregion

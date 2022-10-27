@@ -6,6 +6,7 @@ import com.api.scilink.dtos.LoginDto;
 import com.api.scilink.dtos.TelefoneDto;
 import com.api.scilink.exceptions.auth.*;
 import com.api.scilink.models.CientistaModel;
+import com.api.scilink.models.RedeSocialModel;
 import com.api.scilink.models.TelefoneId;
 import com.api.scilink.models.TelefoneModel;
 import com.api.scilink.services.auth.AuthServiceImpl;
@@ -13,6 +14,7 @@ import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
 import com.api.scilink.util.Util;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,8 +65,13 @@ public class AuthController extends LogInfoUtil {
         CientistaModel cientistaModel = new CientistaModel();
 
         BeanUtils.copyProperties(cientistaDto, cientistaModel);
+
         if (!cientistaDto.getTelefones().isEmpty()) {
             cientistaModel.setTelefones(_retornaListaTelefonesModel(cientistaDto, cientistaModel));
+        }
+
+        if (!cientistaDto.getRedesSociais().isEmpty()) {
+            cientistaModel.setRedesSociais(_retornaListaRedesSociaisModel(cientistaDto));
         }
 
         authServiceImpl.saveCientista(cientistaModel);
@@ -115,5 +122,17 @@ public class AuthController extends LogInfoUtil {
         });
 
         return listaTelefoneModel;
+    }
+
+    private List<RedeSocialModel> _retornaListaRedesSociaisModel (CientistaDto cientistaDto) {
+        List<RedeSocialModel> listaRedeSocialModel = new ArrayList<>();
+
+        cientistaDto.getRedesSociais().forEach(redeSocialDto -> {
+            RedeSocialModel redeSocialModelTemp = new RedeSocialModel();
+            BeanUtils.copyProperties(cientistaDto.getRedesSociais(), redeSocialModelTemp);
+            listaRedeSocialModel.add(redeSocialModelTemp);
+        });
+
+        return listaRedeSocialModel;
     }
 }

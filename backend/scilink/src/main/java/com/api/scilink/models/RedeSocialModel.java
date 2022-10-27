@@ -20,6 +20,18 @@ public class RedeSocialModel implements Serializable {
     @Column(name = "tip_rede_social", length = 1)
     private Character tipo;
 
+    //region Constructors
+
+    public RedeSocialModel() { }
+
+    public RedeSocialModel(CientistaModel cientista, String endereco, Character tipo) {
+        this.cientista = cientista;
+        this.endereco = endereco;
+        this.tipo = tipo;
+    }
+
+    //endregion
+
     //region Getters and Setters
 
     public Integer getId_rede_social() {

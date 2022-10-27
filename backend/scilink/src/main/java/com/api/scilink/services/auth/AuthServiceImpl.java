@@ -6,8 +6,10 @@ import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
 import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.exceptions.auth.TelefoneJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
+import com.api.scilink.models.RedeSocialModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.repositories.TelefoneRepository;
+import com.api.scilink.services.redeSocial.RedeSocialServiceImpl;
 import com.api.scilink.services.telefone.TelefoneServiceImpl;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +18,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDetailsService {
     private final CientistaRepository cientistaRepository;
     private final TelefoneServiceImpl telefoneServiceImpl;
-    public AuthServiceImpl(CientistaRepository cientistaRepository, TelefoneServiceImpl telefoneServiceImpl) {
+    private final RedeSocialServiceImpl redeSocialServiceImpl;
+    public AuthServiceImpl(CientistaRepository cientistaRepository,
+                           TelefoneServiceImpl telefoneServiceImpl,
+                           RedeSocialServiceImpl redeSocialServiceImpl) {
         this.cientistaRepository = cientistaRepository;
         this.telefoneServiceImpl = telefoneServiceImpl;
+        this.redeSocialServiceImpl = redeSocialServiceImpl;
     }
 
     @Override
@@ -75,8 +82,17 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
         }
         printLogInfo("Cientista cadastrado!");
         cientistaRepository.save(cientistaModel);
-        telefoneServiceImpl.cadastrarListaTelefoneModels(cientistaRepository
-                .findCientistaModelByCpf(cientistaModel.getCpf()).get().getTelefones());
+
+        CientistaModel cientistaModelTemp = cientistaRepository
+                .findCientistaModelByCpf(cientistaModel.getCpf()).get();
+
+        telefoneServiceImpl.cadastrarListaTelefoneModels(cientistaModelTemp.getTelefones());
+
+        cientistaModel.getRedesSociais().forEach(redeSocialModel -> {
+            redeSocialModel.setCientista(cientistaModelTemp);
+            redeSocialServiceImpl.cadastrarRedeSocial(redeSocialModel);
+        });
+
         return cientistaModel;
     }
 
