@@ -1,17 +1,26 @@
 import React, {useState} from "react";
-import {Stack, useTheme} from "@mui/system";
+import {Box, Stack, useTheme} from "@mui/system";
 import {Button, Typography} from "@mui/material";
 import {motion} from "framer-motion";
 import InputText from "../../components/controls/InputText";
 import InputEmail from "../../components/controls/InputEmail";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import InputDate from "../../components/controls/InputDate";
+import InputSelect from "../../components/controls/InputSelect";
+import AddIcon from '@mui/icons-material/Add';
 
-function CadastroFormStep2(props) {
+function CadastroFormStep3(props) {
 
     const theme = useTheme();
 
     const [loading, setLoading] = useState(false);
+
+    const values = [
+        "teste1",
+        "teste2",
+        "teste3",
+        "teste4"
+    ]
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,48 +28,25 @@ function CadastroFormStep2(props) {
         setLoading(true);
 
         setTimeout(() => {
-            props.setStep(2);
+            props.setStep(3);
             setLoading(false)
         }, 1000);
     }
 
     const handleGoBack = () => {
-        props.setStep(0);
+        props.setStep(1);
     }
 
     return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
             <form onSubmit={handleSubmit}>
                 <Stack spacing={4}>
-                    <InputText
-                        value={props.cadastro.nome}
-                        name='nome'
-                        label={'Nome'}
-                        onChange={props.onChange}
-                        autoFocus={true}
-                        inputProps={{maxLength: 50}}
-                    />
-                    <InputDate
-                        value={props.cadastro.dataNascimento}
-                        name='dataNascimento'
-                        label='Data Nascimento'
-                        onChange={props.onChange}
-                    />
-                    <InputEmail
-                        value={props.cadastro.emailAlternativo}
-                        name='emailAlternativo'
-                        label='Email Alternativo'
-                        onChange={props.onChange}
-                        inputProps={{maxLength: 50}}
-                    />
-                    <InputText
-                        mask={'(99)99999-9999'}
-                        value={props.cadastro.telefones[0]}
-                        name='telefones[0]'
-                        label='Telefone'
-                        onChange={props.onChange}
-                        inputProps={{maxLength: 14}}
-                    />
+                    <Stack direction='row' alignItems='center'>
+                        <InputSelect values={values} sx={{width: '80%'}}/>
+                        <Button variant="contained" sx={{width: '50px'}} type='button' onClick={handleGoBack}>
+                            <AddIcon/>
+                        </Button>
+                    </Stack>
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
                         <Button variant="contained" sx={{width: '120px'}} type='button' onClick={handleGoBack}>
                             <Typography color='secondary'>Voltar</Typography>
@@ -75,4 +61,4 @@ function CadastroFormStep2(props) {
     )
 }
 
-export default CadastroFormStep2;
+export default CadastroFormStep3;

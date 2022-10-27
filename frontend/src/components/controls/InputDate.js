@@ -7,6 +7,7 @@ function InputDate(props) {
     return (
         <FormControl>
             <TextField
+                focused={true}
                 error={props.error}
                 required={props.required}
                 variant="filled"

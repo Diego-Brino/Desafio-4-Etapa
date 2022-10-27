@@ -7,6 +7,9 @@ import {LayoutContext} from "../../providers/LayoutProvider";
 import InputMask from "react-input-mask";
 import {motion} from "framer-motion";
 import CadastroFormStep1 from "./CadastroFormStep1";
+import CadastroFormStep2 from "./CadastroFormStep2";
+import {compareAllObjectKeys} from "../../utils/utils";
+import CadastroFormStep3 from "./CadastroFormStep3";
 
 function CadastroForm() {
 
@@ -28,8 +31,10 @@ function CadastroForm() {
         areasAtuacao: [],
         formacoes: [],
     });
-    const [errorMessage, setErrorMessage] = useState("");
-    const [error, setError] = useState(false);
+    const [error, setError] = useState({
+        input: null,
+        message: null
+    });
     const [step, setStep] = useState(0);
 
     const handleOnChange = (e) => {
@@ -49,7 +54,6 @@ function CadastroForm() {
             setErrorMessage("");
             navigate("/login");
         }
-
     }
 
     return (
@@ -59,70 +63,22 @@ function CadastroForm() {
                     Cadastro
                 </Typography>
                 {step === 0 &&
-                    <CadastroFormStep1 cadastro={cadastro} ={setCadastro} error={error} setStep={setStep}/>
+                    <CadastroFormStep1 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
                 }
                 {step === 1 &&
-                    <motion.div initial={{opacity: 0}} key={step} animate={{
-                        opacity: 1,
-                        transition: {duration: 0.25}
-                    }}>
-                        <Stack spacing={4}>
-                            <TextField
-                                label="Nome "
-                                variant="filled"
-                                type="text"
-                                value={cadastro.nomeCientista}
-                                onChange={e => {
-                                    setCadastro(prevState => ({...prevState, nomeCientista: e.target.value}))
-                                }}
-                            />
-                            <TextField
-                                label="Data de Nascimento"
-                                variant="filled"
-                                focused={true}
-                                type="date"
-                                onChange={e => {
-                                    setCadastro(prevState => ({...prevState, dtnCientista: e.target.value}))
-                                }}
-                            />
-                            <TextField
-                                label="Email"
-                                variant="filled"
-                                type="email"
-                                required
-                                onChange={e => {
-                                    setCadastro(prevState => ({...prevState, lattesCientista: e.target.value}))
-                                }}
-                            />
-                            <TextField
-                                label="Senha"
-                                variant="filled"
-                                type="password"
-                                required
-                                onChange={e => {
-                                    setCadastro(prevState => ({...prevState, lattesCientista: e.target.value}))
-                                }}
-                            />
-                            {error &&
-                                <Alert severity="error">
-                                    {errorMessage}
-                                </Alert>
-                            }
-                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Button variant="contained" sx={{width: '40%'}} type={"button"}
-                                        onClick={() => setStep(0)}>
-                                    <Typography color='secondary'>Voltar</Typography>
-                                </Button>
-                                <Button variant="contained" sx={{width: '40%'}} type={"button"}
-                                        onClick={() => setStep(2)}>
-                                    <Typography color='secondary'>Avançar</Typography>
-                                </Button>
-                            </Stack>
-                        </Stack>
-                    </motion.div>
+                    <CadastroFormStep2 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
+                }
+                {step === 2 &&
+                    <CadastroFormStep3 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
+                }
+                {error.message != null &&
+                    <Alert severity="error">
+                        {error.message}
+                    </Alert>
                 }
                 <Typography variant="body1" textAlign={"center"}>
-                    Já possui uma Conta?&nbsp;<Link as={RouterLink} to={"/auth/login"} variant={"underline-secondary"}>Entre aqui</Link>
+                    Já possui uma Conta?&nbsp;<Link as={RouterLink} to={"/auth/login"} variant={"underline-secondary"}>Entre
+                    aqui</Link>
                 </Typography>
             </Stack>
         </Box>

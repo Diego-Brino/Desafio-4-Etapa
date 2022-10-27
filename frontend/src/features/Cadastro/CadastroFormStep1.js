@@ -7,18 +7,13 @@ import InputText from "../../components/controls/InputText";
 import {login} from "../../services/authService";
 import InputEmail from "../../components/controls/InputEmail";
 import InputPassword from "../../components/controls/InputPassword";
+import LoadingButton from "../../components/buttons/LoadingButton";
 
 function CadastroFormStep1(props) {
 
     const theme = useTheme();
 
     const [loading, setLoading] = useState(false);
-    const [errorMessages, setErrorMessages] = useState({
-        cpf: "",
-        lattes: "",
-        email: "",
-        senha: ""
-    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,6 +22,7 @@ function CadastroFormStep1(props) {
 
         setTimeout(() => {
             props.setStep(1);
+            setLoading(false)
         }, 1000);
     }
 
@@ -40,47 +36,41 @@ function CadastroFormStep1(props) {
                         value={props.cadastro.cpf}
                         name='cpf'
                         label='CPF'
-                        onChange={props.handleOnChange}
+                        onChange={props.onChange}
                         autoFocus={true}
                         inputProps={{maxLength: 14}}
-                        error={errorMessages.cpf !== ''}
+                        error={props.error.input == 'cpf'}
                     />
                     <InputText
                         required={true}
                         value={props.cadastro.lattes}
                         name='lattes'
                         label='Lattes'
-                        onChange={props.handleOnChange}
+                        onChange={props.onChange}
                         inputProps={{maxLength: 50}}
-                        error={errorMessages.lattes !== ''}
+                        error={props.error.lattes == 'lattes'}
                     />
                     <InputEmail
                         required={true}
                         value={props.cadastro.email}
                         name='email'
                         label='Email'
-                        onChange={props.handleOnChange}
+                        onChange={props.onChange}
                         inputProps={{maxLength: 50}}
-                        error={errorMessages.email !== ''}
+                        error={props.error.email == 'email'}
                     />
                     <InputPassword
                         required={true}
                         value={props.cadastro.senha}
                         name='senha'
                         label='Senha'
-                        onChange={props.handleOnChange}
+                        onChange={props.onChange}
                         inputProps={{maxLength: 10}}
-                        error={errorMessages.senha !== ''}
                     />
-                    {props.error &&
-                        <Alert severity="error">
-                            {props.errorMessage}
-                        </Alert>
-                    }
                     <Stack direction='row' justifyContent='flex-end'>
-                        <Button variant="contained" sx={{width: '40%'}} type="submit">
+                        <LoadingButton sx={{width: '120px'}} type='submit' loading={loading}>
                             <Typography color='secondary'>Avançar</Typography>
-                        </Button>
+                        </LoadingButton>
                     </Stack>
                 </Stack>
             </form>

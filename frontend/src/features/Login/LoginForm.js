@@ -1,15 +1,16 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack} from "@mui/system";
-import {Alert, Button, CircularProgress, Link, Typography} from "@mui/material";
+import {Alert, AlertTitle, Button, CircularProgress, Link, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {LayoutContext} from "../../providers/LayoutProvider";
 import {motion} from "framer-motion";
 import {login} from "../../services/authService";
-import {removeMaskCpf} from "../../utils/utils";
+import {compareAllObjectKeys, removeMaskCpf} from "../../utils/utils";
 import InputText from "../../components/controls/InputText";
 import InputPassword from "../../components/controls/InputPassword";
 import InputCheckbox from "../../components/controls/InputCheckbox";
+import LoadingButton from "../../components/buttons/LoadingButton";
 
 function LoginForm() {
 
@@ -22,9 +23,9 @@ function LoginForm() {
         senha: ""
     });
     const [lembrarSenha, setLembrarSenha] = useState(false);
-    const [errorMessages, setErrorMessages] = useState({
-        cpf: "",
-        senha: ""
+    const [error, setError] = useState({
+        input: null,
+        message: null
     });
     const [loading, setLoading] = useState(false);
 
@@ -41,10 +42,9 @@ function LoginForm() {
 
         setTimeout(() => {
             login(credencial).then((res) => {
-                setErrorMessages(prevState => ({
-                    ...prevState,
-                    cpf: '',
-                    senha: ''
+                setError(() => ({
+                    input: null,
+                    message: null
                 }));
                 if (lembrarSenha) {
                     localStorage.setItem("token", res.data);
@@ -54,25 +54,17 @@ function LoginForm() {
                 //navigate('/meus-projetos');
                 setLoading(false);
             }).catch((err) => {
-                switch (err.response.data.message){
-                    case 'O CPF é obrigatório!':
-                        setErrorMessages(prevState => ({
-                            ...prevState, cpf: 'CPF é obrigatório!'
-                        }));
-                        break
+                switch (err.response.data){
                     case 'O cpf informado está incorreto!':
-                        setErrorMessages(prevState => ({
-                            ...prevState, cpf: 'CPF não cadastrado!'
-                        }));
-                        break
-                    case 'A Senha é obrigatória!':
-                        setErrorMessages(prevState => ({
-                            ...prevState, cpf: 'Senha é obrigatória!'
+                        setError(() => ({
+                            input: 'cpf',
+                            message: 'CPF não cadastrado!'
                         }));
                         break
                     case 'A senha digitada está incorreta!':
-                        setErrorMessages(prevState => ({
-                            ...prevState, cpf: 'Senha inválida!'
+                        setError(() => ({
+                            input: 'senha',
+                            message: 'Senha inválida!'
                         }));
                         break
                 }
@@ -107,7 +99,7 @@ function LoginForm() {
                             onChange={handleOnChange}
                             autoFocus={true}
                             inputProps={{maxLength: 14}}
-                            error={errorMessages.cpf !== ''}
+                            error={error.input == 'cpf'}
                         />
                         <Stack direction='column' spacing={1}>
                             <InputPassword
@@ -117,31 +109,22 @@ function LoginForm() {
                                 label='Senha'
                                 onChange={handleOnChange}
                                 inputProps={{maxLength: 10}}
-                                error={errorMessages.senha !== ''}
+                                error={error.input == 'senha'}
                             />
                             <InputCheckbox
                                 onChange={handleOnChangeLembrarSenha}
                                 label='Lembrar Senha'
                             />
                         </Stack>
-                        {(errorMessages.cpf !== '' || errorMessages.senha !== '') &&
+                        {error.message != null &&
                             <Alert severity="error">
-                                {
-                                    Object.keys(errorMessages).map((i) => {
-                                        if(errorMessages[i] !== ''){
-                                            return errorMessages[i]
-                                        }
-                                    })
-                                }
+                                {error.message}
                             </Alert>
                         }
                         <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                            <Button variant="contained" sx={{width: '120px'}} type="submit" disabled={loading}>
-                                {!loading
-                                    ? <Typography color='secondary'>Entrar</Typography>
-                                    : <CircularProgress size={24} color='secondary'/>
-                                }
-                            </Button>
+                            <LoadingButton sx={{width: '120px'}} type='submit' loading={loading}>
+                                <Typography color='secondary'>Entrar</Typography>
+                            </LoadingButton>
                             <Typography variant="body1" textAlign="center">
                                 <Link as={RouterLink} to="/auth/cadastro" variant="primary">Criar Conta</Link>
                             </Typography>
