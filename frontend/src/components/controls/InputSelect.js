@@ -8,17 +8,14 @@ function InputDate(props) {
         <FormControl sx={props.formControlSx}>
             <InputLabel variant='filled'>{props.label}</InputLabel>
             <Select
+                multiple={props.multiple}
                 sx={props.sx}
                 variant='filled'
                 value={props.value}
-                onChange={props.onChange}>
-                {
-                    props.values.map((text, index) => {
-                        return(
-                            <MenuItem key={index} value={text}>{text}</MenuItem>
-                        )
-                    })
-                }
+                onChange={props.onChange}
+                renderValue={props.renderValue}
+            >
+                {props.children}
             </Select>
         </FormControl>
     )

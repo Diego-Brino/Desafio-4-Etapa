@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Stack, useTheme} from "@mui/system";
 import InputMask from "react-input-mask";
 import {Alert, Button, Grid, TextField, Typography} from "@mui/material";
@@ -10,6 +10,7 @@ import InputPassword from "../../components/controls/InputPassword";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import InputDate from "../../components/controls/InputDate";
 import {useNavigate} from "react-router-dom";
+import {LayoutContext} from "../../providers/LayoutProvider";
 
 function CadastroFormStepGeneral(props) {
 
@@ -18,6 +19,7 @@ function CadastroFormStepGeneral(props) {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const layout = useContext(LayoutContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -53,13 +55,12 @@ function CadastroFormStepGeneral(props) {
                                     error={props.error.input == 'cpf'}
                                 />
                                 <InputText
-                                    required={true}
-                                    value={props.cadastro.lattes}
-                                    name='lattes'
-                                    label='Lattes'
+                                    value={props.cadastro.nome}
+                                    name='nome'
+                                    label={'Nome'}
                                     onChange={props.onChange}
+                                    autoFocus={true}
                                     inputProps={{maxLength: 50}}
-                                    error={props.error.lattes == 'lattes'}
                                 />
                                 <InputEmail
                                     required={true}
@@ -83,23 +84,24 @@ function CadastroFormStepGeneral(props) {
                         <Grid item xs={12} lg={6}>
                             <Stack spacing={4}>
                                 <InputText
-                                    value={props.cadastro.nome}
-                                    name='nome'
-                                    label={'Nome'}
+                                    required={true}
+                                    value={props.cadastro.lattes}
+                                    name='lattes'
+                                    label='Lattes'
                                     onChange={props.onChange}
-                                    autoFocus={true}
                                     inputProps={{maxLength: 50}}
+                                    error={props.error.lattes == 'lattes'}
                                 />
                                 <InputDate
                                     value={props.cadastro.dataNascimento}
                                     name='dataNascimento'
-                                    label='Data Nascimento'
+                                    label='Data de Nascimento'
                                     onChange={props.onChange}
                                 />
                                 <InputEmail
                                     value={props.cadastro.emailAlternativo}
                                     name='emailAlternativo'
-                                    label='Email Alternativo'
+                                    label='Email Secundário'
                                     onChange={props.onChange}
                                     inputProps={{maxLength: 50}}
                                 />
@@ -114,7 +116,7 @@ function CadastroFormStepGeneral(props) {
                             </Stack>
                         </Grid>
                     </Grid>
-                    <Stack direction='row' spacing={4} justifyContent='flex-end'>
+                    <Stack direction='row' spacing={4} justifyContent={layout == 'desktop' ? 'flex-end' : 'center'}>
                         <Button variant="contained" sx={{width: '120px'}} type='button' onClick={handleStepBack}>
                             <Typography color='secondary'>Cancelar</Typography>
                         </Button>

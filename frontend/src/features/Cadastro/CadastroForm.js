@@ -9,7 +9,7 @@ import {motion} from "framer-motion";
 import CadastroFormStepGeneral from "./CadastroFormStepGeneral";
 import CadastroFormStep2 from "./CadastroFormStep2";
 import {compareAllObjectKeys} from "../../utils/utils";
-import CadastroFormStep3 from "./CadastroFormStep3";
+import CadastroFormStepSelect from "./CadastroFormStepSelect";
 
 function CadastroForm() {
 
@@ -57,26 +57,31 @@ function CadastroForm() {
     }
 
     return (
-        <Box padding="25px 25px">
-            <Stack spacing={4}>
-                <Typography variant='h3' align='center' fontWeight="bold">
-                    Cadastro
-                </Typography>
-                <Typography variant='h6' align='center' fontWeight="bold">
-                    Campos obrigatórios *
-                </Typography>
-                {step === 0 &&
-                    <CadastroFormStepGeneral cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
-                }
-                {step === 1 &&
-                    <CadastroFormStep3 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
-                }
-                {error.message != null &&
-                    <Alert severity="error">
-                        {error.message}
-                    </Alert>
-                }
-            </Stack>
+        <Box sx={layout === 'desktop' ? {width: "682px"} : {width: "100%", maxWidth: "350px"}} padding="25px 25px">
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
+                <Stack spacing={4}>
+                    <Stack spacing={1}>
+                        <Typography variant='h3' align='center' fontWeight="bold">
+                            Cadastro
+                        </Typography>
+                        <Typography variant='h6' align='center' fontWeight="bold">
+                            Campos obrigatórios *
+                        </Typography>
+                    </Stack>
+                    <CadastroFormStepSelect cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
+                    {/*{step === 0 &&*/}
+                    {/*    <CadastroFormStepGeneral cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>*/}
+                    {/*}*/}
+                    {/*{step === 1 &&*/}
+                    {/*    <CadastroFormStepSelect cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>*/}
+                    {/*}*/}
+                    {error.message != null &&
+                        <Alert severity="error">
+                            {error.message}
+                        </Alert>
+                    }
+                </Stack>
+            </motion.div>
         </Box>
     );
 }

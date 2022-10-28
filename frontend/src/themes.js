@@ -82,6 +82,8 @@ theme = createTheme(theme,{
             styleOverrides: {
                 root: {
                     color: theme.palette.text.primary,
+                    maxWidth: '300px',
+                    width: '100%'
                 },
             },
         },

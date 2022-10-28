@@ -26,7 +26,7 @@ function InputText(props) {
                 : <TextField
                     error={props.error}
                     required={props.required}
-                    variant="filled"
+                    variant={props.variant == null ? "filled" : props.variant}
                     name={props.name}
                     autoFocus={props.autoFocus}
                     inputProps={props.inputProps}

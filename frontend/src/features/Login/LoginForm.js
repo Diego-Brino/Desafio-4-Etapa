@@ -101,7 +101,7 @@ function LoginForm() {
                             inputProps={{maxLength: 14}}
                             error={error.input == 'cpf'}
                         />
-                        <Stack direction='column' spacing={1}>
+                        <Stack spacing={1}>
                             <InputPassword
                                 required={true}
                                 value={credencial.senha}
@@ -121,13 +121,13 @@ function LoginForm() {
                                 {error.message}
                             </Alert>
                         }
-                        <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                        <Stack direction='row' spacing={4} justifyContent={layout === 'desktop' ? 'flex-end' : 'center'}>
+                            <Typography variant="body1" textAlign="center" display='flex' alignItems='center'>
+                                <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
+                            </Typography>
                             <LoadingButton sx={{width: '120px'}} type='submit' loading={loading}>
                                 <Typography color='secondary'>Entrar</Typography>
                             </LoadingButton>
-                            <Typography variant="body1" textAlign="center">
-                                <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
-                            </Typography>
                         </Stack>
                     </Stack>
                 </form>
