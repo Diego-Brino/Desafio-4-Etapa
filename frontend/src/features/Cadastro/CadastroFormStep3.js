@@ -14,6 +14,8 @@ function CadastroFormStep3(props) {
     const theme = useTheme();
 
     const [loading, setLoading] = useState(false);
+    const [areasAtuacao, setAreasAtuacao] = useState([]);
+    const [areaAtuacao, setAreaAtuacao] = useState('');
 
     const values = [
         "teste1",
@@ -33,6 +35,14 @@ function CadastroFormStep3(props) {
         }, 1000);
     }
 
+    const handleAddAreaAtuacao = () => {
+        setAreasAtuacao(prevState => [...prevState, areaAtuacao])
+    }
+
+    const handleOnChangeAreaAtuacao = (e) => {
+        setAreaAtuacao(e.target.value);
+    }
+
     const handleGoBack = () => {
         props.setStep(1);
     }
@@ -41,12 +51,19 @@ function CadastroFormStep3(props) {
         <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
             <form onSubmit={handleSubmit}>
                 <Stack spacing={4}>
-                    <Stack direction='row' alignItems='center'>
-                        <InputSelect values={values} sx={{width: '80%'}}/>
-                        <Button variant="contained" sx={{width: '50px'}} type='button' onClick={handleGoBack}>
+                    <Stack direction='row' alignItems='center' width='100%'>
+                        <InputSelect value={areaAtuacao} onChange={handleOnChangeAreaAtuacao} values={values} label='Área de Atuação' sx={{width: '80%'}} formControlSx={{width: '100%'}}/>
+                        <Button variant="contained" sx={{width: '50px'}} type='button' onClick={handleAddAreaAtuacao}>
                             <AddIcon/>
                         </Button>
                     </Stack>
+                    {
+                        areasAtuacao.map((val, index) => {
+                            return (
+                                <p key={index}>{val}</p>
+                            )
+                        })
+                    }
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
                         <Button variant="contained" sx={{width: '120px'}} type='button' onClick={handleGoBack}>
                             <Typography color='secondary'>Voltar</Typography>

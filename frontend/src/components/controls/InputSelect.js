@@ -5,12 +5,12 @@ import InputMask from "react-input-mask";
 function InputDate(props) {
 
     return (
-        <FormControl>
+        <FormControl sx={props.formControlSx}>
+            <InputLabel variant='filled'>{props.label}</InputLabel>
             <Select
                 sx={props.sx}
                 variant='filled'
                 value={props.value}
-                label={props.label}
                 onChange={props.onChange}>
                 {
                     props.values.map((text, index) => {

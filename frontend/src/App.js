@@ -22,7 +22,7 @@ function App(){
                         <HashRouter>
                             <Routes>
                                 <Route path='/'>
-                                    <Route path='auth' element={<LayoutAuth/>}>
+                                    <Route element={<LayoutAuth/>}>
                                         <Route path='cadastro' element={<PageCadastro/>}/>
                                         <Route path='login' element={<PageLogin/>}/>
                                     </Route>

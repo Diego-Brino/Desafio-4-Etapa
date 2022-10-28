@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack, useTheme} from "@mui/system";
-import {Alert, Button, Link, TextField, Typography} from "@mui/material";
+import {Alert, Button, Grid, Link, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {LayoutContext} from "../../providers/LayoutProvider";
 import InputMask from "react-input-mask";
 import {motion} from "framer-motion";
-import CadastroFormStep1 from "./CadastroFormStep1";
+import CadastroFormStepGeneral from "./CadastroFormStepGeneral";
 import CadastroFormStep2 from "./CadastroFormStep2";
 import {compareAllObjectKeys} from "../../utils/utils";
 import CadastroFormStep3 from "./CadastroFormStep3";
@@ -57,18 +57,18 @@ function CadastroForm() {
     }
 
     return (
-        <Box sx={layout === 'desktop' ? {width: "350px"} : {width: "100%", maxWidth: "350px"}} padding="25px 25px">
+        <Box padding="25px 25px">
             <Stack spacing={4}>
                 <Typography variant='h3' align='center' fontWeight="bold">
                     Cadastro
                 </Typography>
+                <Typography variant='h6' align='center' fontWeight="bold">
+                    Campos obrigatórios *
+                </Typography>
                 {step === 0 &&
-                    <CadastroFormStep1 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
+                    <CadastroFormStepGeneral cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
                 }
                 {step === 1 &&
-                    <CadastroFormStep2 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
-                }
-                {step === 2 &&
                     <CadastroFormStep3 cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
                 }
                 {error.message != null &&
@@ -76,10 +76,6 @@ function CadastroForm() {
                         {error.message}
                     </Alert>
                 }
-                <Typography variant="body1" textAlign={"center"}>
-                    Já possui uma Conta?&nbsp;<Link as={RouterLink} to={"/auth/login"} variant={"underline-secondary"}>Entre
-                    aqui</Link>
-                </Typography>
             </Stack>
         </Box>
     );

@@ -97,7 +97,7 @@ function LoginForm() {
                             name='cpf'
                             label='CPF'
                             onChange={handleOnChange}
-                            autoFocus={true}
+                            autoFocus={false}
                             inputProps={{maxLength: 14}}
                             error={error.input == 'cpf'}
                         />
@@ -126,7 +126,7 @@ function LoginForm() {
                                 <Typography color='secondary'>Entrar</Typography>
                             </LoadingButton>
                             <Typography variant="body1" textAlign="center">
-                                <Link as={RouterLink} to="/auth/cadastro" variant="primary">Criar Conta</Link>
+                                <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
                             </Typography>
                         </Stack>
                     </Stack>
