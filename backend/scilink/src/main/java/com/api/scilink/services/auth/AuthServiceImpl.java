@@ -69,29 +69,26 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
             printLogErro("O Lattes informado já está cadastrado!");
             throw new LattesJaCadastradoException();
         }
-        if (!cientistaModel.getTelefones().isEmpty()) {
-            cientistaModel.getTelefones().forEach(telefoneModel -> {
-                if (telefoneServiceImpl.existsTelefoneModelByDddAndNumero
-                        (telefoneModel.getTelefoneId().getDdd(),
-                         telefoneModel.getTelefoneId().getNumero())
-                   ) {
-                    printLogErro("O telefone informado já está cadastrado!");
-                    throw new TelefoneJaCadastradoException();
-                }
-            });
-        }
+
         printLogInfo("Cientista cadastrado!");
         cientistaRepository.save(cientistaModel);
 
         CientistaModel cientistaModelTemp = cientistaRepository
                 .findCientistaModelByCpf(cientistaModel.getCpf()).get();
 
-        telefoneServiceImpl.cadastrarListaTelefoneModels(cientistaModelTemp.getTelefones());
+        if (cientistaModel.getTelefones() != null) {
+            cientistaModel.getTelefones().forEach(telefoneModel -> {
+                telefoneModel.setCientista(cientistaModelTemp);
+                telefoneServiceImpl.cadastrarTelefoneModel(telefoneModel);
+            });
+        }
 
-        cientistaModel.getRedesSociais().forEach(redeSocialModel -> {
-            redeSocialModel.setCientista(cientistaModelTemp);
-            redeSocialServiceImpl.cadastrarRedeSocial(redeSocialModel);
-        });
+        if (cientistaModel.getRedesSociais() != null) {
+            cientistaModel.getRedesSociais().forEach(redeSocialModel -> {
+                redeSocialModel.setCientista(cientistaModelTemp);
+                redeSocialServiceImpl.cadastrarRedeSocial(redeSocialModel);
+            });
+        }
 
         return cientistaModel;
     }

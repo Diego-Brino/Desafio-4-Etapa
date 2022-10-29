@@ -15,6 +15,12 @@ public class TelefoneServiceImpl extends LogInfoUtil implements TelefoneService 
     }
 
     @Override
+    public TelefoneModel cadastrarTelefoneModel(TelefoneModel telefoneModel) {
+        printLogInfo("Cadastrando um telefone!");
+        return telefoneRepository.save(telefoneModel);
+    }
+
+    @Override
     public List<TelefoneModel> cadastrarListaTelefoneModels(List<TelefoneModel> listaTelefoneModels) {
         printLogInfo("Cadastrando lista de telefones!");
         return telefoneRepository.saveAll(listaTelefoneModels);

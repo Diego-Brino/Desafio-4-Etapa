@@ -3,6 +3,7 @@ package com.api.scilink.controllers;
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
 import com.api.scilink.dtos.CientistaDto;
 import com.api.scilink.dtos.LoginDto;
+import com.api.scilink.dtos.RedeSocialDto;
 import com.api.scilink.dtos.TelefoneDto;
 import com.api.scilink.exceptions.auth.*;
 import com.api.scilink.models.CientistaModel;
@@ -66,11 +67,10 @@ public class AuthController extends LogInfoUtil {
 
         BeanUtils.copyProperties(cientistaDto, cientistaModel);
 
-        if (!cientistaDto.getTelefones().isEmpty()) {
+        if (cientistaDto.getTelefones() != null) {
             cientistaModel.setTelefones(_retornaListaTelefonesModel(cientistaDto, cientistaModel));
         }
-
-        if (!cientistaDto.getRedesSociais().isEmpty()) {
+        if (cientistaDto.getRedesSociais() != null) {
             cientistaModel.setRedesSociais(_retornaListaRedesSociaisModel(cientistaDto));
         }
 
@@ -123,13 +123,12 @@ public class AuthController extends LogInfoUtil {
 
         return listaTelefoneModel;
     }
-
     private List<RedeSocialModel> _retornaListaRedesSociaisModel (CientistaDto cientistaDto) {
         List<RedeSocialModel> listaRedeSocialModel = new ArrayList<>();
 
         cientistaDto.getRedesSociais().forEach(redeSocialDto -> {
             RedeSocialModel redeSocialModelTemp = new RedeSocialModel();
-            BeanUtils.copyProperties(cientistaDto.getRedesSociais(), redeSocialModelTemp);
+            BeanUtils.copyProperties(redeSocialDto, redeSocialModelTemp);
             listaRedeSocialModel.add(redeSocialModelTemp);
         });
 
