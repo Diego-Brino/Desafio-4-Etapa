@@ -6,18 +6,17 @@ import javax.validation.constraints.Size;
 public class LoginDto {
     @NotBlank(message = "O CPF é obrigatório!")
     @Size(max = 11, message = "Por favor, digite um cpf válido!")
-    private String cpfCientista;
+    private String cpf;
     @NotBlank(message = "A Senha é obrigatória!")
     @Size(max = 10, message = "A senha deve conter apenas 10 caracteres!")
-    private String snhCientista;
+    private String senha;
 
     //region Constructors
 
-    public LoginDto(String cpfCientista, String snhCientista) {
-        this.cpfCientista = cpfCientista;
-        this.snhCientista = snhCientista;
+    public LoginDto(String cpf, String senha) {
+        this.cpf = cpf;
+        this.senha = senha;
     }
-
     public LoginDto() {
 
     }
@@ -26,18 +25,18 @@ public class LoginDto {
 
     //region Getters and Setters
 
-    public String getCpfCientista() {
-        return cpfCientista;
+    public String getCpf() {
+        return cpf;
     }
-    public void setCpfCientista(String cpfCientista) {
-        this.cpfCientista = cpfCientista;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getSnhCientista() {
-        return snhCientista;
+    public String getSenha() {
+        return senha;
     }
-    public void setSnhCientista(String snhCientista) {
-        this.snhCientista = snhCientista;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 

@@ -12,12 +12,12 @@ public class AreaAtuacaoCientistaModel implements Serializable {
     @ManyToOne
     @MapsId("id_cientista")
     @JoinColumn(name = "id_cientista",
-            referencedColumnName = "id_cientista")
+                referencedColumnName = "id_cientista")
     private CientistaModel cientista;
     @ManyToOne
     @MapsId("id_area_atuacao")
     @JoinColumn(name = "id_area_atuacao",
-            referencedColumnName = "id_area_atuacao")
+                referencedColumnName = "id_area_atuacao")
     private AreaAtuacaoModel areaAtuacao;
 
     //region Getters and Setters

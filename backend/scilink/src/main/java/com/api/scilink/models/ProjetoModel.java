@@ -3,7 +3,6 @@ package com.api.scilink.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_PROJETO")
@@ -14,19 +13,18 @@ public class ProjetoModel implements Serializable {
     @SequenceGenerator(name = "projeto_sequence", sequenceName = "SEQ_IDPROJETO", allocationSize = 1)
     private Integer id_projeto;
     @ManyToOne
-    @JoinColumn(name = "id_cientista",
-                referencedColumnName = "id_cientista")
+    @JoinColumn(name = "id_cientista")
     private CientistaModel cientista;
     @Column(name = "tit_projeto", length = 50)
-    private String titProjeto;
+    private String titulo;
     @Column(name = "res_projeto", length = 250)
-    private String resProjeto;
+    private String resumo;
     @Column(name = "dti_projeto")
-    private Date dtiProjeto;
+    private Date dataInicio;
     @Column(name = "dtt_projeto")
-    private Date dttProjeto;
+    private Date dataTermino;
     @Column(name = "pub_projeto", nullable = false)
-    private Boolean pubProjeto;
+    private Integer publico;
 
     //region Getters and Setters
 
@@ -44,39 +42,39 @@ public class ProjetoModel implements Serializable {
         this.cientista = cientista;
     }
 
-    public String getTitProjeto() {
-        return titProjeto;
+    public String getTitulo() {
+        return titulo;
     }
-    public void setTitProjeto(String titProjeto) {
-        this.titProjeto = titProjeto;
-    }
-
-    public String getResProjeto() {
-        return resProjeto;
-    }
-    public void setResProjeto(String resProjeto) {
-        this.resProjeto = resProjeto;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public Date getDtiProjeto() {
-        return dtiProjeto;
+    public String getResumo() {
+        return resumo;
     }
-    public void setDtiProjeto(Date dtiProjeto) {
-        this.dtiProjeto = dtiProjeto;
-    }
-
-    public Date getDttProjeto() {
-        return dttProjeto;
-    }
-    public void setDttProjeto(Date dttProjeto) {
-        this.dttProjeto = dttProjeto;
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
     }
 
-    public Boolean getPubProjeto() {
-        return pubProjeto;
+    public Date getDataInicio() {
+        return dataInicio;
     }
-    public void setPubProjeto(Boolean pubProjeto) {
-        this.pubProjeto = pubProjeto;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataTermino() {
+        return dataTermino;
+    }
+    public void setDataTermino(Date dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public Integer getPublico() {
+        return publico;
+    }
+    public void setPublico(Integer publico) {
+        this.publico = publico;
     }
 
     //endregion

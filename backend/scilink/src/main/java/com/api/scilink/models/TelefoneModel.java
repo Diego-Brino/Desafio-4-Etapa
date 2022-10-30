@@ -15,6 +15,17 @@ public class TelefoneModel implements Serializable {
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
 
+    //region Constructors
+
+    public TelefoneModel() {
+    }
+    public TelefoneModel(TelefoneId telefoneId, CientistaModel cientista) {
+        this.telefoneId = telefoneId;
+        this.cientista = cientista;
+    }
+
+    //endregion
+
     //region Getters and Setters
 
     public TelefoneId getTelefoneId() {

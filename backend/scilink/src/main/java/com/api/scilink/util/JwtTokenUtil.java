@@ -20,7 +20,7 @@ public final class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //Validade setada para 10 minutos
-    public static final long JWT_VALIDADE_TOKEN = 1 * 60 * 1000;
+    public static final long JWT_VALIDADE_TOKEN = 1000 * 60 * 60 * 24 * 7; //1 * 60 * 1000;
 
     //O valor do segredo definido dentro do application properties é passado para essa variável
     @Value("${jwt.secret}")
@@ -70,6 +70,6 @@ public final class JwtTokenUtil implements Serializable {
 
     //Verifica se o token é valido
     public Boolean tokenIsValid(String token, CientistaModel cientistaModel) {
-        return !isTokenExpired(token) && getUsernameFromToken(token).equals(cientistaModel.getCpfCientista());
+        return !isTokenExpired(token) && getUsernameFromToken(token).equals(cientistaModel.getCpf());
     }
 }
