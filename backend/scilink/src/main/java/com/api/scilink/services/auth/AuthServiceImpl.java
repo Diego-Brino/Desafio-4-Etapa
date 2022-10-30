@@ -7,10 +7,13 @@ import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.exceptions.auth.TelefoneJaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.RedeSocialModel;
+import com.api.scilink.models.TitulacaoModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.repositories.TelefoneRepository;
+import com.api.scilink.services.formacao.FormacaoServiceImpl;
 import com.api.scilink.services.redeSocial.RedeSocialServiceImpl;
 import com.api.scilink.services.telefone.TelefoneServiceImpl;
+import com.api.scilink.services.titulacao.TitulacaoServiceImpl;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,12 +28,18 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
     private final CientistaRepository cientistaRepository;
     private final TelefoneServiceImpl telefoneServiceImpl;
     private final RedeSocialServiceImpl redeSocialServiceImpl;
+    private final FormacaoServiceImpl formacaoServiceImpl;
+    private final TitulacaoServiceImpl titulacaoServiceImpl;
     public AuthServiceImpl(CientistaRepository cientistaRepository,
                            TelefoneServiceImpl telefoneServiceImpl,
-                           RedeSocialServiceImpl redeSocialServiceImpl) {
+                           RedeSocialServiceImpl redeSocialServiceImpl,
+                           FormacaoServiceImpl formacaoServiceImpl,
+                           TitulacaoServiceImpl titulacaoServiceImpl) {
         this.cientistaRepository = cientistaRepository;
         this.telefoneServiceImpl = telefoneServiceImpl;
         this.redeSocialServiceImpl = redeSocialServiceImpl;
+        this.formacaoServiceImpl = formacaoServiceImpl;
+        this.titulacaoServiceImpl = titulacaoServiceImpl;
     }
 
     @Override
@@ -87,6 +96,15 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
             cientistaModel.getRedesSociais().forEach(redeSocialModel -> {
                 redeSocialModel.setCientista(cientistaModelTemp);
                 redeSocialServiceImpl.cadastrarRedeSocial(redeSocialModel);
+            });
+        }
+
+        if (cientistaModel.getFormacoes() != null) {
+            cientistaModel.getFormacoes().forEach(formacaoModel -> {
+                formacaoModel.setCientista(cientistaModelTemp);
+                formacaoModel.setTitulacao(titulacaoServiceImpl.buscarTitulacaoByNome
+                                                                (formacaoModel.getTitulacao().getNome()));
+                formacaoServiceImpl.cadastrarFormacaoModel(formacaoModel);
             });
         }
 

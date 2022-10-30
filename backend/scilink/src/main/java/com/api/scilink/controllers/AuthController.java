@@ -1,15 +1,9 @@
 package com.api.scilink.controllers;
 
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
-import com.api.scilink.dtos.CientistaDto;
-import com.api.scilink.dtos.LoginDto;
-import com.api.scilink.dtos.RedeSocialDto;
-import com.api.scilink.dtos.TelefoneDto;
+import com.api.scilink.dtos.*;
 import com.api.scilink.exceptions.auth.*;
-import com.api.scilink.models.CientistaModel;
-import com.api.scilink.models.RedeSocialModel;
-import com.api.scilink.models.TelefoneId;
-import com.api.scilink.models.TelefoneModel;
+import com.api.scilink.models.*;
 import com.api.scilink.services.auth.AuthServiceImpl;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
@@ -70,8 +64,13 @@ public class AuthController extends LogInfoUtil {
         if (cientistaDto.getTelefones() != null) {
             cientistaModel.setTelefones(_retornaListaTelefonesModel(cientistaDto, cientistaModel));
         }
+
         if (cientistaDto.getRedesSociais() != null) {
             cientistaModel.setRedesSociais(_retornaListaRedesSociaisModel(cientistaDto));
+        }
+
+        if (cientistaDto.getFormacoes() != null) {
+            cientistaModel.setFormacoes(_retornaListaFormacoesModel(cientistaDto, cientistaModel));
         }
 
         authServiceImpl.saveCientista(cientistaModel);
@@ -133,5 +132,25 @@ public class AuthController extends LogInfoUtil {
         });
 
         return listaRedeSocialModel;
+    }
+    private List<FormacaoModel> _retornaListaFormacoesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
+        List<FormacaoModel> listaFormacaoModel = new ArrayList<>();
+
+        cientistaDto.getFormacoes().forEach(formacaoDto -> {
+            FormacaoId formacaoId = new FormacaoId();
+            FormacaoModel formacaoModelTemp = new FormacaoModel();
+            TitulacaoModel titulacaoModelTemp = new TitulacaoModel();
+
+            titulacaoModelTemp.setNome(formacaoDto.getNome());
+
+            BeanUtils.copyProperties(formacaoDto, formacaoModelTemp);
+            formacaoModelTemp.setFormacaoId(formacaoId);
+            formacaoModelTemp.setCientista(cientistaModel);
+            formacaoModelTemp.setTitulacao(titulacaoModelTemp);
+
+            listaFormacaoModel.add(formacaoModelTemp);
+        });
+
+        return listaFormacaoModel;
     }
 }

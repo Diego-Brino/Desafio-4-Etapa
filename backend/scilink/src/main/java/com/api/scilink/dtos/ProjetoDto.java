@@ -6,31 +6,63 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ProjetoDto {
-    //region Atributos do Cientista
-
-    //Nome do cientista
+    /**
+     * Nome do cientista
+     */
     private String nome;
 
-    //Cpf do cientista
+    /**
+     * Cpf do cientista
+     */
     private String cpf;
 
-    //Data de nascimento do cientista
+    /**
+     * Data de nascimento do cientista
+     */
     private Date dataNascimento;
 
-    //E-mail do cientista
+    /**
+     * E-mail do cientista
+     */
     private String email;
 
-    //E-mail alternativo do cientista
+    /**
+     * E-mail alternativo do cientista
+     */
     private String emailAlternativo;
 
-    //endregion
+    /**
+     * Lattes do cientista
+     */
     private String lattes;
+
+    /**
+     * Titulo do projeto
+     */
     private String titulo;
+
+    /**
+     * Resumo do projeto
+     */
     private String resumo;
+
+    /**
+     * Data de ínicio do projeto
+     */
+    @NotNull(message = "É obrigatório a inserção de uma data de ínicio!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataInicio;
+
+    /**
+     * Data de término do projeto
+     */
+    @NotNull(message = "É obrigatório a inserção de uma data de término!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataTermino;
+
+    /**
+     * Indica se o projeto é público ou não
+     */
     @NotNull
     private Integer publico;
 

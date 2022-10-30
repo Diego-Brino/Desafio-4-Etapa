@@ -2,13 +2,19 @@ package com.api.scilink.dtos;
 
 import com.api.scilink.models.CientistaModel;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RedeSocialDto {
     private CientistaModel cientista;
-    @Size(max = 50)
+
+    @NotBlank(message = "É obrigatório o endereço de uma rede social!")
+    @Size(max = 50, message = "A URL deve ter no máximo 50 caracteres!")
     private String endereco;
-    @Size(max = 1)
+
+    @NotBlank(message = "É obrigatório informar o tipo da rede social!")
+    @Size(max = 1, message = "O tipo não pode ultrapassar o limite de 1 caractere!")
     private Character tipo;
 
     //region Constructors

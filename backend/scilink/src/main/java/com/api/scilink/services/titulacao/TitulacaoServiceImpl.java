@@ -19,4 +19,9 @@ public class TitulacaoServiceImpl extends LogInfoUtil implements TitulacaoServic
         printLogInfo("Retornando lista de todos as titulacoes!");
         return titulacaoRepository.findAll();
     }
+
+    @Override
+    public TitulacaoModel buscarTitulacaoByNome(String nome) {
+        return titulacaoRepository.findTitulacaoModelByNome(nome);
+    }
 }

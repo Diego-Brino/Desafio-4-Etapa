@@ -11,36 +11,44 @@ import java.util.Date;
 import java.util.List;
 
 public class CientistaDto {
-    @Size(max = 50)
+    @Size(max = 50, message = "O campo nome não pode ultrapassar 50 caracteres!")
     private String nome;
+
     @NotBlank(message = "O CPF é obrigatório!")
     @Size(max = 11, message = "Por favor, digite um cpf válido!")
     @CPF(message = "Por favor, digite um cpf válido!")
     private String cpf;
+
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
+
     @NotBlank(message = "O e-mail é obrigatório!")
     @Email(message = "Por favor, digite um e-mail válido!")
     @Size(max = 50, message = "O e-mail deve conter no máximo 50 caracteres!")
     private String email;
+
     @Email(message = "Por favor, digite um e-mail válido!")
     @Size(max = 50, message = "O e-mail deve conter no máximo 50 caracteres!")
     private String emailAlternativo;
+
     @NotBlank(message = "O lattes é obrigatório!")
     @Size(max = 50, message = "O lattes deve conter no máximo 50 caracteres!")
     private String lattes;
+
     @NotBlank(message = "A Senha é obrigatória!")
     @Size(max = 10, message = "A senha deve conter no máximo 10 caracteres!")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
-//    private List<ProjetoDto> projetos;
+    private List<ProjetoDto> projetos;
+
     private List<TelefoneDto> telefones;
+
     private List<RedeSocialDto> redesSociais;
 
 //    private List<AreaAtuacaoCientistaDto> areasAtuacao;
 
-//    private List<FormacaoDto> formacoes;
+    private List<FormacaoDto> formacoes;
 
     //region Getters and Setters
 
@@ -105,6 +113,20 @@ public class CientistaDto {
     }
     public void setRedesSociais(List<RedeSocialDto> redesSociais) {
         this.redesSociais = redesSociais;
+    }
+
+    public List<ProjetoDto> getProjetos() {
+        return projetos;
+    }
+    public void setProjetos(List<ProjetoDto> projetos) {
+        this.projetos = projetos;
+    }
+
+    public List<FormacaoDto> getFormacoes() {
+        return formacoes;
+    }
+    public void setFormacoes(List<FormacaoDto> formacoes) {
+        this.formacoes = formacoes;
     }
 
     //endregion
