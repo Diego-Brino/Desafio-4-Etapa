@@ -16,7 +16,13 @@ public class AreaAtuacaoServiceImpl extends LogInfoUtil implements AreaAtuacaoSe
 
     @Override
     public List<AreaAtuacaoModel> buscarTodasAsAreasAtuacao() {
-        printLogInfo("Retornando lista de todos as Areas de Atuacao!");
+        printLogInfo("Retornando lista de todos as Áreas de Atuação!");
         return areaAtuacaoRepository.findAll();
+    }
+
+    @Override
+    public AreaAtuacaoModel cadastrarAreaAtuacaoModel(AreaAtuacaoModel areaAtuacaoModel) {
+        printLogInfo("Cadastrando uma Área de Atuação!");
+        return areaAtuacaoRepository.save(areaAtuacaoModel);
     }
 }

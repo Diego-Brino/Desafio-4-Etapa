@@ -12,9 +12,11 @@ public class FormacaoDto {
      */
     @NotBlank(message = "É obrigatório a escolha da titulação!")
     private String nome;
+
     @NotNull(message = "É obrigatório a inserção de uma data de ínicio!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataInicio;
+
     @NotNull(message = "É obrigatório a inserção de uma data de término!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataTermino;

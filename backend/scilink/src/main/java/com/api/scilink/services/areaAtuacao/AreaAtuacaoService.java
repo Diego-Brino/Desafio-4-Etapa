@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AreaAtuacaoService {
     List<AreaAtuacaoModel> buscarTodasAsAreasAtuacao ();
+    AreaAtuacaoModel cadastrarAreaAtuacaoModel (AreaAtuacaoModel areaAtuacaoModel);
 }

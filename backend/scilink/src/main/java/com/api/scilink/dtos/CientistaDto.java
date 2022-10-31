@@ -46,7 +46,7 @@ public class CientistaDto {
 
     private List<RedeSocialDto> redesSociais;
 
-//    private List<AreaAtuacaoCientistaDto> areasAtuacao;
+    private List<AreaAtuacaoCientistaDto> areasAtuacao;
 
     private List<FormacaoDto> formacoes;
 
@@ -120,6 +120,13 @@ public class CientistaDto {
     }
     public void setProjetos(List<ProjetoDto> projetos) {
         this.projetos = projetos;
+    }
+
+    public List<AreaAtuacaoCientistaDto> getAreasAtuacao() {
+        return areasAtuacao;
+    }
+    public void setAreasAtuacao(List<AreaAtuacaoCientistaDto> areasAtuacao) {
+        this.areasAtuacao = areasAtuacao;
     }
 
     public List<FormacaoDto> getFormacoes() {
