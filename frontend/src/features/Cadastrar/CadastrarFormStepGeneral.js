@@ -31,7 +31,7 @@ function CadastrarFormStepGeneral(props) {
     }
 
     const handleStepBack = () => {
-        navigate("/login")
+        navigate("/entrar")
     }
 
     return (

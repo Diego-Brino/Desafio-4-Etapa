@@ -6,9 +6,6 @@ import LayoutEntrarCadastrar from "../layouts/LayoutEntrarCadastrar";
 
 function PageCadastrar() {
 
-    const theme = useTheme();
-    const layout = useContext(LayoutContext);
-
     return (
         <CadastrarForm/>
     );

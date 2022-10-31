@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack} from "@mui/system";
-import {Alert, AlertTitle, Button, CircularProgress, Link, Typography} from "@mui/material";
+import {Alert, Link, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {LayoutContext} from "../../providers/LayoutProvider";
 import {motion} from "framer-motion";
@@ -11,6 +11,7 @@ import InputPassword from "../../components/controls/InputPassword";
 import InputCheckbox from "../../components/controls/InputCheckbox";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import useFetch from "../../hooks/useFetch";
+import sx from "@mui/system/sx";
 
 function EntrarForm() {
 
@@ -22,11 +23,15 @@ function EntrarForm() {
         cpf: "",
         senha: ""
     });
+    const [formError, setFormError] = useState({
+        input: '',
+        message: ''
+    })
     const [lembrarSenha, setLembrarSenha] = useState(false);
     const {response, error, loading, fetchData} = useFetch({
         method: 'POST',
-        url: 'user/login',
-        data: formData
+        url: 'http://localhost:8080/auth/login',
+        data: formData,
     }, false);
 
     useEffect(() => {
@@ -37,47 +42,22 @@ function EntrarForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await fetchData({
+        fetchData({
             method: 'POST',
-            url: 'user/login',
+            url: 'http://localhost:8080/auth/login',
             data: formData
-        });
-        console.log(response);
-
-        // setTimeout(() => {
-        //     login(credencial).then((res) => {
-        //         setError(() => ({
-        //             input: null,
-        //             message: null
-        //         }));
-        //         if (lembrarSenha) {
-        //             localStorage.setItem("token", res.data);
-        //         } else {
-        //             localStorage.removeItem("token");
-        //         }
-        //         //navigate('/meus-projetos');
-        //         setLoading(false);
-        //     }).catch((err) => {
-        //         switch (err.response.data){
-        //             case 'O cpf informado está incorreto!':
-        //                 setError(() => ({
-        //                     input: 'cpf',
-        //                     message: 'CPF não cadastrado!'
-        //                 }));
-        //                 break
-        //             case 'A senha digitada está incorreta!':
-        //                 setError(() => ({
-        //                     input: 'senha',
-        //                     message: 'Senha inválida!'
-        //                 }));
-        //                 break
-        //         }
-        //         setLoading(false);
-        //     })
-        // }, 1000);
+        }).then((res) => {
+            lembrarSenha ? localStorage.setItem("token", res.data) : localStorage.removeItem("token");
+            navigate('/meus-projetos');
+        }).catch((err) => {
+            setFormError({
+                input: err.response.data.attribute,
+                message: err.response.data.message
+            })
+        })
     }
 
-    const handleOnChange = (e) => {
+    const handleOnChangeForm = (e) => {
         setFormData(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
@@ -88,22 +68,45 @@ function EntrarForm() {
         setLembrarSenha(!lembrarSenha);
     }
 
+    //region styles
+    const sxFormWrapper = {
+        width: [layout === 'desktop' ? "350px" : "100%"],
+        maxWidth: [layout === 'desktop' ? "initial" : "350px"],
+        padding: "25px 25px"
+    }
+    const sxFormTitle = {
+        fontWeight: "bold",
+        textAlign: "center"
+    }
+    const sxButtonStack = {
+        justifyContent: [layout === 'desktop' ? 'space-between' : 'center']
+    }
+    const sxLink = {
+        textAlign: "center",
+        display: 'flex',
+        alignItems: 'center'
+    }
+    const sxButton = {
+        width: '120px'
+}
+    //endregion
+
     return (
-        <Box sx={layout === 'desktop' ? {width: "350px"} : {width: "100%", maxWidth: "350px"}} padding="25px 25px">
+        <Box sx={sxFormWrapper}>
             <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
                 <form onSubmit={handleSubmit}>
                     <Stack spacing={4}>
-                        <Typography variant='h3' align='center' fontWeight="bold">Login</Typography>
+                        <Typography variant='h3' sx={sxFormTitle}>Login</Typography>
                         <InputText
                             mask='999.999.999-99'
                             required={true}
                             value={formData.cpf}
                             name='cpf'
                             label='CPF'
-                            onChange={handleOnChange}
+                            onChange={handleOnChangeForm}
                             autoFocus={false}
                             inputProps={{maxLength: 14}}
-                            error={error.input == 'cpf'}
+                            error={formError.input === 'cpf'}
                         />
                         <Stack spacing={1}>
                             <InputPassword
@@ -111,25 +114,25 @@ function EntrarForm() {
                                 value={formData.senha}
                                 name='senha'
                                 label='Senha'
-                                onChange={handleOnChange}
+                                onChange={handleOnChangeForm}
                                 inputProps={{maxLength: 10}}
-                                error={error.input == 'senha'}
+                                error={formError.input === 'senha'}
                             />
                             <InputCheckbox
                                 onChange={handleOnChangeLembrarSenha}
                                 label='Lembrar Senha'
                             />
                         </Stack>
-                        {error.message != null &&
+                        {formError.message !== '' &&
                             <Alert severity="error">
-                                {error.message}
+                                {formError.message}
                             </Alert>
                         }
-                        <Stack direction='row' spacing={4} justifyContent={layout === 'desktop' ? 'flex-end' : 'center'}>
-                            <Typography variant="body1" textAlign="center" display='flex' alignItems='center'>
-                                <Link as={RouterLink} to="/cadastro" variant="primary">Criar Conta</Link>
+                        <Stack direction='row' spacing={4} sx={sxButtonStack}>
+                            <Typography variant="body1" sx={sxLink}>
+                                <Link as={RouterLink} to="/cadastrar" variant="primary">Criar Conta</Link>
                             </Typography>
-                            <LoadingButton sx={{width: '120px'}} type='submit' loading={loading}>
+                            <LoadingButton type='submit' loading={loading} sx={sxButton}>
                                 <Typography color='secondary'>Entrar</Typography>
                             </LoadingButton>
                         </Stack>

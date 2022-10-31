@@ -8,30 +8,30 @@ import {Provider} from "react-redux";
 import PagePesquisarProjetos from "./pages/PagePesquisarProjetos";
 import PageMeusProjetos from "./pages/PageMeusProjetos";
 import {LayoutProvider} from "./providers/LayoutProvider";
-import PageCadastro from "./pages/PageCadastro";
-import PageLogin from "./pages/PageLogin";
-import LayoutAuth from "./layouts/LayoutAuth";
+import PageCadastrar from "./pages/PageCadastrar";
+import PageEntrar from "./pages/PageEntrar";
+import LayoutEntrarCadastrar from "./layouts/LayoutEntrarCadastrar";
 
-function App(){
+function App() {
 
-    return(
+    return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                    <LayoutProvider>
-                        <CssBaseline/>
-                        <HashRouter>
-                            <Routes>
-                                <Route path='/'>
-                                    <Route element={<LayoutAuth/>}>
-                                        <Route path='cadastro' element={<PageCadastro/>}/>
-                                        <Route path='login' element={<PageLogin/>}/>
-                                    </Route>
-                                    <Route path='meus-projetos' element={<PageMeusProjetos/>}/>
-                                    <Route path='pesquisar-projetos' element={<PagePesquisarProjetos/>}/>
+                <LayoutProvider>
+                    <CssBaseline/>
+                    <HashRouter>
+                        <Routes>
+                            <Route path='/'>
+                                <Route element={<LayoutEntrarCadastrar/>}>
+                                    <Route path='entrar' element={<PageEntrar/>}/>
+                                    <Route path='cadastrar' element={<PageCadastrar/>}/>
                                 </Route>
-                            </Routes>
-                        </HashRouter>
-                    </LayoutProvider>
+                                <Route path='meus-projetos' element={<PageMeusProjetos/>}/>
+                                <Route path='pesquisar-projetos' element={<PagePesquisarProjetos/>}/>
+                            </Route>
+                        </Routes>
+                    </HashRouter>
+                </LayoutProvider>
             </ThemeProvider>
         </Provider>
     )

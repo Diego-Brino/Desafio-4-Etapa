@@ -16,30 +16,29 @@ function InputText(props) {
     }
 
     return (
-        <FormControl error={props.error} required={props.required}>
-            <TextField
-                required={props.required}
-                variant="filled"
-                name={props.name}
-                autoFocus={props.autoFocus}
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end" color={theme.palette.primary.main}>
-                            <IconButton onClick={handleOnClick}>
-                                {showPassword
-                                    ? <Visibility/>
-                                    : <VisibilityOff/>
-                                }
-                            </IconButton>
-                        </InputAdornment>),
-                }}
-                inputProps={props.inputProps}
-                label={props.label}
-                value={props.value}
-                onChange={props.onChange}
-                type={showPassword ? 'text' : 'password'}
-            />
-        </FormControl>
+        <TextField
+            error={props.error}
+            required={props.required}
+            variant="filled"
+            name={props.name}
+            autoFocus={props.autoFocus}
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end" color={theme.palette.primary.main}>
+                        <IconButton onClick={handleOnClick}>
+                            {showPassword
+                                ? <Visibility/>
+                                : <VisibilityOff/>
+                            }
+                        </IconButton>
+                    </InputAdornment>),
+            }}
+            inputProps={props.inputProps}
+            label={props.label}
+            value={props.value}
+            onChange={props.onChange}
+            type={showPassword ? 'text' : 'password'}
+        />
     )
 }
 

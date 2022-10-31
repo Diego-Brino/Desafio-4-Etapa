@@ -17,6 +17,7 @@ function LayoutEntrarCadastrar(props) {
 
     const pathname = useLocation().pathname;
 
+    //region styles
     const sxGridContainer = {
         minHeight: '100vh',
         container: true
@@ -55,6 +56,7 @@ function LayoutEntrarCadastrar(props) {
     const sxLeftStackObject = {
         width: [layout === 'desktop' ? '350px' : '100%']
     }
+    //endregion
 
     return (
         <Grid sx={sxGridContainer} container>
@@ -67,7 +69,7 @@ function LayoutEntrarCadastrar(props) {
                     <Object sx={sxLeftStackObject} type="image/svg+xml" data={rocket}/>
                 </Stack>
             </Grid>
-            <Grid item xs={12} lg={pathname === '/entrar' ? 6 : 8} sx={sxGridItemRight}>
+            <Grid sx={sxGridItemRight} item xs={12} lg={pathname === '/entrar' ? 6 : 8}>
                 <Outlet/>
             </Grid>
         </Grid>

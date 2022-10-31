@@ -1,30 +1,29 @@
 import {useCallback, useEffect, useState} from "react";
-import theme from "../themes";
-import {useTheme} from "@mui/system";
 import axios from "axios";
-
 
 export default function useFetch(axiosParams, immediate) {
 
-    const instance = axios.create({
-        baseURL: 'http://localhost:8080'
-    });
-
     const [response, setResponse] = useState(null);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchData = useCallback(async (params) => {
+    const fetchData = (params) => {
         setLoading(true);
-        try {
-            const res = await instance({method: params.method, url: params.url, headers: params.headers, data: params.data});
-            setResponse(res.data);
-        } catch (err) {
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
-    }, [fetchData])
+        return new Promise((resolve, reject) => {
+            axios({method: params.method, url: params.url, headers: params.headers, data: params.data})
+                .then((res) => {
+                    setResponse(res.data);
+                    resolve(res);
+                })
+                .catch((err) => {
+                    setError(err);
+                    reject(err);
+                })
+                .finally(() => {
+                    setLoading(false);
+                })
+        })
+    }
 
     useEffect(() => {
         if (immediate === true) {

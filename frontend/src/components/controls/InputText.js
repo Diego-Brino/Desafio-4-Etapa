@@ -5,7 +5,7 @@ import InputMask from "react-input-mask";
 function InputText(props) {
 
     return (
-        <FormControl>
+        <>
             {props.mask != null
                 ? <InputMask
                     mask={props.mask}
@@ -36,7 +36,7 @@ function InputText(props) {
                     type='text'
                 />
             }
-        </FormControl>
+        </>
     )
 }
 

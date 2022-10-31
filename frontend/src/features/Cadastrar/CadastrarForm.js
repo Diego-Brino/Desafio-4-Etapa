@@ -15,7 +15,7 @@ function CadastrarForm() {
     const navigate = useNavigate();
     const layout = useContext(LayoutContext);
 
-    const [cadastro, setCadastro] = useState({
+    const [formData, setFormData] = useState({
         lattes: "",
         cpf: "",
         email: "",
@@ -28,14 +28,14 @@ function CadastrarForm() {
         areasAtuacao: [],
         formacoes: [],
     });
-    const [error, setError] = useState({
-        input: null,
-        message: null
-    });
+    const [formError, setFormError] = useState({
+        input: '',
+        message: ''
+    })
     const [step, setStep] = useState(0);
 
-    const handleOnChange = (e) => {
-        setCadastro(prevState => ({
+    const handleOnChangeForm = (e) => {
+        setFormData(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
         }))
@@ -43,9 +43,9 @@ function CadastrarForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (cadastro.email == "teste@teste.com") {
+        if (formData.email == "teste@teste.com") {
             setErrorMessage("email já cadastrado")
-        } else if (cadastro.cpf == "999.999.999-99") {
+        } else if (formData.cpf == "999.999.999-99") {
             setErrorMessage("cpf já cadastrado")
         } else {
             setErrorMessage("");
@@ -53,27 +53,43 @@ function CadastrarForm() {
         }
     }
 
+    //region styles
+    const sxFormWrapper = {
+        width: [layout === 'desktop' ? "682px" : "100%"],
+        maxWidth: [layout === 'desktop' ? "initial" : "350px"],
+        padding: "25px 25px"
+    }
+    const sxFormTitle = {
+        textAlign: 'center',
+        fontWeight: "bold"
+    }
+    const sxFormSubtitle = {
+        textAlign: 'center',
+        fontWeight: "bold"
+    }
+    //endregion
+
     return (
-        <Box sx={layout === 'desktop' ? {width: "682px"} : {width: "100%", maxWidth: "350px"}} padding="25px 25px">
+        <Box sx={sxFormWrapper}>
             <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
                 <Stack spacing={4}>
                     <Stack spacing={1}>
-                        <Typography variant='h3' align='center' fontWeight="bold">
+                        <Typography sx={sxFormTitle} variant='h3'>
                             Cadastro
                         </Typography>
-                        <Typography variant='h6' align='center' fontWeight="bold">
+                        <Typography sx={sxFormSubtitle} variant='h6'>
                             Campos obrigatórios *
                         </Typography>
                     </Stack>
                     {step === 0 &&
-                        <CadastrarFormStepGeneral cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
+                        <CadastrarFormStepGeneral cadastro={formData} onChange={handleOnChangeForm} error={formError} setError={setFormError} setStep={setStep}/>
                     }
                     {step === 1 &&
-                        <CadastrarFormStepSelect cadastro={cadastro} onChange={handleOnChange} error={error} setError={setError} setStep={setStep}/>
+                        <CadastrarFormStepSelect cadastro={formData} onChange={handleOnChangeForm} error={formError} setError={setFormError} setStep={setStep}/>
                     }
-                    {error.message != null &&
+                    {formError.message != '' &&
                         <Alert severity="error">
-                            {error.message}
+                            {formError.message}
                         </Alert>
                     }
                 </Stack>
