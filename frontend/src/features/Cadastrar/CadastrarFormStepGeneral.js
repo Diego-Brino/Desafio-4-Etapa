@@ -2,11 +2,11 @@ import React, {useContext, useState} from "react";
 import {Stack, useTheme} from "@mui/system";
 import {Button, Grid, Typography} from "@mui/material";
 import {motion} from "framer-motion";
-import InputText from "../../components/controls/InputText";
-import InputEmail from "../../components/controls/InputEmail";
-import InputPassword from "../../components/controls/InputPassword";
+import InputText from "../../components/inputs/InputText";
+import InputEmail from "../../components/inputs/InputEmail";
+import InputPassword from "../../components/inputs/InputPassword";
 import LoadingButton from "../../components/buttons/LoadingButton";
-import InputDate from "../../components/controls/InputDate";
+import InputDate from "../../components/inputs/InputDate";
 import {useNavigate} from "react-router-dom";
 import {LayoutContext} from "../../providers/LayoutProvider";
 
@@ -19,15 +19,10 @@ function CadastrarFormStepGeneral(props) {
     const navigate = useNavigate();
     const layout = useContext(LayoutContext)
 
-    const handleSubmit = (e) => {
+    const handleOnSubmitForm = (e) => {
         e.preventDefault();
 
         setLoading(true);
-
-        setTimeout(() => {
-            props.setStep(1);
-            setLoading(false)
-        }, 1000);
     }
 
     const handleStepBack = () => {
@@ -36,7 +31,7 @@ function CadastrarFormStepGeneral(props) {
 
     return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleOnSubmitForm}>
                 <Stack spacing={4}>
                     <Grid container spacing={4}>
                         <Grid item xs={12} lg={6}>
@@ -44,37 +39,37 @@ function CadastrarFormStepGeneral(props) {
                                 <InputText
                                     mask='999.999.999-99'
                                     required={true}
-                                    value={props.cadastro.cpf}
+                                    value={props.formData.cpf}
                                     name='cpf'
                                     label='CPF'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     autoFocus={true}
                                     inputProps={{maxLength: 14}}
-                                    error={props.error.input == 'cpf'}
+                                    error={props.formError.input === 'cpf'}
                                 />
                                 <InputText
-                                    value={props.cadastro.nome}
+                                    value={props.formData.nome}
                                     name='nome'
                                     label={'Nome'}
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     autoFocus={true}
                                     inputProps={{maxLength: 50}}
                                 />
                                 <InputEmail
                                     required={true}
-                                    value={props.cadastro.email}
+                                    value={props.formData.email}
                                     name='email'
                                     label='Email'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     inputProps={{maxLength: 50}}
-                                    error={props.error.email == 'email'}
+                                    error={props.formError.email === 'email'}
                                 />
                                 <InputPassword
                                     required={true}
-                                    value={props.cadastro.senha}
+                                    value={props.formData.senha}
                                     name='senha'
                                     label='Senha'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     inputProps={{maxLength: 10}}
                                 />
                             </Stack>
@@ -83,32 +78,32 @@ function CadastrarFormStepGeneral(props) {
                             <Stack spacing={4}>
                                 <InputText
                                     required={true}
-                                    value={props.cadastro.lattes}
+                                    value={props.formData.lattes}
                                     name='lattes'
                                     label='Lattes'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     inputProps={{maxLength: 50}}
-                                    error={props.error.lattes == 'lattes'}
+                                    error={props.formError.lattes === 'lattes'}
                                 />
                                 <InputDate
-                                    value={props.cadastro.dataNascimento}
+                                    value={props.formData.dataNascimento}
                                     name='dataNascimento'
                                     label='Data de Nascimento'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                 />
                                 <InputEmail
-                                    value={props.cadastro.emailAlternativo}
+                                    value={props.formData.emailAlternativo}
                                     name='emailAlternativo'
                                     label='Email Secundário'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     inputProps={{maxLength: 50}}
                                 />
                                 <InputText
                                     mask={'(99)99999-9999'}
-                                    value={props.cadastro.telefones[0]}
+                                    value={props.formData.telefones[0]}
                                     name='telefones[0]'
                                     label='Telefone'
-                                    onChange={props.onChange}
+                                    onChange={props.handleOnChangeForm}
                                     inputProps={{maxLength: 14}}
                                 />
                             </Stack>

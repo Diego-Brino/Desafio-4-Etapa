@@ -41,16 +41,8 @@ function CadastrarForm() {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleOnSubmitForm = (e) => {
         e.preventDefault();
-        if (formData.email == "teste@teste.com") {
-            setErrorMessage("email já cadastrado")
-        } else if (formData.cpf == "999.999.999-99") {
-            setErrorMessage("cpf já cadastrado")
-        } else {
-            setErrorMessage("");
-            navigate("/login");
-        }
     }
 
     //region styles
@@ -82,10 +74,20 @@ function CadastrarForm() {
                         </Typography>
                     </Stack>
                     {step === 0 &&
-                        <CadastrarFormStepGeneral cadastro={formData} onChange={handleOnChangeForm} error={formError} setError={setFormError} setStep={setStep}/>
+                        <CadastrarFormStepGeneral
+                            formData={formData}
+                            handleOnChangeForm={handleOnChangeForm}
+                            formError={formError}
+                            setFormError={setFormError}
+                            setStep={setStep}/>
                     }
                     {step === 1 &&
-                        <CadastrarFormStepSelect cadastro={formData} onChange={handleOnChangeForm} error={formError} setError={setFormError} setStep={setStep}/>
+                        <CadastrarFormStepSelect
+                            formData={formData}
+                            handleOnChangeForm={handleOnChangeForm}
+                            formError={formError}
+                            setFormError={setFormError}
+                            setStep={setStep}/>
                     }
                     {formError.message != '' &&
                         <Alert severity="error">

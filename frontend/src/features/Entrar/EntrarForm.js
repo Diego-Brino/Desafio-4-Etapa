@@ -1,17 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {Box, Stack} from "@mui/system";
-import {Alert, Link, Typography} from "@mui/material";
+import {Alert, Link, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {LayoutContext} from "../../providers/LayoutProvider";
 import {motion} from "framer-motion";
 import {removeMaskCpf} from "../../utils/utils";
-import InputText from "../../components/controls/InputText";
-import InputPassword from "../../components/controls/InputPassword";
-import InputCheckbox from "../../components/controls/InputCheckbox";
+import InputText from "../../components/inputs/InputText";
+import InputPassword from "../../components/inputs/InputPassword";
+import InputCheckbox from "../../components/inputs/InputCheckbox";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import useFetch from "../../hooks/useFetch";
-import sx from "@mui/system/sx";
+import {Formik, Form, Field} from 'formik';
+import InputMask from "react-input-mask";
 
 function EntrarForm() {
 
@@ -34,27 +35,40 @@ function EntrarForm() {
         data: formData,
     }, false);
 
+    function validateCpf(value) {
+        let error;
+        console.log(value)
+        if (!value) {
+            error = 'CPF: Campo Obrigatório';
+        } else if (!value.length < 14) {
+            error = 'CPF: Inválido';
+        }
+        return error;
+    }
+
     useEffect(() => {
         setFormData(prevState => ({
             ...prevState, cpf: removeMaskCpf(formData.cpf)
         }));
     }, [formData.cpf])
 
-    const handleSubmit = async (e) => {
+    const handleOnSubmitForm = async (e, values) => {
         e.preventDefault();
-        fetchData({
-            method: 'POST',
-            url: 'http://localhost:8080/auth/login',
-            data: formData
-        }).then((res) => {
-            lembrarSenha ? localStorage.setItem("token", res.data) : localStorage.removeItem("token");
-            navigate('/meus-projetos');
-        }).catch((err) => {
-            setFormError({
-                input: err.response.data.attribute,
-                message: err.response.data.message
-            })
-        })
+        console.log(values)
+
+        // fetchData({ //Para acessar a response e o erro dentro do onSubmit deve-se usar a promise aqui
+        //     method: 'POST',
+        //     url: 'http://localhost:8080/auth/login',
+        //     data: formData
+        // }).then((res) => {
+        //     lembrarSenha ? localStorage.setItem("token", res.data) : localStorage.removeItem("token");
+        //     navigate('/meus-projetos');
+        // }).catch((err) => {
+        //     setFormError({
+        //         input: err.response.data.attribute,
+        //         message: err.response.data.message
+        //     })
+        // })
     }
 
     const handleOnChangeForm = (e) => {
@@ -88,56 +102,78 @@ function EntrarForm() {
     }
     const sxButton = {
         width: '120px'
-}
+    }
     //endregion
 
     return (
         <Box sx={sxFormWrapper}>
             <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
-                <form onSubmit={handleSubmit}>
-                    <Stack spacing={4}>
-                        <Typography variant='h3' sx={sxFormTitle}>Login</Typography>
-                        <InputText
-                            mask='999.999.999-99'
-                            required={true}
-                            value={formData.cpf}
-                            name='cpf'
-                            label='CPF'
-                            onChange={handleOnChangeForm}
-                            autoFocus={false}
-                            inputProps={{maxLength: 14}}
-                            error={formError.input === 'cpf'}
-                        />
-                        <Stack spacing={1}>
-                            <InputPassword
-                                required={true}
-                                value={formData.senha}
-                                name='senha'
-                                label='Senha'
-                                onChange={handleOnChangeForm}
-                                inputProps={{maxLength: 10}}
-                                error={formError.input === 'senha'}
-                            />
-                            <InputCheckbox
-                                onChange={handleOnChangeLembrarSenha}
-                                label='Lembrar Senha'
-                            />
-                        </Stack>
-                        {formError.message !== '' &&
-                            <Alert severity="error">
-                                {formError.message}
-                            </Alert>
-                        }
-                        <Stack direction='row' spacing={4} sx={sxButtonStack}>
-                            <Typography variant="body1" sx={sxLink}>
-                                <Link as={RouterLink} to="/cadastrar" variant="primary">Criar Conta</Link>
-                            </Typography>
-                            <LoadingButton type='submit' loading={loading} sx={sxButton}>
-                                <Typography color='secondary'>Entrar</Typography>
-                            </LoadingButton>
-                        </Stack>
-                    </Stack>
-                </form>
+                <Stack spacing={4}>
+                    <Typography variant='h3' sx={sxFormTitle}>Login</Typography>
+                    <Formik
+                        initialValues={{
+                            cpf: '',
+                            senha: ''
+                        }}
+                        onSubmit={ values => {handleOnSubmitForm(values)}}
+                    >
+                        {({errors, touched, validateField, validateForm}) => (
+                            <Form>
+                                <Stack spacing={4}>
+                                    <Field
+                                        name='cpf'
+                                        validate={validateCpf}
+                                        com={() => (
+                                            <InputMask
+                                                mask='999.999.999-99'
+                                                maskChar=''
+                                                onChange={handleOnChangeForm}
+                                                type='text'>
+                                                {() => (
+                                                    <TextField
+                                                        error={errors.cpf != null}
+                                                        required
+                                                        variant="filled"
+                                                        autoFocus
+                                                        inputProps={{maxLength: 14}}
+                                                        label='CPF'
+                                                    />)}
+                                            </InputMask>
+                                        )}
+                                    />
+                                    <Stack spacing={1}>
+                                        <InputPassword
+                                            required={true}
+                                            value={formData.senha}
+                                            name='senha'
+                                            label='Senha'
+                                            onChange={handleOnChangeForm}
+                                            inputProps={{maxLength: 10}}
+                                            error={formError.input === 'senha'}
+                                        />
+                                        <InputCheckbox
+                                            onChange={handleOnChangeLembrarSenha}
+                                            label='Lembrar Senha'
+                                        />
+                                    </Stack>
+                                    {errors &&
+                                        <Alert severity="error">
+                                            {errors.cpf}
+                                        </Alert>
+                                    }
+                                    <Stack direction='row' spacing={4} sx={sxButtonStack}>
+                                        <Typography variant="body1" sx={sxLink}>
+                                            <Link as={RouterLink} to="/cadastrar" variant="primary">Criar Conta</Link>
+                                        </Typography>
+                                        <LoadingButton type='submit' loading={loading} sx={sxButton}>
+                                            <Typography color='secondary'>Entrar</Typography>
+                                        </LoadingButton>
+                                    </Stack>
+                                </Stack>
+                            </Form>
+                        )}
+                    </Formik>
+                </Stack>
             </motion.div>
         </Box>
     );

@@ -2,11 +2,11 @@ import React, {useContext, useState} from "react";
 import {Box, Stack, useTheme} from "@mui/system";
 import {Button, Checkbox, Grid, ListItemText, MenuItem, Typography} from "@mui/material";
 import {motion} from "framer-motion";
-import InputText from "../../components/controls/InputText";
-import InputEmail from "../../components/controls/InputEmail";
+import InputText from "../../components/inputs/InputText";
+import InputEmail from "../../components/inputs/InputEmail";
 import LoadingButton from "../../components/buttons/LoadingButton";
-import InputDate from "../../components/controls/InputDate";
-import InputSelect from "../../components/controls/InputSelect";
+import InputDate from "../../components/inputs/InputDate";
+import InputSelect from "../../components/inputs/InputSelect";
 import AddIcon from '@mui/icons-material/Add';
 import {LayoutContext} from "../../providers/LayoutProvider";
 
