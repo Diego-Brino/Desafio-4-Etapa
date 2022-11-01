@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {Stack, useTheme} from "@mui/system";
 import {Button, Grid, Typography} from "@mui/material";
 import {motion} from "framer-motion";
-import InputText from "../../components/inputs/InputText";
+import MaskedField from "../../components/inputs/MaskedField";
 import InputEmail from "../../components/inputs/InputEmail";
 import InputPassword from "../../components/inputs/PasswordField";
 import LoadingButton from "../../components/buttons/LoadingButton";
@@ -36,7 +36,7 @@ function CadastrarFormStepGeneral(props) {
                     <Grid container spacing={4}>
                         <Grid item xs={12} lg={6}>
                             <Stack spacing={4}>
-                                <InputText
+                                <MaskedField
                                     mask='999.999.999-99'
                                     required={true}
                                     value={props.formData.cpf}
@@ -47,7 +47,7 @@ function CadastrarFormStepGeneral(props) {
                                     inputProps={{maxLength: 14}}
                                     error={props.formError.input === 'cpf'}
                                 />
-                                <InputText
+                                <MaskedField
                                     value={props.formData.nome}
                                     name='nome'
                                     label={'Nome'}
@@ -76,7 +76,7 @@ function CadastrarFormStepGeneral(props) {
                         </Grid>
                         <Grid item xs={12} lg={6}>
                             <Stack spacing={4}>
-                                <InputText
+                                <MaskedField
                                     required={true}
                                     value={props.formData.lattes}
                                     name='lattes'
@@ -98,7 +98,7 @@ function CadastrarFormStepGeneral(props) {
                                     onChange={props.handleOnChangeForm}
                                     inputProps={{maxLength: 50}}
                                 />
-                                <InputText
+                                <MaskedField
                                     mask={'(99)99999-9999'}
                                     value={props.formData.telefones[0]}
                                     name='telefones[0]'

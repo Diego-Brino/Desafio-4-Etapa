@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {Box, Stack, useTheme} from "@mui/system";
 import {Button, Checkbox, Grid, ListItemText, MenuItem, Typography} from "@mui/material";
 import {motion} from "framer-motion";
-import InputText from "../../components/inputs/InputText";
+import MaskedField from "../../components/inputs/MaskedField";
 import InputEmail from "../../components/inputs/InputEmail";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import InputDate from "../../components/inputs/InputDate";
@@ -66,7 +66,7 @@ function CadastrarFormStepSelect(props) {
                                 sx={{width: '100%'}} formControlSx={{width: '100%'}}
                                 renderValue={(selected) => selected.join(', ')}
                             >
-                                <InputText label='Filtro' variant='' sx={{width: "100%"}}></InputText>
+                                <MaskedField label='Filtro' variant='' sx={{width: "100%"}}></MaskedField>
                                 {values.map((name) => {
                                     return (
                                         <MenuItem key={name} value={name}>

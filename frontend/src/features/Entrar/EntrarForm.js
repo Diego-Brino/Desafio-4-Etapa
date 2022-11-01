@@ -13,7 +13,7 @@ import useFetch from "../../hooks/useFetch";
 import {useFormik} from 'formik';
 import InputMask from "react-input-mask";
 import * as yup from 'yup';
-import {date} from "yup";
+import MaskedField from "../../components/inputs/MaskedField";
 
 function EntrarForm() {
 
@@ -53,24 +53,19 @@ function EntrarForm() {
 
     const handleSubmit = (values) => {
 
-        fetchData({ //Para acessar a response e o erro dentro do onSubmit deve-se usar a promise aqui
-            method: 'POST',
-            url: 'http://localhost:8080/auth/login',
-            data: {
-                cpf: removeMaskCpf(values.cpf),
-                senha: values.senha
-            }
-        }).then((res) => {
-            values.lembrarSenha ? localStorage.setItem("token", res.data) : localStorage.removeItem("token");
-            navigate('/meus-projetos');
-        }).catch((err) => {
-            let data = err.response.data;
-            formik.setErrors({
-                cpf: data.attribute === 'cpf' ? data.message : formik.errors.cpf,
-                senha: data.attribute === 'senha' ? data.message : formik.errors.senha,
-                lembrarSenha: formik.errors.lembrarSenha
+        fetchData()
+            .then((res) => {
+                values.lembrarSenha ? localStorage.setItem("token", res.data) : localStorage.removeItem("token");
+                navigate('/meus-projetos');
             })
-        })
+            .catch((err) => {
+                let data = err.response.data;
+                formik.setErrors({
+                    cpf: data.attribute === 'cpf' ? data.message : formik.errors.cpf,
+                    senha: data.attribute === 'senha' ? data.message : formik.errors.senha,
+                    lembrarSenha: formik.errors.lembrarSenha
+                })
+            })
     }
 
     //region styles
@@ -103,23 +98,18 @@ function EntrarForm() {
                     <Typography variant='h3' sx={sxFormTitle}>Login</Typography>
                     <form onSubmit={formik.handleSubmit}>
                         <Stack spacing={4}>
-                            <InputMask
+                            <MaskedField
                                 mask='999.999.999-99'
                                 maskChar=''
+                                id='cpf'
+                                name='cpf'
+                                label='CPF'
                                 value={formik.values.cpf}
                                 onChange={formik.handleChange}
-                                type='text'>
-                                {() => (
-                                    <TextField
-                                        id='cpf'
-                                        name='cpf'
-                                        label='CPF'
-                                        variant="filled"
-                                        autoFocus
-                                        inputProps={{maxLength: 14}}
-                                        error={Boolean(formik.errors.cpf)}
-                                    />)}
-                            </InputMask>
+                                autoFocus={true}
+                                inputProps={{maxLength: 14}}
+                                error={Boolean(formik.errors.cpf)}
+                            />
                             <Stack spacing={1}>
                                 <PasswordField
                                     id='senha'
@@ -140,8 +130,9 @@ function EntrarForm() {
                             {Object.keys(formik.errors).length > 0 &&
                                 <Alert severity="error">
                                     {Object.keys(formik.errors).map((key, index) => {
-                                        return(
-                                            <Typography color={theme.palette.error.main} key={index}>{formik.errors[key]}</Typography>
+                                        return (
+                                            <Typography color={theme.palette.error.main}
+                                                        key={index}>{formik.errors[key]}</Typography>
                                         )
                                     })}
                                 </Alert>

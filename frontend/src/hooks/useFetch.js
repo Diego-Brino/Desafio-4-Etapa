@@ -6,8 +6,9 @@ export default function useFetch(axiosParams, immediate) {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [params, setParams] = useState(axiosParams);
 
-    const fetchData = (params) => {
+    const fetchData = () => {
         setLoading(true);
         return new Promise((resolve, reject) => {
             axios({method: params.method, url: params.url, headers: params.headers, data: params.data})
@@ -27,7 +28,7 @@ export default function useFetch(axiosParams, immediate) {
 
     useEffect(() => {
         if (immediate === true) {
-            fetchData(axiosParams)
+            fetchData()
         }
     }, [fetchData, immediate])
 

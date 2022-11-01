@@ -15,34 +15,10 @@ function CadastrarForm() {
     const navigate = useNavigate();
     const layout = useContext(LayoutContext);
 
-    const [formData, setFormData] = useState({
-        lattes: "",
-        cpf: "",
-        email: "",
-        senha: "",
-        nome: "",
-        dataNascimento: "",
-        emailAlternativo: "",
-        redesSociais: [],
-        telefones: [],
-        areasAtuacao: [],
-        formacoes: [],
-    });
-    const [formError, setFormError] = useState({
-        input: '',
-        message: ''
-    })
     const [step, setStep] = useState(0);
 
-    const handleOnChangeForm = (e) => {
-        setFormData(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    }
+    const handleSubmit = (e) => {
 
-    const handleOnSubmitForm = (e) => {
-        e.preventDefault();
     }
 
     //region styles
