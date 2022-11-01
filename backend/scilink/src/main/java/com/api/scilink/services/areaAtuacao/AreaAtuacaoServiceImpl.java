@@ -6,6 +6,7 @@ import com.api.scilink.util.LogInfoUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AreaAtuacaoServiceImpl extends LogInfoUtil implements AreaAtuacaoService {
@@ -24,5 +25,11 @@ public class AreaAtuacaoServiceImpl extends LogInfoUtil implements AreaAtuacaoSe
     public AreaAtuacaoModel cadastrarAreaAtuacaoModel(AreaAtuacaoModel areaAtuacaoModel) {
         printLogInfo("Cadastrando uma Área de Atuação!");
         return areaAtuacaoRepository.save(areaAtuacaoModel);
+    }
+
+    @Override
+    public Optional<AreaAtuacaoModel> buscarAreaAtuacaoByNome(String nome) {
+        printLogInfo("Buscando uma área de atuação");
+        return areaAtuacaoRepository.findAreaAtuacaoModelByNome(nome);
     }
 }

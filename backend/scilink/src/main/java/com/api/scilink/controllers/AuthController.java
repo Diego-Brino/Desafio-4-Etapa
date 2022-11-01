@@ -69,6 +69,10 @@ public class AuthController extends LogInfoUtil {
             cientistaModel.setRedesSociais(_retornaListaRedesSociaisModel(cientistaDto));
         }
 
+        if (cientistaDto.getAreasAtuacao() != null) {
+            cientistaModel.setAreasAtuacao(_retornaListaAreasAtuacaoCientistaModel(cientistaDto, cientistaModel));
+        }
+
         if (cientistaDto.getFormacoes() != null) {
             cientistaModel.setFormacoes(_retornaListaFormacoesModel(cientistaDto, cientistaModel));
         }
@@ -132,6 +136,25 @@ public class AuthController extends LogInfoUtil {
         });
 
         return listaRedeSocialModel;
+    }
+    private List<AreaAtuacaoCientistaModel> _retornaListaAreasAtuacaoCientistaModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
+        List<AreaAtuacaoCientistaModel> listaAreaAtuacaoCientistaModel = new ArrayList<>();
+
+        cientistaDto.getAreasAtuacao().forEach(areaAtuacaoCientistaDto -> {
+            AreaAtuacaoCientistaId areaAtuacaoCientistaIdTemp = new AreaAtuacaoCientistaId();
+            AreaAtuacaoCientistaModel areaAtuacaoCientistaModelTemp = new AreaAtuacaoCientistaModel();
+            AreaAtuacaoModel areaAtuacaoModelTemp = new AreaAtuacaoModel();
+
+            areaAtuacaoModelTemp.setNome(areaAtuacaoCientistaDto.getNome());
+
+            areaAtuacaoCientistaModelTemp.setId(areaAtuacaoCientistaIdTemp);
+            areaAtuacaoCientistaModelTemp.setCientista(cientistaModel);
+            areaAtuacaoCientistaModelTemp.setAreaAtuacao(areaAtuacaoModelTemp);
+
+            listaAreaAtuacaoCientistaModel.add(areaAtuacaoCientistaModelTemp);
+        });
+
+        return listaAreaAtuacaoCientistaModel;
     }
     private List<FormacaoModel> _retornaListaFormacoesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
         List<FormacaoModel> listaFormacaoModel = new ArrayList<>();
