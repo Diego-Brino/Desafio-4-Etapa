@@ -5,7 +5,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {useTheme} from "@mui/system";
 
-function InputText(props) {
+function PasswordField(props) {
 
     const theme = useTheme();
 
@@ -17,6 +17,7 @@ function InputText(props) {
 
     return (
         <TextField
+            id={props.id}
             error={props.error}
             required={props.required}
             variant="filled"
@@ -42,4 +43,4 @@ function InputText(props) {
     )
 }
 
-export default InputText;
+export default PasswordField;

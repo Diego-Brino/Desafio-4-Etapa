@@ -4,7 +4,7 @@ import {Button, Grid, Typography} from "@mui/material";
 import {motion} from "framer-motion";
 import InputText from "../../components/inputs/InputText";
 import InputEmail from "../../components/inputs/InputEmail";
-import InputPassword from "../../components/inputs/InputPassword";
+import InputPassword from "../../components/inputs/PasswordField";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import InputDate from "../../components/inputs/InputDate";
 import {useNavigate} from "react-router-dom";
