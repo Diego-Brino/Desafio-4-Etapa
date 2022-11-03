@@ -1,14 +1,9 @@
 package com.api.scilink.dtos;
 
-import com.api.scilink.models.CientistaModel;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RedeSocialDto {
-    private CientistaModel cientista;
-
     @NotBlank(message = "É obrigatório o endereço de uma rede social!")
     @Size(max = 50, message = "A URL deve ter no máximo 50 caracteres!")
     private String endereco;
@@ -22,8 +17,7 @@ public class RedeSocialDto {
     public RedeSocialDto() {
     }
 
-    public RedeSocialDto(CientistaModel cientista, String endereco, Character tipo) {
-        this.cientista = cientista;
+    public RedeSocialDto(String endereco, Character tipo) {
         this.endereco = endereco;
         this.tipo = tipo;
     }
@@ -31,13 +25,6 @@ public class RedeSocialDto {
     //endregion
 
     //region Getters and Setters
-
-    public CientistaModel getCientista() {
-        return cientista;
-    }
-    public void setCientista(CientistaModel cientista) {
-        this.cientista = cientista;
-    }
 
     public String getEndereco() {
         return endereco;

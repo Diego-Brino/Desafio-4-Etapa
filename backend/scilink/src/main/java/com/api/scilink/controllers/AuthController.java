@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -114,33 +115,29 @@ public class AuthController extends LogInfoUtil {
         }
     }
 
-    private List<TelefoneModel> _retornaListaTelefonesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        List<TelefoneModel> listaTelefoneModel = new ArrayList<>();
+    //region Métodos privados
 
-        cientistaDto.getTelefones().forEach(telefoneDto -> {
+    private List<TelefoneModel> _retornaListaTelefonesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
+        return cientistaDto.getTelefones().stream().map(telefoneDto -> {
             TelefoneId telefoneIdTemp = new TelefoneId();
             BeanUtils.copyProperties(telefoneDto, telefoneIdTemp);
-            TelefoneModel telefoneModelTemp = new TelefoneModel(telefoneIdTemp, cientistaModel);
-            listaTelefoneModel.add(telefoneModelTemp);
-        });
 
-        return listaTelefoneModel;
+            return new TelefoneModel(telefoneIdTemp, cientistaModel);
+        }).collect(Collectors.toList());
     }
+
     private List<RedeSocialModel> _retornaListaRedesSociaisModel (CientistaDto cientistaDto) {
-        List<RedeSocialModel> listaRedeSocialModel = new ArrayList<>();
-
-        cientistaDto.getRedesSociais().forEach(redeSocialDto -> {
+        return cientistaDto.getRedesSociais().stream().map(redeSocialDto -> {
             RedeSocialModel redeSocialModelTemp = new RedeSocialModel();
+
             BeanUtils.copyProperties(redeSocialDto, redeSocialModelTemp);
-            listaRedeSocialModel.add(redeSocialModelTemp);
-        });
 
-        return listaRedeSocialModel;
+            return redeSocialModelTemp;
+        }).collect(Collectors.toList());
     }
-    private List<AreaAtuacaoCientistaModel> _retornaListaAreasAtuacaoCientistaModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        List<AreaAtuacaoCientistaModel> listaAreaAtuacaoCientistaModel = new ArrayList<>();
 
-        cientistaDto.getAreasAtuacao().forEach(areaAtuacaoCientistaDto -> {
+    private List<AreaAtuacaoCientistaModel> _retornaListaAreasAtuacaoCientistaModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
+        return cientistaDto.getAreasAtuacao().stream().map(areaAtuacaoCientistaDto -> {
             AreaAtuacaoCientistaId areaAtuacaoCientistaIdTemp = new AreaAtuacaoCientistaId();
             AreaAtuacaoCientistaModel areaAtuacaoCientistaModelTemp = new AreaAtuacaoCientistaModel();
             AreaAtuacaoModel areaAtuacaoModelTemp = new AreaAtuacaoModel();
@@ -151,15 +148,12 @@ public class AuthController extends LogInfoUtil {
             areaAtuacaoCientistaModelTemp.setCientista(cientistaModel);
             areaAtuacaoCientistaModelTemp.setAreaAtuacao(areaAtuacaoModelTemp);
 
-            listaAreaAtuacaoCientistaModel.add(areaAtuacaoCientistaModelTemp);
-        });
-
-        return listaAreaAtuacaoCientistaModel;
+            return areaAtuacaoCientistaModelTemp;
+        }).collect(Collectors.toList());
     }
-    private List<FormacaoModel> _retornaListaFormacoesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        List<FormacaoModel> listaFormacaoModel = new ArrayList<>();
 
-        cientistaDto.getFormacoes().forEach(formacaoDto -> {
+    private List<FormacaoModel> _retornaListaFormacoesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
+        return cientistaDto.getFormacoes().stream().map(formacaoDto -> {
             FormacaoId formacaoId = new FormacaoId();
             FormacaoModel formacaoModelTemp = new FormacaoModel();
             TitulacaoModel titulacaoModelTemp = new TitulacaoModel();
@@ -171,9 +165,9 @@ public class AuthController extends LogInfoUtil {
             formacaoModelTemp.setCientista(cientistaModel);
             formacaoModelTemp.setTitulacao(titulacaoModelTemp);
 
-            listaFormacaoModel.add(formacaoModelTemp);
-        });
-
-        return listaFormacaoModel;
+            return formacaoModelTemp;
+        }).collect(Collectors.toList());
     }
+
+    //endregion
 }
