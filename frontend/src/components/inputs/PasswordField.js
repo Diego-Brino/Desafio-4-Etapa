@@ -23,6 +23,12 @@ function PasswordField(props) {
             variant="filled"
             name={props.name}
             autoFocus={props.autoFocus}
+            helperText={props.helperText != null ? props.helperText : ' '}
+            inputProps={props.inputProps}
+            label={props.label}
+            value={props.value}
+            onChange={props.onChange}
+            type={showPassword ? 'text' : 'password'}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end" color={theme.palette.primary.main}>
@@ -34,11 +40,6 @@ function PasswordField(props) {
                         </IconButton>
                     </InputAdornment>),
             }}
-            inputProps={props.inputProps}
-            label={props.label}
-            value={props.value}
-            onChange={props.onChange}
-            type={showPassword ? 'text' : 'password'}
         />
     )
 }

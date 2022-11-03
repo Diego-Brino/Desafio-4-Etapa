@@ -97,8 +97,9 @@ function EntrarForm() {
                 <Stack spacing={4}>
                     <Typography variant='h3' sx={sxFormTitle}>Login</Typography>
                     <form onSubmit={formik.handleSubmit}>
-                        <Stack spacing={4}>
+                        <Stack spacing={2}>
                             <MaskedField
+                                helperText={formik.errors.cpf}
                                 mask='999.999.999-99'
                                 maskChar=''
                                 id='cpf'
@@ -119,6 +120,7 @@ function EntrarForm() {
                                     onChange={formik.handleChange}
                                     inputProps={{maxLength: 10}}
                                     error={Boolean(formik.errors.senha)}
+                                    helperText={formik.errors.senha}
                                 />
                                 <CheckboxField
                                     id='lembrarSenha'
@@ -127,16 +129,6 @@ function EntrarForm() {
                                     onChange={formik.handleChange}
                                 />
                             </Stack>
-                            {Object.keys(formik.errors).length > 0 &&
-                                <Alert severity="error">
-                                    {Object.keys(formik.errors).map((key, index) => {
-                                        return (
-                                            <Typography color={theme.palette.error.main}
-                                                        key={index}>{formik.errors[key]}</Typography>
-                                        )
-                                    })}
-                                </Alert>
-                            }
                             <Stack direction='row' spacing={4} sx={sxButtonStack}>
                                 <Typography variant="body1" sx={sxLink}>
                                     <Link as={RouterLink} to="/cadastrar" variant="primary">Criar Conta</Link>

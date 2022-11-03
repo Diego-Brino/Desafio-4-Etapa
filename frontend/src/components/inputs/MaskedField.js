@@ -11,6 +11,7 @@ function MaskedField(props) {
             value={props.value}
             onChange={props.onChange}>
             {() => <TextField
+                helperText={props.helperText != null ? props.helperText : ' '}
                 error={props.error}
                 required={props.required}
                 variant="filled"

@@ -8,13 +8,13 @@ function InputDate(props) {
         <FormControl sx={props.formControlSx}>
             <InputLabel variant='filled'>{props.label}</InputLabel>
             <Select
+                MenuProps={props.MenuProps}
                 multiple={props.multiple}
                 sx={props.sx}
                 variant='filled'
                 value={props.value}
                 onChange={props.onChange}
-                renderValue={props.renderValue}
-            >
+                renderValue={props.renderValue}>
                 {props.children}
             </Select>
         </FormControl>

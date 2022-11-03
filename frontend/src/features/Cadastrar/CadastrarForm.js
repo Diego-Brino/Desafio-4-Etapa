@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Box, Stack, useTheme} from "@mui/system";
 import {Alert, Typography} from "@mui/material";
@@ -18,7 +18,7 @@ function CadastrarForm() {
     const navigate = useNavigate();
     const layout = useContext(LayoutContext);
 
-    const [step, setStep] = useState(0);
+    const [step, setStep] = useState(1);
 
     const validationSchemaStepGeneral = yup.object({
         cpf: yup
@@ -30,7 +30,8 @@ function CadastrarForm() {
             .required('Campo Senha é obrigatório!'),
         lattes: yup
             .string()
-            .required('Campo Lattes é obrigatório!'),
+            .required('Campo Lattes é obrigatório!')
+            .url('Campo Lattes inválido!'),
         email: yup
             .string()
             .required('Campo Email é obrigatório!')
@@ -41,10 +42,59 @@ function CadastrarForm() {
         telefones: yup
             .array()
             .of(yup.object().shape({
-                ddd: yup.string(),
-                numero: yup.string(),
-            }))
-            .min(11, 'Campo Telefone inválido!'),
+                    ddd: yup.string(),
+                    numero: yup.string(),
+            })
+            .test(
+                'telefoneValidation',
+                'Campo Telefone inválido!',
+                function (telefone){
+                    let telefoneCompleto = (
+                        (telefone.ddd != undefined ? telefone.ddd : '') +
+                        (telefone.numero != undefined ? telefone.numero : '')
+                    )
+                    return !(telefoneCompleto.length < 11 && telefoneCompleto != '')
+                }
+            )
+        )
+    });
+    const validationSchemaStepSelect = yup.object({
+        cpf: yup
+            .string()
+            .min(14, 'Campo CPF inválido!')
+            .required('Campo CPF é obrigatório!'),
+        senha: yup
+            .string()
+            .required('Campo Senha é obrigatório!'),
+        lattes: yup
+            .string()
+            .required('Campo Lattes é obrigatório!')
+            .url('Campo Lattes inválido!'),
+        email: yup
+            .string()
+            .required('Campo Email é obrigatório!')
+            .email('Campo Email inválido!'),
+        emailAlternativo: yup
+            .string()
+            .email('Campo Email Alternativo inválido!'),
+        telefones: yup
+            .array()
+            .of(yup.object().shape({
+                    ddd: yup.string(),
+                    numero: yup.string(),
+                })
+                    .test(
+                        'telefoneValidation',
+                        'Campo Telefone inválido!',
+                        function (telefone){
+                            let telefoneCompleto = (
+                                (telefone.ddd != undefined ? telefone.ddd : '') +
+                                (telefone.numero != undefined ? telefone.numero : '')
+                            )
+                            return !(telefoneCompleto.length < 11 && telefoneCompleto != '')
+                        }
+                    )
+            )
     });
     const formik = useFormik({
         initialValues: {
@@ -54,7 +104,10 @@ function CadastrarForm() {
             lattes: '',
             emailAlternativo: '',
             nome: '',
-            telefones: [],
+            telefones: [{
+                ddd: '',
+                numero: ''
+            }],
             dataNascimento: '',
         },
         onSubmit: (values) => {
@@ -72,7 +125,9 @@ function CadastrarForm() {
     }, false);
 
     const handleSubmit = () => {
-        alert('submited')
+       if(step == 0){
+           setStep(1)
+       }
     }
 
     //region styles
