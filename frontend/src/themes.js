@@ -32,12 +32,12 @@ theme = createTheme({
         },
     },
 });
-theme = createTheme(theme,{
+theme = createTheme(theme, {
     components: {
         MuiLink: {
             variants: [
                 {
-                    props: { variant: "primary"},
+                    props: {variant: "primary"},
                     style: {
                         color: theme.palette.primary.main,
                         textDecoration: "none",
@@ -48,7 +48,7 @@ theme = createTheme(theme,{
                     },
                 },
                 {
-                    props: { variant: "underline-secondary"},
+                    props: {variant: "underline-secondary"},
                     style: {
                         color: theme.palette.primary.main,
                         textDecoration: "none",
@@ -59,7 +59,7 @@ theme = createTheme(theme,{
                     },
                 },
                 {
-                    props: { variant: "no-underline"},
+                    props: {variant: "no-underline"},
                     style: {
                         color: theme.palette.text.primary,
                         textDecoration: "none",
@@ -70,22 +70,6 @@ theme = createTheme(theme,{
                     },
                 }
             ]
-        },
-        MuiTypography: {
-            styleOverrides: {
-                root: {
-                    color: theme.palette.text.primary,
-                }
-            },
-        },
-        MuiInputBase: {
-            styleOverrides: {
-                root: {
-                    color: theme.palette.text.primary,
-                    maxWidth: '300px',
-                    width: '100%'
-                },
-            },
         },
         MuiInputLabel: {
             styleOverrides: {
@@ -99,28 +83,18 @@ theme = createTheme(theme,{
                 root: {
                     color: theme.palette.text.primary,
                 },
-                variants:[
-                    {
-                        props: { variant: 'black' },
-                        style: {
-                            "& > fieldset" : {
-                                borderColor: theme.palette.text.secondary
-                            }
-                        },
-                    }
-                ]
             }
         },
         MuiDivider: {
-            styleOverrides:{
-                root:{
+            styleOverrides: {
+                root: {
                     backgroundColor: theme.palette.text.primary
                 }
             }
         },
         MuiChip: {
-            styleOverrides:{
-                root:{
+            styleOverrides: {
+                root: {
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.text.secondary,
                     ".MuiChip-deleteIcon": {
@@ -130,8 +104,8 @@ theme = createTheme(theme,{
             }
         },
         MuiCheckbox: {
-            styleOverrides:{
-                root:{
+            styleOverrides: {
+                root: {
                     color: theme.palette.primary.main,
                 }
             }
@@ -139,7 +113,6 @@ theme = createTheme(theme,{
     },
     typography: {
         fontFamily: 'Helvetica, sans-serif',
-        color: theme.palette.text.primary,
         button: {
             textTransform: 'none'
         },

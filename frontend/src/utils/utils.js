@@ -11,7 +11,15 @@ function removeMaskTelefone(telefone){
     return telefone;
 }
 
+function telefoneStringToObject(telefone){
+    return {
+        ddd: telefone.substring(0,2),
+        numero: telefone.substring(2,11)
+    };
+}
+
 export {
     removeMaskCpf,
     removeMaskTelefone,
+    telefoneStringToObject
 };

@@ -24,11 +24,11 @@ function EntrarForm() {
 
     const validationSchema = yup.object({
         cpf: yup
-            .string('Insira um CPF')
+            .string()
             .min(14, 'Campo CPF inválido!')
             .required('Campo CPF é obrigatório!'),
         senha: yup
-            .string('Insira uma senha')
+            .string()
             .required('Campo Senha é obrigatório!'),
     });
     const formik = useFormik({
