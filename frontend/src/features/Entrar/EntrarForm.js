@@ -52,7 +52,6 @@ function EntrarForm() {
     }, false);
 
     const handleSubmit = (values) => {
-
         fetchData()
             .then((res) => {
                 values.lembrarSenha ? localStorage.setItem("token", res.data) : localStorage.removeItem("token");
@@ -111,7 +110,7 @@ function EntrarForm() {
                                 inputProps={{maxLength: 14}}
                                 error={Boolean(formik.errors.cpf)}
                             />
-                            <Stack spacing={1}>
+                            <Stack>
                                 <PasswordField
                                     id='senha'
                                     name='senha'

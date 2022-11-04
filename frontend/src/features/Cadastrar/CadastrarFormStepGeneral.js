@@ -1,10 +1,9 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {Stack, useTheme} from "@mui/system";
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import {motion} from "framer-motion";
 import MaskedField from "../../components/inputs/MaskedField";
 import PasswordField from "../../components/inputs/PasswordField";
-import LoadingButton from "../../components/buttons/LoadingButton";
 import {useNavigate} from "react-router-dom";
 import {LayoutContext} from "../../providers/LayoutProvider";
 import {removeMaskTelefone} from "../../utils/utils";
@@ -18,6 +17,15 @@ function CadastrarFormStepGeneral(props) {
     const handleStepBack = () => {
         navigate("/entrar")
     }
+
+    //region styles
+    const sxButtonStack = {
+        justifyContent: [layout === 'desktop' ? 'flex-end' : 'center']
+    }
+    const sxButton = {
+        width: '120px'
+    }
+    //endregion
 
     return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1, transition: {duration: 0.25}}}>
@@ -103,6 +111,9 @@ function CadastrarFormStepGeneral(props) {
                                 value={props.formik.values.telefones[0].ddd + props.formik.values.telefones[0].numero}
                                 name='telefones.0'
                                 label='Telefone'
+                                inputProps={{maxLength: 14}}
+                                error={Boolean(props.formik.errors.telefones)}
+                                helperText={props.formik.errors.telefones !== undefined ? props.formik.errors.telefones : ' '}
                                 onChange={(e) => {
                                     props.formik.handleChange
                                     let str = removeMaskTelefone(e.target.value);
@@ -111,18 +122,15 @@ function CadastrarFormStepGeneral(props) {
                                     props.formik.setFieldValue("telefones.0.ddd", ddd, true)
                                     props.formik.setFieldValue("telefones.0.numero", numero, true)
                                 }}
-                                inputProps={{maxLength: 14}}
-                                error={Boolean(props.formik.errors.telefones)}
-                                helperText={props.formik.errors.telefones !== undefined ? props.formik.errors.telefones : ' '}
                             />
                         </Stack>
                     </Grid>
                 </Grid>
-                <Stack direction='row' spacing={4} justifyContent={layout == 'desktop' ? 'flex-end' : 'center'}>
-                    <Button variant="contained" sx={{width: '120px'}} type='button' onClick={handleStepBack}>
-                        <Typography color='secondary'>Cancelar</Typography>
+                <Stack sx={sxButtonStack} direction='row' spacing={4}>
+                    <Button variant="contained" sx={sxButton} type='button' onClick={() => {handleStepBack}}>
+                        <Typography color='secondary'>Voltar</Typography>
                     </Button>
-                    <Button variant="contained" sx={{width: '120px'}} type='submit'>
+                    <Button variant="contained" sx={sxButton} type='submit'>
                         <Typography color='secondary'>Avançar</Typography>
                     </Button>
                 </Stack>

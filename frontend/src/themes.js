@@ -93,17 +93,6 @@ theme = createTheme(theme, {
                 }
             }
         },
-        MuiChip: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: theme.palette.primary.main,
-                    color: theme.palette.text.secondary,
-                    ".MuiChip-deleteIcon": {
-                        color: theme.palette.common.black
-                    }
-                }
-            }
-        },
         MuiCheckbox: {
             styleOverrides: {
                 root: {
