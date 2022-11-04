@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import InputMask from "react-input-mask";
 
-function InputDate(props) {
+function InputSelect(props) {
 
     return (
         <FormControl sx={props.formControlSx}>
@@ -14,11 +14,12 @@ function InputDate(props) {
                 variant='filled'
                 value={props.value}
                 onChange={props.onChange}
-                renderValue={props.renderValue}>
+                renderValue={props.renderValue}
+                IconComponent={props.IconComponent}>
                 {props.children}
             </Select>
         </FormControl>
     )
 }
 
-export default InputDate;
+export default InputSelect;

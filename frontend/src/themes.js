@@ -29,6 +29,7 @@ theme = createTheme({
         background: {
             default: '#222831',
             other: '#393E46',
+            light: '#E7E7E7',
         },
     },
 });

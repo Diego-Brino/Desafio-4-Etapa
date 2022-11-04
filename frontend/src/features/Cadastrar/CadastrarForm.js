@@ -140,10 +140,6 @@ function CadastrarForm() {
         textAlign: 'center',
         fontWeight: "bold"
     }
-    const sxFormSubtitle = {
-        textAlign: 'center',
-        fontWeight: "bold"
-    }
     //endregion
 
     return (

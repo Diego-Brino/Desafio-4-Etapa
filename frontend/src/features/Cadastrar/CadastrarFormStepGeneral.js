@@ -108,8 +108,6 @@ function CadastrarFormStepGeneral(props) {
                                     let str = removeMaskTelefone(e.target.value);
                                     let ddd = str.substring(0, 2);
                                     let numero = str.substring(2, 11);
-                                    console.log(props.formik.errors.telefones !== undefined ? props.formik.errors.telefones : ' ')
-
                                     props.formik.setFieldValue("telefones.0.ddd", ddd, true)
                                     props.formik.setFieldValue("telefones.0.numero", numero, true)
                                 }}
