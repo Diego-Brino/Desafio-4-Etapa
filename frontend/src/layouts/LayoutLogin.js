@@ -10,7 +10,7 @@ import {Outlet, useLocation} from "react-router-dom";
 import Image from "../components/Image";
 import Object from "../components/Object";
 
-function LayoutEntrarCadastrar(props) {
+function LayoutLogin(props) {
 
     const layout = useContext(LayoutContext);
     const theme = useTheme();
@@ -20,7 +20,6 @@ function LayoutEntrarCadastrar(props) {
     //region styles
     const sxGridContainer = {
         minHeight: '100vh',
-        container: true
     }
     const sxGridItemLeft = {
         backgroundColor: theme.palette.primary.main,
@@ -76,4 +75,4 @@ function LayoutEntrarCadastrar(props) {
     )
 }
 
-export default LayoutEntrarCadastrar;
+export default LayoutLogin;

@@ -1,94 +1,120 @@
-import React from "react";
-import {Stack, useTheme} from "@mui/system";
-import GridLayout from "../layouts/GridLayout";
-import {Button, Grid, InputLabel, TextField, Typography} from "@mui/material";
-import Center from "../layouts/Center";
+import React, { useContext } from "react";
+import { Stack, useTheme } from "@mui/system";
+import {
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useOutletContext } from "react-router-dom";
+import { LayoutContext } from "../providers/LayoutProvider";
+import { useFormik } from "formik";
+import MaskedField from "../components/inputs/MaskedField";
+import PasswordField from "../components/inputs/PasswordField";
+import { removeMaskTelefone } from "../utils/utils";
 
 function PagePerfil() {
+  const theme = useTheme();
+  const layout = useContext(LayoutContext);
+  const outlet = useOutletContext();
 
-    const theme = useTheme();
+  const formik = useFormik({
+    initialValues: {
+      cpf: "",
+      senha: "",
+      email: "",
+      lattes: "",
+      emailAlternativo: "",
+      nome: "",
+      telefones: [
+        {
+          ddd: "",
+          numero: "",
+        },
+      ],
+      dataNascimento: "",
+    },
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
+    validateOnBlur: false,
+    validateOnChange: false,
+  });
 
-    return (
-        <GridLayout pageTitle='Perfil'>
-            <Center>
-                <Stack direction='column' spacing={'25px'} width={'fit-content'}
-                       backgroundColor={theme.palette.secondary.main} borderRadius='25px' padding='25px'
-                       boxShadow="#00000030 0px 19px 38px, #00000022 0px 15px 12px">
-                    <Stack direction='column' spacing={'25px'}>
-                        <Typography variant='h5'>Dados Pessoais</Typography>
-                        <Grid container columnSpacing={'25px'} rowSpacing={'25px'} sx={{marginLeft: '-25px !important', marginTop: '0 !important'}}>
-                            <Grid item xs={12} md={6} lg={4}>
-                                <Stack spacing={1}>
-                                    <InputLabel>Nome</InputLabel>
-                                    <TextField value='aaa'/>
-                                </Stack>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                                <Stack spacing={1}>
-                                    <InputLabel>Lattes</InputLabel>
-                                    <TextField value='aaaa'/>
-                                </Stack>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                                <Stack spacing={1}>
-                                    <InputLabel>Cpf</InputLabel>
-                                    <TextField value='aaaa'/>
-                                </Stack>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                                <Stack spacing={1}>
-                                    <InputLabel>Email</InputLabel>
-                                    <TextField value='aaaa'/>
-                                </Stack>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                                <Stack spacing={1}>
-                                    <InputLabel>Email Alternativo</InputLabel>
-                                    <TextField value='aaaa'/>
-                                </Stack>
-                            </Grid>
-                        </Grid>
-                </Stack>
-                <Stack direction='column' spacing={'25px'}>
-                    <Typography variant='h5'>Redes Sociais</Typography>
-                    <Grid container columnSpacing={'25px'} rowSpacing={'25px'} sx={{marginLeft: '-25px !important', marginTop: '0 !important'}}>
-                        <Grid item xs={12} md={6} lg={4}>
-                            <Stack spacing={1}>
-                                <InputLabel>Instagram</InputLabel>
-                                <TextField value='aaaa'/>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={4}>
-                            <Stack spacing={1}>
-                                <InputLabel>Facebook</InputLabel>
-                                <TextField value='aaaa'/>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={4}>
-                            <Stack spacing={1}>
-                                <InputLabel>LinkedIn</InputLabel>
-                                <TextField value='aaaa'/>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={4}>
-                            <Stack spacing={1}>
-                                <InputLabel>Youtube</InputLabel>
-                                <TextField value='aaaa'/>
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={4}>
-                            <Stack spacing={1}>
-                                <InputLabel>TikTok</InputLabel>
-                                <TextField value='aaaa'/>
-                            </Stack>
-                        </Grid>
-                    </Grid>
-                </Stack>
-                <Button variant='contained' sx={{width: '250px'}}>Salvar</Button>
-            </Stack>
-        </Center>
-</GridLayout>
-);
+  const handleSubmit = () => {};
+
+  //region styles
+  const sxHeadingWrapper = {
+    minHeight: "calc(96px - 30px)",
+    display: "flex",
+    alignItems: "center",
+    padding: "15px",
+  };
+  const sxHeading = {
+    fontWeight: "bold",
+    margin: [layout === "desktop" ? "" : "0 calc(50% - 40px)"],
+    transform: [layout === "desktop" ? "" : "translateX(-50%)"],
+  };
+  const sxColumnHeading = {
+    fontWeight: "bold",
+  };
+  const sxContentMain = {
+    width: "100%",
+    height: "100%",
+    padding: "15px",
+  };
+  const sxGridDadosBasicos = {
+    width: 'calc(100% - 32px)'
+  };
+  const sxGridItem = {
+    width: '350px'
+  };
+
+  //endregion
+
+  return (
+    <>
+      <Paper sx={sxHeadingWrapper}>
+        {layout === "mobile" && (
+          <IconButton
+            onClick={() => {
+              outlet.setOpen(!outlet.open);
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
+        <Typography variant="h4" sx={sxHeading}>
+          Perfil
+        </Typography>
+      </Paper>
+      <Divider />
+      <Paper sx={sxContentMain}>
+        <form onSubmit={formik.handleSubmit}>
+          <Stack>
+            <Typography variant="h5" sx={sxColumnHeading}>
+              Dados Básicos
+            </Typography>
+            <Grid container>
+              <Grid item>
+                <Typography variant="h5" sx={sxColumnHeading}>
+                  Dados Básicos
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h5" sx={sxColumnHeading}>
+                  Dados Básicos
+                </Typography>
+              </Grid>
+            </Grid>
+          </Stack>
+        </form>
+      </Paper>
+    </>
+  );
 }
 
 export default PagePerfil;
