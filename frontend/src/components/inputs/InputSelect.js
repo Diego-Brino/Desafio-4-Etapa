@@ -5,9 +5,10 @@ import InputMask from "react-input-mask";
 function InputSelect(props) {
 
     return (
-        <FormControl sx={props.formControlSx}>
+        <FormControl sx={{width: '100%'}}>
             <InputLabel variant='filled'>{props.label}</InputLabel>
             <Select
+                label={props.label}
                 MenuProps={props.MenuProps}
                 multiple={props.multiple}
                 sx={props.sx}

@@ -1,6 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { responsiveFontSizes } from "@mui/material";
-import { breakpoints } from "@mui/system";
 
 let theme = createTheme();
 
