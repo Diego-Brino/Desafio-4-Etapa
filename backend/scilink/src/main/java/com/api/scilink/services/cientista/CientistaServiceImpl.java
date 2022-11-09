@@ -1,6 +1,7 @@
 package com.api.scilink.services.cientista;
 
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;
@@ -20,6 +21,12 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
     public CientistaModel findCientistaByCpf (String cpfCientista) {
         return cientistaRepository.findCientistaModelByCpf(cpfCientista)
                 .orElseThrow(() -> new CpfNaoEncontradoException());
+    }
+
+    @Override
+    public CientistaModel findCientistaByNome(String nome) {
+        return cientistaRepository.findCientistaModelByNome(nome)
+                .orElseThrow(() -> new CientistaNaoEncontradoException());
     }
 
     @Override
