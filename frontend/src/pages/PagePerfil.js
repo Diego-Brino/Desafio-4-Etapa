@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import {Box, Stack, useTheme} from "@mui/system";
+import { Stack, useTheme } from "@mui/system";
 import {
   Divider,
   Grid,
@@ -86,9 +86,6 @@ function PagePerfil() {
   const sxGridContainer = {
     maxWidth: "1264px",
   };
-  const sxGridContainerSection = {
-    maxWidth: "632px",
-  };
 
   //endregion
 
@@ -113,7 +110,7 @@ function PagePerfil() {
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2} sx={sxGridContainer}>
             <Grid item xs={12} md={12} lg={12} xl={6}>
-              <Grid container spacing={2} sx={sxGridContainerSection}>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="h5" sx={sxColumnHeading}>
                     Dados Básicos
@@ -243,33 +240,31 @@ function PagePerfil() {
               </Grid>
             </Grid>
             <Grid item xs={12} md={12} lg={12} xl={6}>
-              <Grid container spacing={2} sx={sxGridContainerSection}>
-                <Grid item xs={12} sx={sxGridContainerSection}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
                   <Typography variant="h5" sx={sxColumnHeading}>
                     Titulações
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <Stack spacing={5}>
-                    <Paper sx={{height: '340.667px'}}>
-                      <Stack direction="row" spacing={1}>
-                        <InputSelect
-                          label="Áreas de Atuação"
-                          value={selectedAreaAtuacao}
-                          onChange={(e) => {
-                            setSelectedAreaAtuacao(e.target.value);
-                          }}
-                        >
-                          <MenuItem value="admin">Admin</MenuItem>
-                          <MenuItem value="user1">User1</MenuItem>
-                          <MenuItem value="user2">User2</MenuItem>
-                        </InputSelect>
-                        <IconButton>
-                          <AddIcon />
-                        </IconButton>
-                      </Stack>
-                    </Paper>
-                  </Stack>
+                  <Paper sx={{ height: "340.667px" }}>
+                    <Stack direction="row">
+                      <InputSelect
+                        label="Áreas de Atuação"
+                        value={selectedAreaAtuacao}
+                        onChange={(e) => {
+                          setSelectedAreaAtuacao(e.target.value);
+                        }}
+                      >
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="user1">User1</MenuItem>
+                        <MenuItem value="user2">User2</MenuItem>
+                      </InputSelect>
+                      <IconButton sx={{width: '56px'}}>
+                        <AddIcon />
+                      </IconButton>
+                    </Stack>
+                  </Paper>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
               </Grid>

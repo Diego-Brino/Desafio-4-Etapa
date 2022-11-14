@@ -13,7 +13,7 @@ function CadastrarFormStepGeneral(props) {
   const navigate = useNavigate();
   const layout = useContext(LayoutContext);
 
-  const handleStepBack = () => {
+  const handleCancelar = () => {
     navigate("/entrar");
   };
 
@@ -32,7 +32,7 @@ function CadastrarFormStepGeneral(props) {
       animate={{ opacity: 1, transition: { duration: 0.25 } }}
     >
       <Stack spacing={2}>
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           <Grid item xs={12} lg={6}>
             <Stack spacing={2}>
               <MaskedField
@@ -106,7 +106,12 @@ function CadastrarFormStepGeneral(props) {
                 label="Data de Nascimento"
                 InputLabelProps={{ shrink: true }}
                 variant="filled"
-                onChange={props.formik.handleChange}
+                onChange={(e) => {
+                  props.formik.setFieldValue(
+                    "dataNascimento",
+                    e.target.value.replaceAll("-", "/")
+                  );
+                }}
                 type="date"
                 helperText={
                   props.formik.errors.dataNascimento != null
@@ -164,11 +169,9 @@ function CadastrarFormStepGeneral(props) {
             variant="contained"
             sx={sxButton}
             type="button"
-            onClick={() => {
-              handleStepBack;
-            }}
+            onClick={handleCancelar}
           >
-            <Typography color="secondary">Voltar</Typography>
+            <Typography color="secondary">Cancelar</Typography>
           </Button>
           <Button variant="contained" sx={sxButton} type="submit">
             <Typography color="secondary">Avançar</Typography>

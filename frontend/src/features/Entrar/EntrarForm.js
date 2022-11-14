@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Box, Stack, useTheme } from "@mui/system";
-import { Alert, AlertTitle, Link, TextField, Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { LayoutContext } from "../../providers/LayoutProvider";
 import { motion } from "framer-motion";
-import { removeMaskCpf } from "../../utils/utils";
 import PasswordField from "../../components/inputs/PasswordField";
 import CheckboxField from "../../components/inputs/CheckboxField";
 import LoadingButton from "../../components/buttons/LoadingButton";
 import useFetch from "../../hooks/useFetch";
 import { useFormik } from "formik";
-import InputMask from "react-input-mask";
 import * as yup from "yup";
 import MaskedField from "../../components/inputs/MaskedField";
+import { removeMaskCpf } from "../../utils/utils";
 
 function EntrarForm() {
   const theme = useTheme();
@@ -24,7 +23,6 @@ function EntrarForm() {
   const validationSchema = yup.object({
     cpf: yup
       .string()
-      .min(14, "Campo CPF inválido!")
       .required("Campo CPF é obrigatório!"),
     senha: yup.string().required("Campo Senha é obrigatório!"),
   });
@@ -35,6 +33,7 @@ function EntrarForm() {
       lembrarSenha: false,
     },
     onSubmit: (values) => {
+      values.cpf = removeMaskCpf(values.cpf)
       handleSubmit(values);
     },
     validationSchema: validationSchema,
