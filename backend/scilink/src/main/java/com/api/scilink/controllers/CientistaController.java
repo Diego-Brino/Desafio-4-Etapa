@@ -1,8 +1,9 @@
 package com.api.scilink.controllers;
 
 import com.api.scilink.dtos.*;
-import com.api.scilink.models.CientistaModel;
+import com.api.scilink.models.*;
 import com.api.scilink.services.cientista.CientistaServiceImpl;
+import com.api.scilink.util.CientistaUtil;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.beans.BeanUtils;
@@ -10,12 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/cientistas") //TODO - Editar
+@RequestMapping("/cientistas")
 public class CientistaController extends LogInfoUtil {
     private final CientistaServiceImpl cientistaServiceImpl;
     private final JwtTokenUtil jwtTokenUtil;
@@ -36,17 +38,33 @@ public class CientistaController extends LogInfoUtil {
         return ResponseEntity.status(HttpStatus.OK).body(listaCientistaDto);
     }
 
-    @GetMapping("/{nomeCientista}")
-    public ResponseEntity<?> buscarMeuPerfil (@PathVariable(value = "nomeCientista") String nomeCientista,
+    @GetMapping("/{cpfCientista}")
+    public ResponseEntity<?> buscarMeuPerfil (@PathVariable(value = "cpfCientista") String cpfCientista,
                                               @RequestHeader("Authorization") String token) {
         printLogInfo("Iniciando busca por perfil!");
-        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaByNome(nomeCientista);
+        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaByCpf(cpfCientista);
 
         if (cientistaModel.equals(cientistaServiceImpl.findCientistaByCpf(jwtTokenUtil.getUsernameFromToken(token)))) {
             return ResponseEntity.status(HttpStatus.OK).body(_retornaCientistaDto(cientistaModel, "privado-publico"));
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(_retornaCientistaDto(cientistaModel, "publico"));
+    }
+
+    @PutMapping("/editar/{cpfCientista}")
+    public ResponseEntity<?> editarMeuPerfil (@PathVariable(value = "cpfCientista") String cpfCientista,
+                                              @RequestBody @Valid CientistaDto cientistaDto,
+                                              @RequestHeader("Authorization") String token) {
+        CientistaModel cientistaModelTemp = cientistaServiceImpl.findCientistaByCpf(cpfCientista);
+        if (cientistaModelTemp.equals(cientistaServiceImpl.findCientistaByCpf(jwtTokenUtil.getUsernameFromToken(token)))) {
+            printLogInfo("Iniciando alteração de perfil");
+            BeanUtils.copyProperties(CientistaUtil.retornaCientistaModel(cientistaDto), cientistaModelTemp);
+
+            cientistaServiceImpl.editarCientista(cientistaModelTemp);
+            return ResponseEntity.status(HttpStatus.OK).body(cientistaDto);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Permissão para alteração de perfil negada!");
     }
 
     //region Métodos privados

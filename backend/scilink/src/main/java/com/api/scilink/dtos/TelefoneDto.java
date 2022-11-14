@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 public class TelefoneDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Integer id_cientista;
+    private Integer idCientista;
 
     @NotNull(message = "É obrigatório inserir o ddd do telefone")
     @Size(min = 2, max = 2, message = "O ddd deve possuir 2 caracteres")
@@ -20,11 +20,11 @@ public class TelefoneDto {
 
     //region Getters and Setters
 
-    public Integer getId_cientista() {
-        return id_cientista;
+    public Integer getIdCientista() {
+        return idCientista;
     }
-    public void setId_cientista(Integer id_cientista) {
-        this.id_cientista = id_cientista;
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
     }
 
     public Integer getDdd() {

@@ -1,15 +1,16 @@
 package com.api.scilink.controllers;
 
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
-import com.api.scilink.dtos.*;
+import com.api.scilink.dtos.CientistaDto;
+import com.api.scilink.dtos.LoginDto;
 import com.api.scilink.exceptions.auth.*;
-import com.api.scilink.models.*;
+import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.auth.AuthServiceImpl;
+import com.api.scilink.util.CientistaUtil;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
 import com.api.scilink.util.Util;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -58,25 +56,7 @@ public class AuthController extends LogInfoUtil {
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastroNovoCientista (@RequestBody @Valid CientistaDto cientistaDto) {
         printLogInfo("Novo cadastro iniciado!");
-        CientistaModel cientistaModel = new CientistaModel();
-
-        BeanUtils.copyProperties(cientistaDto, cientistaModel);
-
-        if (cientistaDto.getTelefones() != null) {
-            cientistaModel.setTelefones(_retornaListaTelefonesModel(cientistaDto, cientistaModel));
-        }
-
-        if (cientistaDto.getRedesSociais() != null) {
-            cientistaModel.setRedesSociais(_retornaListaRedesSociaisModel(cientistaDto));
-        }
-
-        if (cientistaDto.getAreasAtuacao() != null) {
-            cientistaModel.setAreasAtuacao(_retornaListaAreasAtuacaoCientistaModel(cientistaDto, cientistaModel));
-        }
-
-        if (cientistaDto.getFormacoes() != null) {
-            cientistaModel.setFormacoes(_retornaListaFormacoesModel(cientistaDto, cientistaModel));
-        }
+        CientistaModel cientistaModel = CientistaUtil.retornaCientistaModel(cientistaDto);
 
         authServiceImpl.saveCientista(cientistaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(cientistaDto);
@@ -114,60 +94,4 @@ public class AuthController extends LogInfoUtil {
                 return ResponseEntity.status(HttpStatus.OK).body("Parâmetro informado é inválido!");
         }
     }
-
-    //region Métodos privados
-
-    private List<TelefoneModel> _retornaListaTelefonesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        return cientistaDto.getTelefones().stream().map(telefoneDto -> {
-            TelefoneId telefoneIdTemp = new TelefoneId();
-            BeanUtils.copyProperties(telefoneDto, telefoneIdTemp);
-
-            return new TelefoneModel(telefoneIdTemp, cientistaModel);
-        }).collect(Collectors.toList());
-    }
-
-    private List<RedeSocialModel> _retornaListaRedesSociaisModel (CientistaDto cientistaDto) {
-        return cientistaDto.getRedesSociais().stream().map(redeSocialDto -> {
-            RedeSocialModel redeSocialModelTemp = new RedeSocialModel();
-
-            BeanUtils.copyProperties(redeSocialDto, redeSocialModelTemp);
-
-            return redeSocialModelTemp;
-        }).collect(Collectors.toList());
-    }
-
-    private List<AreaAtuacaoCientistaModel> _retornaListaAreasAtuacaoCientistaModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        return cientistaDto.getAreasAtuacao().stream().map(areaAtuacaoCientistaDto -> {
-            AreaAtuacaoCientistaId areaAtuacaoCientistaIdTemp = new AreaAtuacaoCientistaId();
-            AreaAtuacaoCientistaModel areaAtuacaoCientistaModelTemp = new AreaAtuacaoCientistaModel();
-            AreaAtuacaoModel areaAtuacaoModelTemp = new AreaAtuacaoModel();
-
-            areaAtuacaoModelTemp.setNome(areaAtuacaoCientistaDto.getNome());
-
-            areaAtuacaoCientistaModelTemp.setId(areaAtuacaoCientistaIdTemp);
-            areaAtuacaoCientistaModelTemp.setCientista(cientistaModel);
-            areaAtuacaoCientistaModelTemp.setAreaAtuacao(areaAtuacaoModelTemp);
-
-            return areaAtuacaoCientistaModelTemp;
-        }).collect(Collectors.toList());
-    }
-
-    private List<FormacaoModel> _retornaListaFormacoesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        return cientistaDto.getFormacoes().stream().map(formacaoDto -> {
-            FormacaoId formacaoId = new FormacaoId();
-            FormacaoModel formacaoModelTemp = new FormacaoModel();
-            TitulacaoModel titulacaoModelTemp = new TitulacaoModel();
-
-            titulacaoModelTemp.setNome(formacaoDto.getNome());
-
-            BeanUtils.copyProperties(formacaoDto, formacaoModelTemp);
-            formacaoModelTemp.setFormacaoId(formacaoId);
-            formacaoModelTemp.setCientista(cientistaModel);
-            formacaoModelTemp.setTitulacao(titulacaoModelTemp);
-
-            return formacaoModelTemp;
-        }).collect(Collectors.toList());
-    }
-
-    //endregion
 }

@@ -16,9 +16,10 @@ import java.util.List;
 public class CientistaModel implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id_cientista")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cientista_sequence")
     @SequenceGenerator(name = "cientista_sequence", sequenceName = "SEQ_IDCIENTISTA", allocationSize = 1)
-    private Integer id_cientista;
+    private Integer idCientista;
     @Column(name = "nom_cientista",length = 50)
     private String nome;
     @Column(name = "cpf_cientista", nullable = false, length = 11, unique = true)
@@ -97,11 +98,11 @@ public class CientistaModel implements Serializable, UserDetails {
 
     //region Getters and Setters
 
-    public Integer getId_cientista() {
-        return id_cientista;
+    public Integer getIdCientista() {
+        return idCientista;
     }
-    public void setId_cientista(Integer id_cientista) {
-        this.id_cientista = id_cientista;
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
     }
 
     public String getNome() {

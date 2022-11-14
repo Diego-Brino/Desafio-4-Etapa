@@ -10,13 +10,13 @@ public class AreaAtuacaoCientistaModel implements Serializable {
     @EmbeddedId
     private AreaAtuacaoCientistaId id;
     @ManyToOne
-    @MapsId("id_cientista")
-    @JoinColumn(name = "id_cientista",
+    @MapsId("idCientista")
+    @JoinColumn(name = "idCientista",
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
     @ManyToOne
-    @MapsId("id_area_atuacao")
-    @JoinColumn(name = "id_area_atuacao",
+    @MapsId("idAreaAtuacao")
+    @JoinColumn(name = "idAreaAtuacao",
                 referencedColumnName = "id_area_atuacao")
     private AreaAtuacaoModel areaAtuacao;
 

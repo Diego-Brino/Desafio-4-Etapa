@@ -8,9 +8,10 @@ import java.util.Optional;
 
 @Repository
 public interface CientistaRepository extends JpaRepository<CientistaModel, Integer> {
-    public Optional<CientistaModel> findCientistaModelByNome(String nome);
-    public Optional<CientistaModel> findCientistaModelByCpf(String cpf);
-    public Boolean existsByCpf (String cpf);
-    public Boolean existsByEmail (String email);
-    public Boolean existsByLattes (String lattes);
+    Optional<CientistaModel> findCientistaModelByNome(String nome);
+    Optional<CientistaModel> findCientistaModelByCpf(String cpf);
+    Optional<CientistaModel> findCientistaModelByIdCientista(Integer id);
+    Boolean existsByCpf (String cpf);
+    Boolean existsByEmail (String email);
+    Boolean existsByLattes (String lattes);
 }

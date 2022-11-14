@@ -9,11 +9,12 @@ import java.util.Date;
 public class ProjetoModel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id_projeto")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "projeto_sequence")
     @SequenceGenerator(name = "projeto_sequence", sequenceName = "SEQ_IDPROJETO", allocationSize = 1)
-    private Integer id_projeto;
+    private Integer idProjeto;
     @ManyToOne
-    @JoinColumn(name = "id_cientista")
+    @JoinColumn(name = "idCientista")
     private CientistaModel cientista;
     @Column(name = "tit_projeto", length = 50)
     private String titulo;
@@ -28,11 +29,11 @@ public class ProjetoModel implements Serializable {
 
     //region Getters and Setters
 
-    public Integer getId_projeto() {
-        return id_projeto;
+    public Integer getIdProjeto() {
+        return idProjeto;
     }
-    public void setId_projeto(Integer id_projeto) {
-        this.id_projeto = id_projeto;
+    public void setIdProjeto(Integer idProjeto) {
+        this.idProjeto = idProjeto;
     }
 
     public CientistaModel getCientista() {

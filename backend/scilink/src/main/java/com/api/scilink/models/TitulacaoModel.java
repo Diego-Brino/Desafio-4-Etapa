@@ -8,19 +8,20 @@ import java.io.Serializable;
 public class TitulacaoModel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id_titulacao")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "titulacao_sequence")
     @SequenceGenerator(name = "titulacao_sequence", sequenceName = "SEQ_IDTITULACAO", allocationSize = 1)
-    private Integer id_titulacao;
+    private Integer idTitulacao;
     @Column(name = "nom_titulacao", length = 25, nullable = false)
     private String nome;
 
     //region Getters and Setters
 
-    public Integer getId_titulacao() {
-        return id_titulacao;
+    public Integer getIdTitulacao() {
+        return idTitulacao;
     }
-    public void setId_titulacao(Integer id_titulacao) {
-        this.id_titulacao = id_titulacao;
+    public void setIdTitulacao(Integer idTitulacao) {
+        this.idTitulacao = idTitulacao;
     }
 
     public String getNome() {

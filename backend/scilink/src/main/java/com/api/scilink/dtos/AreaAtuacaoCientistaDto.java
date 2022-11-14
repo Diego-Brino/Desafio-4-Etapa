@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AreaAtuacaoCientistaDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Integer id_cientista;
+    private Integer idCientista;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Integer id_area_atuacao;
+    private Integer idAreaAtuacao;
 
     /**
      * Nome da area de atuação
@@ -16,18 +16,18 @@ public class AreaAtuacaoCientistaDto {
 
     //region Getters and Setters
 
-    public Integer getId_cientista() {
-        return id_cientista;
+    public Integer getIdCientista() {
+        return idCientista;
     }
-    public void setId_cientista(Integer id_cientista) {
-        this.id_cientista = id_cientista;
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
     }
 
-    public Integer getId_area_atuacao() {
-        return id_area_atuacao;
+    public Integer getIdAreaAtuacao() {
+        return idAreaAtuacao;
     }
-    public void setId_area_atuacao(Integer id_area_atuacao) {
-        this.id_area_atuacao = id_area_atuacao;
+    public void setIdAreaAtuacao(Integer idAreaAtuacao) {
+        this.idAreaAtuacao = idAreaAtuacao;
     }
 
     public String getNome() {
