@@ -1,12 +1,8 @@
 package com.api.scilink.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class AreaAtuacaoCientistaDto {
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer idCientista;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer idAreaAtuacao;
 
     /**

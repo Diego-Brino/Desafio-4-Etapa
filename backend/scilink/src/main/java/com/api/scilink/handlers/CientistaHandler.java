@@ -1,6 +1,8 @@
 package com.api.scilink.handlers;
 
 import com.api.scilink.controllers.CientistaController;
+import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,12 @@ public class CientistaHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(LocalDateTime.now()));
         body.put("message", message);
         return body;
+    }
+
+    @ExceptionHandler(CientistaNaoEncontradoException.class)
+    public ResponseEntity<Object> handleCientistaNaoEncontradoException (CientistaNaoEncontradoException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(NenhumCientistaCadastradoException.class)

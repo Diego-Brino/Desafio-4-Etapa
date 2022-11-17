@@ -13,6 +13,18 @@ public class AreaAtuacaoCientistaId implements Serializable {
     @Column(name = "id_area_atuacao")
     private Integer idAreaAtuacao;
 
+    //region Constructors
+
+    public AreaAtuacaoCientistaId() {
+    }
+
+    public AreaAtuacaoCientistaId(Integer idCientista, Integer idAreaAtuacao) {
+        this.idCientista = idCientista;
+        this.idAreaAtuacao = idAreaAtuacao;
+    }
+
+    //endregion
+
     //region Getters and Setters
 
     public Integer getIdCientista() {

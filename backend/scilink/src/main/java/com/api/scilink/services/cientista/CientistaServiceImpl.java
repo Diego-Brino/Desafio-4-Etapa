@@ -5,7 +5,10 @@ import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import com.api.scilink.exceptions.titulacao.TitulacaoNaoEncontradaException;
+import com.api.scilink.models.AreaAtuacaoCientistaId;
+import com.api.scilink.models.AreaAtuacaoCientistaModel;
 import com.api.scilink.models.CientistaModel;
+import com.api.scilink.models.RedeSocialModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.services.areaAtuacao.AreaAtuacaoServiceImpl;
 import com.api.scilink.services.areaAtuacaoCientista.AreaAtuacaoCientistaServiceImpl;
@@ -53,7 +56,7 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
     @Override
     public CientistaModel findCientistaByCpf (String cpfCientista) {
         return cientistaRepository.findCientistaModelByCpf(cpfCientista)
-                .orElseThrow(CpfNaoEncontradoException::new);
+                .orElseThrow(CientistaNaoEncontradoException::new);
     }
 
     @Override
@@ -74,26 +77,32 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
 
     @Override
     @Transactional
-    public CientistaModel editarCientista(CientistaModel cientistaModel) {
+    public CientistaModel editarCientista(CientistaModel cientistaModelNew) {
         CientistaModel cientistaModelTemp = cientistaRepository
-                .findCientistaModelByIdCientista(cientistaModel.getIdCientista()).get();
+                .findCientistaModelByIdCientista(cientistaModelNew.getIdCientista()).get();
 
-        if (cientistaModel.getTelefones() != null) {
-            cientistaModel.getTelefones().forEach(telefoneModel -> {
+        if (cientistaModelNew.getTelefones() != null) {
+            cientistaModelTemp.getTelefones().forEach(telefoneServiceImpl::deletarTelefoneModel);
+
+            cientistaModelNew.getTelefones().forEach(telefoneModel -> {
                 telefoneModel.setCientista(cientistaModelTemp);
                 telefoneServiceImpl.cadastrarTelefoneModel(telefoneModel);
             });
         }
 
-        if (cientistaModel.getRedesSociais() != null) {
-            cientistaModel.getRedesSociais().forEach(redeSocialModel -> {
+        if (cientistaModelNew.getRedesSociais() != null) {
+            cientistaModelTemp.getRedesSociais().forEach(redeSocialServiceImpl::deletarRedeSocial);
+
+            cientistaModelNew.getRedesSociais().forEach(redeSocialModel -> {
                 redeSocialModel.setCientista(cientistaModelTemp);
                 redeSocialServiceImpl.cadastrarRedeSocial(redeSocialModel);
             });
         }
 
-        if (cientistaModel.getAreasAtuacao() != null) {
-            cientistaModel.getAreasAtuacao().forEach(areaAtuacaoCientistaModel -> {
+        if (cientistaModelNew.getAreasAtuacao() != null) {
+            cientistaModelTemp.getAreasAtuacao().forEach(areaAtuacaoCientistaServiceImpl::deletarAreaAtuacaoCientista);
+
+            cientistaModelNew.getAreasAtuacao().forEach(areaAtuacaoCientistaModel -> {
                 areaAtuacaoCientistaModel.setCientista(cientistaModelTemp);
                 areaAtuacaoCientistaModel.setAreaAtuacao
                         (areaAtuacaoServiceImpl.buscarAreaAtuacaoByNome
@@ -104,8 +113,10 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
             });
         }
 
-        if (cientistaModel.getFormacoes() != null) {
-            cientistaModel.getFormacoes().forEach(formacaoModel -> {
+        if (cientistaModelNew.getFormacoes() != null) {
+            cientistaModelTemp.getFormacoes().forEach(formacaoServiceImpl::deletarFormacao);
+
+            cientistaModelNew.getFormacoes().forEach(formacaoModel -> {
                 formacaoModel.setCientista(cientistaModelTemp);
                 formacaoModel.setTitulacao
                         (titulacaoServiceImpl.buscarTitulacaoByNome
@@ -115,9 +126,9 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
             });
         }
 
+        cientistaRepository.save(cientistaModelNew);
         printLogInfo("Cientista editado!");
-        cientistaRepository.save(cientistaModel);
 
-        return cientistaModel;
+        return cientistaModelNew;
     }
 }

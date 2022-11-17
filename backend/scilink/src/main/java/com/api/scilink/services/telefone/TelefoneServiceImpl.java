@@ -30,6 +30,12 @@ public class TelefoneServiceImpl extends LogInfoUtil implements TelefoneService 
     }
 
     @Override
+    public void deletarTelefoneModel(TelefoneModel telefoneModel) {
+        printLogInfo("Deletando um telefone!");
+        telefoneRepository.delete(telefoneModel);
+    }
+
+    @Override
     public Boolean existsTelefoneModelByDddAndNumero(Integer ddd, String numero) {
         printLogInfo("Verificando existência de um telefone!");
         return telefoneRepository.existsTelefoneModelByTelefoneIdDddAndTelefoneIdNumero(ddd, numero);

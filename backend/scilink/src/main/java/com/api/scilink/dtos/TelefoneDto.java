@@ -1,13 +1,10 @@
 package com.api.scilink.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class TelefoneDto {
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer idCientista;
 
     @NotNull(message = "É obrigatório inserir o ddd do telefone")

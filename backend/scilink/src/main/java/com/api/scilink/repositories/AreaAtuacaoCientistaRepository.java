@@ -5,4 +5,5 @@ import com.api.scilink.models.AreaAtuacaoCientistaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AreaAtuacaoCientistaRepository extends JpaRepository<AreaAtuacaoCientistaModel, AreaAtuacaoCientistaId> {
+    AreaAtuacaoCientistaModel findAreaAtuacaoCientistaModelById (AreaAtuacaoCientistaId areaAtuacaoCientistaId);
 }

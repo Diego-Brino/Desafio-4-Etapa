@@ -9,5 +9,5 @@ public interface CientistaService {
     CientistaModel findCientistaById (Integer id);
     CientistaModel findCientistaByCpf (String cpfCientista);
     CientistaModel findCientistaByNome (String nome);
-    CientistaModel editarCientista (CientistaModel cientistaModel);
+    CientistaModel editarCientista (CientistaModel cientistaModelNew);
 }

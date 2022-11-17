@@ -1,5 +1,6 @@
 package com.api.scilink.services.areaAtuacaoCientista;
 
+import com.api.scilink.models.AreaAtuacaoCientistaId;
 import com.api.scilink.models.AreaAtuacaoCientistaModel;
 import com.api.scilink.repositories.AreaAtuacaoCientistaRepository;
 import com.api.scilink.util.LogInfoUtil;
@@ -16,5 +17,17 @@ public class AreaAtuacaoCientistaServiceImpl extends LogInfoUtil implements Area
     public AreaAtuacaoCientistaModel cadastrarAreaAtuacaoCientistaModel(AreaAtuacaoCientistaModel areaAtuacaoCientistaModel) {
         printLogInfo("Cadastrando uma Área de Atuação Cientista!");
         return areaAtuacaoCientistaRepository.save(areaAtuacaoCientistaModel);
+    }
+
+    @Override
+    public void deletarAreaAtuacaoCientista(AreaAtuacaoCientistaModel areaAtuacaoCientistaModel) {
+        printLogInfo("Deletando uma área de atuação cientista!");
+        areaAtuacaoCientistaRepository.delete(areaAtuacaoCientistaModel);
+    }
+
+    @Override
+    public AreaAtuacaoCientistaModel buscarAreaAtuacaoCientistaPorId(AreaAtuacaoCientistaId areaAtuacaoCientistaId) {
+        printLogInfo("Buscando um área de atuação cientista");
+        return areaAtuacaoCientistaRepository.findAreaAtuacaoCientistaModelById(areaAtuacaoCientistaId);
     }
 }

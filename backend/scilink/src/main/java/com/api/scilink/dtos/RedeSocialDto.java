@@ -4,6 +4,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class RedeSocialDto {
+    private Integer idRedeSocial;
+
     @NotBlank(message = "É obrigatório o endereço de uma rede social!")
     @Size(max = 50, message = "A URL deve ter no máximo 50 caracteres!")
     private String endereco;
@@ -25,6 +27,13 @@ public class RedeSocialDto {
     //endregion
 
     //region Getters and Setters
+
+    public Integer getIdRedeSocial() {
+        return idRedeSocial;
+    }
+    public void setIdRedeSocial(Integer idRedeSocial) {
+        this.idRedeSocial = idRedeSocial;
+    }
 
     public String getEndereco() {
         return endereco;

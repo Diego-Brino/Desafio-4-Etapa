@@ -7,6 +7,10 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class FormacaoDto {
+    private Integer idTitulacao;
+
+    private Integer idCientista;
+
     /**
      * Nome da titulação
      */
@@ -22,6 +26,20 @@ public class FormacaoDto {
     private Date dataTermino;
 
     //region Getters and Setters
+
+    public Integer getIdTitulacao() {
+        return idTitulacao;
+    }
+    public void setIdTitulacao(Integer idTitulacao) {
+        this.idTitulacao = idTitulacao;
+    }
+
+    public Integer getIdCientista() {
+        return idCientista;
+    }
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
+    }
 
     public String getNome() {
         return nome;
@@ -43,7 +61,6 @@ public class FormacaoDto {
     public void setDataTermino(Date dataTermino) {
         this.dataTermino = dataTermino;
     }
-
 
     //endregion
 }

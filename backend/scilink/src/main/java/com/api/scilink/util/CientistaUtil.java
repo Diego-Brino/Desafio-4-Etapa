@@ -1,6 +1,6 @@
 package com.api.scilink.util;
 
-import com.api.scilink.dtos.CientistaDto;
+import com.api.scilink.dtos.*;
 import com.api.scilink.models.*;
 import org.springframework.beans.BeanUtils;
 
@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CientistaUtil {
+    //Retornando cientista Model
     public static CientistaModel retornaCientistaModel (CientistaDto cientistaDto) {
         CientistaModel cientistaModel = new CientistaModel();
 
@@ -81,6 +82,100 @@ public class CientistaUtil {
             formacaoModelTemp.setTitulacao(titulacaoModelTemp);
 
             return formacaoModelTemp;
+        }).collect(Collectors.toList());
+    }
+
+    //Retornando cientista Dto
+    public static CientistaDto retornaCientistaDto (CientistaModel cientistaModel, String tipoBuscaProjeto) {
+        CientistaDto cientistaDto = new CientistaDto();
+
+        BeanUtils.copyProperties(cientistaModel, cientistaDto);
+
+        if (tipoBuscaProjeto.equals("publico")) {
+            cientistaDto.setProjetos(_retornaListaProjetosPublicosDto(cientistaModel));
+        }else{
+            cientistaDto.setProjetos(_retornaListaProjetosDto(cientistaModel));
+        }
+
+        cientistaDto.setTelefones(_retornaListaTelefonesDto(cientistaModel));
+        cientistaDto.setRedesSociais(_retornaListaRedesSociaisDto(cientistaModel));
+        cientistaDto.setAreasAtuacao(_retornaListaAreasAtuacaoCientistaDto(cientistaModel));
+        cientistaDto.setFormacoes(_retornaListaFormacoesDto(cientistaModel));
+
+        return cientistaDto;
+    }
+
+    private static List<ProjetoDto> _retornaListaProjetosPublicosDto (CientistaModel cientistaModel) {
+        return cientistaModel.getProjetos()
+                .stream()
+                .filter(projetoModel -> projetoModel.getPublico() != 0)
+                .map(projetoModel -> {
+                    ProjetoDto projetoDto = new ProjetoDto();
+
+                    if (projetoModel.getPublico() != 0) {
+                        BeanUtils.copyProperties(projetoModel, projetoDto);
+                        BeanUtils.copyProperties(projetoModel.getCientista(), projetoDto);
+                    }
+
+                    return projetoDto;
+                }).collect(Collectors.toList());
+    }
+
+    private static List<ProjetoDto> _retornaListaProjetosDto (CientistaModel cientistaModel) {
+        return cientistaModel.getProjetos()
+                .stream()
+                .map(projetoModel -> {
+                    ProjetoDto projetoDto = new ProjetoDto();
+
+                    BeanUtils.copyProperties(projetoModel, projetoDto);
+                    BeanUtils.copyProperties(projetoModel.getCientista(), projetoDto);
+
+                    return projetoDto;
+                }).collect(Collectors.toList());
+    }
+
+    private static List<TelefoneDto> _retornaListaTelefonesDto (CientistaModel cientistaModel) {
+        return cientistaModel.getTelefones().stream().map(telefoneModel -> {
+            TelefoneDto telefoneDtoTemp = new TelefoneDto();
+
+            BeanUtils.copyProperties(telefoneModel.getTelefoneId(), telefoneDtoTemp);
+
+            return telefoneDtoTemp;
+        }).collect(Collectors.toList());
+    }
+
+    private static List<RedeSocialDto> _retornaListaRedesSociaisDto (CientistaModel cientistaModel) {
+        return cientistaModel.getRedesSociais().stream().map(redeSocialModel -> {
+            RedeSocialDto redeSocialDtoTemp = new RedeSocialDto();
+
+            BeanUtils.copyProperties(redeSocialModel, redeSocialDtoTemp);
+
+            return redeSocialDtoTemp;
+        }).collect(Collectors.toList());
+    }
+
+    private static List<AreaAtuacaoCientistaDto> _retornaListaAreasAtuacaoCientistaDto (CientistaModel cientistaModel) {
+        return cientistaModel.getAreasAtuacao().stream().map(areaAtuacaoCientistaModel -> {
+            AreaAtuacaoCientistaDto areaAtuacaoCientistaDtoTemp = new AreaAtuacaoCientistaDto();
+
+            areaAtuacaoCientistaDtoTemp.setIdAreaAtuacao(areaAtuacaoCientistaModel.getAreaAtuacao().getIdAreaAtuacao());
+            areaAtuacaoCientistaDtoTemp.setIdCientista(areaAtuacaoCientistaModel.getCientista().getIdCientista());
+            areaAtuacaoCientistaDtoTemp.setNome(areaAtuacaoCientistaModel.getAreaAtuacao().getNome());
+
+            return areaAtuacaoCientistaDtoTemp;
+        }).collect(Collectors.toList());
+    }
+
+    private static List<FormacaoDto> _retornaListaFormacoesDto (CientistaModel cientistaModel) {
+        return cientistaModel.getFormacoes().stream().map(formacaoModel -> {
+            FormacaoDto formacaoDto = new FormacaoDto();
+
+            BeanUtils.copyProperties(formacaoModel, formacaoDto);
+            BeanUtils.copyProperties(formacaoModel.getFormacaoId(), formacaoDto);
+
+            formacaoDto.setNome(formacaoModel.getTitulacao().getNome());
+
+            return formacaoDto;
         }).collect(Collectors.toList());
     }
 }
