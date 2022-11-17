@@ -1,16 +1,23 @@
 package com.api.scilink.dtos;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+public class AreaAtuacaoCientistaDto {
+    private Integer idCientista;
 
-public class AreaAtuacaoDto {
     private Integer idAreaAtuacao;
 
-    @NotBlank(message = "Por favor insira um nome para a area de atuacao")
-    @Size(max = 25, message = "Por favor insira um nome para a area de atuacao menor que 25 caracteres!")
+    /**
+     * Nome da area de atuação
+     */
     private String nome;
 
     //region Getters and Setters
+
+    public Integer getIdCientista() {
+        return idCientista;
+    }
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
+    }
 
     public Integer getIdAreaAtuacao() {
         return idAreaAtuacao;

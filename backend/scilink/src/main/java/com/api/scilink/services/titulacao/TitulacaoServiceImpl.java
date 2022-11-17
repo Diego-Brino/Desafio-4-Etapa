@@ -6,6 +6,7 @@ import com.api.scilink.util.LogInfoUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TitulacaoServiceImpl extends LogInfoUtil implements TitulacaoService {
@@ -21,7 +22,7 @@ public class TitulacaoServiceImpl extends LogInfoUtil implements TitulacaoServic
     }
 
     @Override
-    public TitulacaoModel buscarTitulacaoByNome(String nome) {
+    public Optional<TitulacaoModel> buscarTitulacaoByNome(String nome) {
         return titulacaoRepository.findTitulacaoModelByNome(nome);
     }
 }

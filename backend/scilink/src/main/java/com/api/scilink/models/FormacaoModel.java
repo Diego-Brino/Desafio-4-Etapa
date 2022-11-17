@@ -11,13 +11,13 @@ public class FormacaoModel implements Serializable {
     @EmbeddedId
     private FormacaoId formacaoId;
     @ManyToOne
-    @MapsId("id_cientista")
-    @JoinColumn(name = "id_cientista",
+    @MapsId("idCientista")
+    @JoinColumn(name = "idCientista",
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
     @ManyToOne
-    @MapsId("id_titulacao")
-    @JoinColumn(name = "id_titulacao",
+    @MapsId("idTitulacao")
+    @JoinColumn(name = "idTitulacao",
                 referencedColumnName = "id_titulacao")
     private TitulacaoModel titulacao;
     @Column(name = "dti_formacao")

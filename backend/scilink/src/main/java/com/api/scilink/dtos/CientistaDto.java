@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 public class CientistaDto {
+    private Integer idCientista;
+
     @Size(max = 50, message = "O campo nome não pode ultrapassar 50 caracteres!")
     private String nome;
 
@@ -46,11 +48,18 @@ public class CientistaDto {
 
     private List<RedeSocialDto> redesSociais;
 
-//    private List<AreaAtuacaoCientistaDto> areasAtuacao;
+    private List<AreaAtuacaoCientistaDto> areasAtuacao;
 
     private List<FormacaoDto> formacoes;
 
     //region Getters and Setters
+
+    public Integer getIdCientista() {
+        return idCientista;
+    }
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
+    }
 
     public String getNome() {
         return nome;
@@ -120,6 +129,13 @@ public class CientistaDto {
     }
     public void setProjetos(List<ProjetoDto> projetos) {
         this.projetos = projetos;
+    }
+
+    public List<AreaAtuacaoCientistaDto> getAreasAtuacao() {
+        return areasAtuacao;
+    }
+    public void setAreasAtuacao(List<AreaAtuacaoCientistaDto> areasAtuacao) {
+        this.areasAtuacao = areasAtuacao;
     }
 
     public List<FormacaoDto> getFormacoes() {

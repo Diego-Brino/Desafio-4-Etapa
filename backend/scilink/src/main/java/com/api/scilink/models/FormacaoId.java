@@ -4,30 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 @Embeddable
 public class FormacaoId implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column
-    private Integer id_cientista;
-    @Column
-    private Integer id_titulacao;
+    @Column(name = "id_cientista")
+    private Integer idCientista;
+    @Column(name = "id_titulacao")
+    private Integer idTitulacao;
 
     //region Getters and Setters
 
-    public Integer getId_cientista() {
-        return id_cientista;
+    public Integer getIdCientista() {
+        return idCientista;
     }
-    public void setId_cientista(Integer id_cientista) {
-        this.id_cientista = id_cientista;
+    public void setIdCientista(Integer idCientista) {
+        this.idCientista = idCientista;
     }
 
-    public Integer getId_titulacao() {
-        return id_titulacao;
+    public Integer getIdTitulacao() {
+        return idTitulacao;
     }
-    public void setId_titulacao(Integer id_titulacao) {
-        this.id_titulacao = id_titulacao;
+    public void setIdTitulacao(Integer idTitulacao) {
+        this.idTitulacao = idTitulacao;
     }
 
     @Override
@@ -35,12 +34,12 @@ public class FormacaoId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FormacaoId that = (FormacaoId) o;
-        return Objects.equals(id_cientista, that.id_cientista) && Objects.equals(id_titulacao, that.id_titulacao);
+        return Objects.equals(idCientista, that.idCientista) && Objects.equals(idTitulacao, that.idTitulacao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_cientista, id_titulacao);
+        return Objects.hash(idCientista, idTitulacao);
     }
 
     //endregion

@@ -8,4 +8,5 @@ public interface TelefoneService {
     List<TelefoneModel> cadastrarListaTelefoneModels (List<TelefoneModel> listaTelefoneModels);
     TelefoneModel cadastrarTelefoneModel (TelefoneModel telefoneModel);
     Boolean existsTelefoneModelByDddAndNumero (Integer ddd, String numero);
+    void deletarTelefoneModel (TelefoneModel telefoneModel);
 }

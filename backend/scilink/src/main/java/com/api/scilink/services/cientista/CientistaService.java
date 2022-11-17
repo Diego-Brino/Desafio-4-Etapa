@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface CientistaService {
     List<CientistaModel> buscarTodosOsCientistas ();
+    CientistaModel findCientistaById (Integer id);
     CientistaModel findCientistaByCpf (String cpfCientista);
+    CientistaModel findCientistaByNome (String nome);
+    CientistaModel editarCientista (CientistaModel cientistaModelNew);
 }

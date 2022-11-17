@@ -5,6 +5,7 @@ import com.api.scilink.repositories.TelefoneRepository;
 import com.api.scilink.util.LogInfoUtil;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,15 +16,23 @@ public class TelefoneServiceImpl extends LogInfoUtil implements TelefoneService 
     }
 
     @Override
+    @Transactional
     public TelefoneModel cadastrarTelefoneModel(TelefoneModel telefoneModel) {
         printLogInfo("Cadastrando um telefone!");
         return telefoneRepository.save(telefoneModel);
     }
 
     @Override
+    @Transactional
     public List<TelefoneModel> cadastrarListaTelefoneModels(List<TelefoneModel> listaTelefoneModels) {
         printLogInfo("Cadastrando lista de telefones!");
         return telefoneRepository.saveAll(listaTelefoneModels);
+    }
+
+    @Override
+    public void deletarTelefoneModel(TelefoneModel telefoneModel) {
+        printLogInfo("Deletando um telefone!");
+        telefoneRepository.delete(telefoneModel);
     }
 
     @Override

@@ -1,15 +1,19 @@
 package com.api.scilink.services.auth;
 
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
 import com.api.scilink.exceptions.auth.CpfJaCadastradoException;
 import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
 import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.exceptions.auth.TelefoneJaCadastradoException;
+import com.api.scilink.exceptions.titulacao.TitulacaoNaoEncontradaException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.RedeSocialModel;
 import com.api.scilink.models.TitulacaoModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.repositories.TelefoneRepository;
+import com.api.scilink.services.areaAtuacao.AreaAtuacaoServiceImpl;
+import com.api.scilink.services.areaAtuacaoCientista.AreaAtuacaoCientistaServiceImpl;
 import com.api.scilink.services.formacao.FormacaoServiceImpl;
 import com.api.scilink.services.redeSocial.RedeSocialServiceImpl;
 import com.api.scilink.services.telefone.TelefoneServiceImpl;
@@ -30,16 +34,22 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
     private final RedeSocialServiceImpl redeSocialServiceImpl;
     private final FormacaoServiceImpl formacaoServiceImpl;
     private final TitulacaoServiceImpl titulacaoServiceImpl;
+    private final AreaAtuacaoServiceImpl areaAtuacaoServiceImpl;
+    private final AreaAtuacaoCientistaServiceImpl areaAtuacaoCientistaServiceImpl;
     public AuthServiceImpl(CientistaRepository cientistaRepository,
                            TelefoneServiceImpl telefoneServiceImpl,
                            RedeSocialServiceImpl redeSocialServiceImpl,
                            FormacaoServiceImpl formacaoServiceImpl,
-                           TitulacaoServiceImpl titulacaoServiceImpl) {
+                           TitulacaoServiceImpl titulacaoServiceImpl,
+                           AreaAtuacaoServiceImpl areaAtuacaoServiceImpl,
+                           AreaAtuacaoCientistaServiceImpl areaAtuacaoCientistaServiceImpl) {
         this.cientistaRepository = cientistaRepository;
         this.telefoneServiceImpl = telefoneServiceImpl;
         this.redeSocialServiceImpl = redeSocialServiceImpl;
         this.formacaoServiceImpl = formacaoServiceImpl;
         this.titulacaoServiceImpl = titulacaoServiceImpl;
+        this.areaAtuacaoServiceImpl = areaAtuacaoServiceImpl;
+        this.areaAtuacaoCientistaServiceImpl = areaAtuacaoCientistaServiceImpl;
     }
 
     @Override
@@ -99,11 +109,25 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
             });
         }
 
+        if (cientistaModel.getAreasAtuacao() != null) {
+            cientistaModel.getAreasAtuacao().forEach(areaAtuacaoCientistaModel -> {
+                areaAtuacaoCientistaModel.setCientista(cientistaModelTemp);
+                areaAtuacaoCientistaModel.setAreaAtuacao
+                        (areaAtuacaoServiceImpl.buscarAreaAtuacaoByNome
+                                (areaAtuacaoCientistaModel.getAreaAtuacao().getNome())
+                                        .orElseThrow(AreaAtuacaoNaoEncontradaException::new));
+                areaAtuacaoCientistaServiceImpl
+                        .cadastrarAreaAtuacaoCientistaModel(areaAtuacaoCientistaModel);
+            });
+        }
+
         if (cientistaModel.getFormacoes() != null) {
             cientistaModel.getFormacoes().forEach(formacaoModel -> {
                 formacaoModel.setCientista(cientistaModelTemp);
-                formacaoModel.setTitulacao(titulacaoServiceImpl.buscarTitulacaoByNome
-                                                                (formacaoModel.getTitulacao().getNome()));
+                formacaoModel.setTitulacao
+                        (titulacaoServiceImpl.buscarTitulacaoByNome
+                                (formacaoModel.getTitulacao().getNome())
+                                        .orElseThrow(TitulacaoNaoEncontradaException::new));
                 formacaoServiceImpl.cadastrarFormacaoModel(formacaoModel);
             });
         }

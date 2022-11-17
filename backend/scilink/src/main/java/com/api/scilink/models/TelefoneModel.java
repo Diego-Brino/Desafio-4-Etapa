@@ -10,8 +10,8 @@ public class TelefoneModel implements Serializable {
     @EmbeddedId
     private TelefoneId telefoneId;
     @ManyToOne
-    @MapsId("id_cientista")
-    @JoinColumn(name = "id_cientista",
+    @MapsId("idCientista")
+    @JoinColumn(name = "idCientista",
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
 

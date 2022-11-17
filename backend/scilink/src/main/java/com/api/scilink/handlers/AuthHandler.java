@@ -2,8 +2,10 @@ package com.api.scilink.handlers;
 
 import com.api.scilink.controllers.AuthController;
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.auth.*;
+import com.api.scilink.exceptions.titulacao.TitulacaoNaoEncontradaException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,6 +82,18 @@ public class AuthHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(TelefoneJaCadastradoException.class)
     public ResponseEntity<Object> handleTelefoneJaCadastradoException (TelefoneJaCadastradoException exception) {
         LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "telefone");
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AreaAtuacaoNaoEncontradaException.class)
+    public ResponseEntity<Object> handleAreaAtuacaoNaoEncontradaException (AreaAtuacaoNaoEncontradaException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "área atuação");
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(TitulacaoNaoEncontradaException.class)
+    public ResponseEntity<Object> handleTitulacaoNaoEncontradaException (TitulacaoNaoEncontradaException exception) {
+        LinkedHashMap<Object, Object> body = _preencherMensagensDeErro(exception.getMessage(), "titulação");
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 

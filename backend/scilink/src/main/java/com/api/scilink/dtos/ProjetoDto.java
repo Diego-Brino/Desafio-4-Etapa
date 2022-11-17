@@ -37,6 +37,11 @@ public class ProjetoDto {
     private String lattes;
 
     /**
+     * Identificador do projeto
+     */
+    private Integer idProjeto;
+
+    /**
      * Titulo do projeto
      */
     private String titulo;
@@ -108,6 +113,13 @@ public class ProjetoDto {
     }
     public void setLattes(String lattes) {
         this.lattes = lattes;
+    }
+
+    public Integer getIdProjeto() {
+        return idProjeto;
+    }
+    public void setIdProjeto(Integer idProjeto) {
+        this.idProjeto = idProjeto;
     }
 
     public String getTitulo() {

@@ -1,15 +1,16 @@
 package com.api.scilink.controllers;
 
 import com.api.scilink.config.security.CpfPasswordAuthenticationToken;
-import com.api.scilink.dtos.*;
+import com.api.scilink.dtos.CientistaDto;
+import com.api.scilink.dtos.LoginDto;
 import com.api.scilink.exceptions.auth.*;
-import com.api.scilink.models.*;
+import com.api.scilink.models.CientistaModel;
 import com.api.scilink.services.auth.AuthServiceImpl;
+import com.api.scilink.util.CientistaUtil;
 import com.api.scilink.util.JwtTokenUtil;
 import com.api.scilink.util.LogInfoUtil;
 import com.api.scilink.util.Util;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -57,24 +56,10 @@ public class AuthController extends LogInfoUtil {
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastroNovoCientista (@RequestBody @Valid CientistaDto cientistaDto) {
         printLogInfo("Novo cadastro iniciado!");
-        CientistaModel cientistaModel = new CientistaModel();
-
-        BeanUtils.copyProperties(cientistaDto, cientistaModel);
-
-        if (cientistaDto.getTelefones() != null) {
-            cientistaModel.setTelefones(_retornaListaTelefonesModel(cientistaDto, cientistaModel));
-        }
-
-        if (cientistaDto.getRedesSociais() != null) {
-            cientistaModel.setRedesSociais(_retornaListaRedesSociaisModel(cientistaDto));
-        }
-
-        if (cientistaDto.getFormacoes() != null) {
-            cientistaModel.setFormacoes(_retornaListaFormacoesModel(cientistaDto, cientistaModel));
-        }
+        CientistaModel cientistaModel = CientistaUtil.retornaCientistaModel(cientistaDto);
 
         authServiceImpl.saveCientista(cientistaModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cientistaDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado com sucesso!");
     }
 
     @PostMapping("/{valor}")
@@ -108,49 +93,5 @@ public class AuthController extends LogInfoUtil {
             default:
                 return ResponseEntity.status(HttpStatus.OK).body("Parâmetro informado é inválido!");
         }
-    }
-
-    private List<TelefoneModel> _retornaListaTelefonesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        List<TelefoneModel> listaTelefoneModel = new ArrayList<>();
-
-        cientistaDto.getTelefones().forEach(telefoneDto -> {
-            TelefoneId telefoneIdTemp = new TelefoneId();
-            BeanUtils.copyProperties(telefoneDto, telefoneIdTemp);
-            TelefoneModel telefoneModelTemp = new TelefoneModel(telefoneIdTemp, cientistaModel);
-            listaTelefoneModel.add(telefoneModelTemp);
-        });
-
-        return listaTelefoneModel;
-    }
-    private List<RedeSocialModel> _retornaListaRedesSociaisModel (CientistaDto cientistaDto) {
-        List<RedeSocialModel> listaRedeSocialModel = new ArrayList<>();
-
-        cientistaDto.getRedesSociais().forEach(redeSocialDto -> {
-            RedeSocialModel redeSocialModelTemp = new RedeSocialModel();
-            BeanUtils.copyProperties(redeSocialDto, redeSocialModelTemp);
-            listaRedeSocialModel.add(redeSocialModelTemp);
-        });
-
-        return listaRedeSocialModel;
-    }
-    private List<FormacaoModel> _retornaListaFormacoesModel (CientistaDto cientistaDto, CientistaModel cientistaModel) {
-        List<FormacaoModel> listaFormacaoModel = new ArrayList<>();
-
-        cientistaDto.getFormacoes().forEach(formacaoDto -> {
-            FormacaoId formacaoId = new FormacaoId();
-            FormacaoModel formacaoModelTemp = new FormacaoModel();
-            TitulacaoModel titulacaoModelTemp = new TitulacaoModel();
-
-            titulacaoModelTemp.setNome(formacaoDto.getNome());
-
-            BeanUtils.copyProperties(formacaoDto, formacaoModelTemp);
-            formacaoModelTemp.setFormacaoId(formacaoId);
-            formacaoModelTemp.setCientista(cientistaModel);
-            formacaoModelTemp.setTitulacao(titulacaoModelTemp);
-
-            listaFormacaoModel.add(formacaoModelTemp);
-        });
-
-        return listaFormacaoModel;
     }
 }

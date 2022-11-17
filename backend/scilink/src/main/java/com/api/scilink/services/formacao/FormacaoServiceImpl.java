@@ -17,4 +17,10 @@ public class FormacaoServiceImpl extends LogInfoUtil implements FormacaoService 
         printLogInfo("Cadastrando uma formação!");
         return formacaoRepository.save(formacaoModel);
     }
+
+    @Override
+    public void deletarFormacao(FormacaoModel formacaoModel) {
+        printLogInfo("Deletando uma formacao!");
+        formacaoRepository.delete(formacaoModel);
+    }
 }

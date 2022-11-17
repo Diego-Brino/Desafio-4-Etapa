@@ -8,11 +8,12 @@ import java.io.Serializable;
 public class RedeSocialModel implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id_rede_social")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rede_social_sequence")
     @SequenceGenerator(name = "rede_social_sequence", sequenceName = "SEQ_IDREDESSOCIAIS", allocationSize = 1)
-    private Integer id_rede_social;
+    private Integer idRedeSocial;
     @ManyToOne
-    @JoinColumn(name = "id_cientista",
+    @JoinColumn(name = "idCientista",
                 referencedColumnName = "id_cientista")
     private CientistaModel cientista;
     @Column(name = "end_rede_social", length = 50)
@@ -34,11 +35,11 @@ public class RedeSocialModel implements Serializable {
 
     //region Getters and Setters
 
-    public Integer getId_rede_social() {
-        return id_rede_social;
+    public Integer getIdRedeSocial() {
+        return idRedeSocial;
     }
-    public void setId_rede_social(Integer id_rede_social) {
-        this.id_rede_social = id_rede_social;
+    public void setIdRedeSocial(Integer idRedeSocial) {
+        this.idRedeSocial = idRedeSocial;
     }
 
     public CientistaModel getCientista() {
