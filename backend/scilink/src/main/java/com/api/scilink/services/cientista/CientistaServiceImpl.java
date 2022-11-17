@@ -2,6 +2,8 @@ package com.api.scilink.services.cientista;
 
 import com.api.scilink.exceptions.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
+import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
+import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import com.api.scilink.exceptions.titulacao.TitulacaoNaoEncontradaException;
@@ -81,6 +83,18 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
         CientistaModel cientistaModelTemp = cientistaRepository
                 .findCientistaModelByIdCientista(cientistaModelNew.getIdCientista()).get();
 
+        if (cientistaRepository.existsByEmail(cientistaModelNew.getEmail()) &&
+                !cientistaRepository.existsByEmailAndIdCientista(cientistaModelNew.getEmail(), cientistaModelNew.getIdCientista())) {
+            printLogErro("O E-mail informado já está cadastrado!");
+            throw new EmailJaCadastradoException();
+        }
+
+        if (cientistaRepository.existsByLattes(cientistaModelNew.getLattes()) &&
+                !cientistaRepository.existsByLattesAndIdCientista(cientistaModelNew.getLattes(), cientistaModelNew.getIdCientista())) {
+            printLogErro("O Lattes informado já está cadastrado!");
+            throw new LattesJaCadastradoException();
+        }
+
         if (cientistaModelNew.getTelefones() != null) {
             cientistaModelTemp.getTelefones().forEach(telefoneServiceImpl::deletarTelefoneModel);
 
@@ -125,6 +139,8 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
                 formacaoServiceImpl.cadastrarFormacaoModel(formacaoModel);
             });
         }
+
+        cientistaModelNew.setCpf(cientistaModelTemp.getCpf());
 
         cientistaRepository.save(cientistaModelNew);
         printLogInfo("Cientista editado!");

@@ -59,7 +59,7 @@ public class AuthController extends LogInfoUtil {
         CientistaModel cientistaModel = CientistaUtil.retornaCientistaModel(cientistaDto);
 
         authServiceImpl.saveCientista(cientistaModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cientistaDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado com sucesso!");
     }
 
     @PostMapping("/{valor}")

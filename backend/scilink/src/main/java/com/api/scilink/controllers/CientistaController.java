@@ -63,7 +63,7 @@ public class CientistaController extends LogInfoUtil {
             CientistaModel cientistaModelNew = CientistaUtil.retornaCientistaModel(cientistaDto);
 
             cientistaServiceImpl.editarCientista(cientistaModelNew);
-            return ResponseEntity.status(HttpStatus.OK).body(cientistaDto);
+            return ResponseEntity.status(HttpStatus.OK).body("Cientista editado com sucesso!");
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Permissão para alteração de perfil negada!");
