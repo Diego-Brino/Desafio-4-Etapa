@@ -1,7 +1,6 @@
 package com.api.scilink.handlers;
 
 import com.api.scilink.controllers.CientistaController;
-import com.api.scilink.exceptions.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
 import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;

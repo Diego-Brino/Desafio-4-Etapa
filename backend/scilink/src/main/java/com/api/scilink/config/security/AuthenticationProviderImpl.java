@@ -1,6 +1,6 @@
 package com.api.scilink.config.security;
 
-import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.cientista.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.auth.SenhaIncorretaException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.repositories.CientistaRepository;

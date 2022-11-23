@@ -5,6 +5,5 @@ import com.api.scilink.models.AreaAtuacaoCientistaModel;
 
 public interface AreaAtuacaoCientistaService {
     AreaAtuacaoCientistaModel cadastrarAreaAtuacaoCientistaModel (AreaAtuacaoCientistaModel areaAtuacaoCientistaModel);
-    AreaAtuacaoCientistaModel buscarAreaAtuacaoCientistaPorId (AreaAtuacaoCientistaId areaAtuacaoCientistaId);
     void deletarAreaAtuacaoCientista (AreaAtuacaoCientistaModel areaAtuacaoCientistaModel);
 }

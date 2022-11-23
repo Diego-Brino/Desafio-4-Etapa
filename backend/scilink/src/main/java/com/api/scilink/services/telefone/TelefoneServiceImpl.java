@@ -17,27 +17,14 @@ public class TelefoneServiceImpl extends LogInfoUtil implements TelefoneService 
 
     @Override
     @Transactional
-    public TelefoneModel cadastrarTelefoneModel(TelefoneModel telefoneModel) {
+    public void cadastrarTelefoneModel(TelefoneModel telefoneModel) {
+        telefoneRepository.save(telefoneModel);
         printLogInfo("Cadastrando um telefone!");
-        return telefoneRepository.save(telefoneModel);
-    }
-
-    @Override
-    @Transactional
-    public List<TelefoneModel> cadastrarListaTelefoneModels(List<TelefoneModel> listaTelefoneModels) {
-        printLogInfo("Cadastrando lista de telefones!");
-        return telefoneRepository.saveAll(listaTelefoneModels);
     }
 
     @Override
     public void deletarTelefoneModel(TelefoneModel telefoneModel) {
-        printLogInfo("Deletando um telefone!");
         telefoneRepository.delete(telefoneModel);
-    }
-
-    @Override
-    public Boolean existsTelefoneModelByDddAndNumero(Integer ddd, String numero) {
-        printLogInfo("Verificando existência de um telefone!");
-        return telefoneRepository.existsTelefoneModelByTelefoneIdDddAndTelefoneIdNumero(ddd, numero);
+        printLogInfo("Deletando um telefone!");
     }
 }

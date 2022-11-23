@@ -15,26 +15,14 @@ public class RedeSocialServiceImpl extends LogInfoUtil implements RedeSocialServ
     }
 
     @Override
-    public List<RedeSocialModel> cadastrarListaRedesSociaisModels(List<RedeSocialModel> listaRedesSociaisModel) {
-        printLogInfo("Cadastrando lista de redes sociais!");
-        return redeSocialRepository.saveAll(listaRedesSociaisModel);
-    }
-
-    @Override
-    public RedeSocialModel cadastrarRedeSocial(RedeSocialModel redeSocialModel) {
+    public void cadastrarRedeSocial(RedeSocialModel redeSocialModel) {
+        redeSocialRepository.save(redeSocialModel);
         printLogInfo("Cadastrando uma rede social!");
-        return redeSocialRepository.save(redeSocialModel);
     }
 
     @Override
     public void deletarRedeSocial(RedeSocialModel redeSocialModel) {
-        printLogInfo("Deletando uma rede social!");
         redeSocialRepository.delete(redeSocialModel);
-    }
-
-    @Override
-    public RedeSocialModel buscarRedeSocialPorId(Integer idRedeSocial) {
-        printLogInfo("Buscando uma rede social");
-        return redeSocialRepository.findRedeSocialModelByIdRedeSocial(idRedeSocial);
+        printLogInfo("Deletando uma rede social!");
     }
 }

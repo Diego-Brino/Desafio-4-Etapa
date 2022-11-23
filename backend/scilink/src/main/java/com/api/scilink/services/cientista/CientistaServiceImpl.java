@@ -1,16 +1,12 @@
 package com.api.scilink.services.cientista;
 
-import com.api.scilink.exceptions.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
 import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
 import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.cientista.NenhumCientistaCadastradoException;
 import com.api.scilink.exceptions.titulacao.TitulacaoNaoEncontradaException;
-import com.api.scilink.models.AreaAtuacaoCientistaId;
-import com.api.scilink.models.AreaAtuacaoCientistaModel;
 import com.api.scilink.models.CientistaModel;
-import com.api.scilink.models.RedeSocialModel;
 import com.api.scilink.repositories.CientistaRepository;
 import com.api.scilink.services.areaAtuacao.AreaAtuacaoServiceImpl;
 import com.api.scilink.services.areaAtuacaoCientista.AreaAtuacaoCientistaServiceImpl;
@@ -50,20 +46,8 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
     }
 
     @Override
-    public CientistaModel findCientistaById(Integer id) {
-        return cientistaRepository.findCientistaModelByIdCientista(id)
-                .orElseThrow(CientistaNaoEncontradoException::new);
-    }
-
-    @Override
     public CientistaModel findCientistaByCpf (String cpfCientista) {
         return cientistaRepository.findCientistaModelByCpf(cpfCientista)
-                .orElseThrow(CientistaNaoEncontradoException::new);
-    }
-
-    @Override
-    public CientistaModel findCientistaByNome(String nome) {
-        return cientistaRepository.findCientistaModelByNome(nome)
                 .orElseThrow(CientistaNaoEncontradoException::new);
     }
 
@@ -79,7 +63,7 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
 
     @Override
     @Transactional
-    public CientistaModel editarCientista(CientistaModel cientistaModelNew) {
+    public void editarCientista(CientistaModel cientistaModelNew) {
         CientistaModel cientistaModelTemp = cientistaRepository
                 .findCientistaModelByIdCientista(cientistaModelNew.getIdCientista()).get();
 
@@ -144,7 +128,5 @@ public class CientistaServiceImpl extends LogInfoUtil implements CientistaServic
 
         cientistaRepository.save(cientistaModelNew);
         printLogInfo("Cientista editado!");
-
-        return cientistaModelNew;
     }
 }

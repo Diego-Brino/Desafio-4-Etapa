@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AreaAtuacaoService {
-    List<AreaAtuacaoModel> buscarTodasAsAreasAtuacao ();
-    AreaAtuacaoModel cadastrarAreaAtuacaoModel (AreaAtuacaoModel areaAtuacaoModel);
     Optional<AreaAtuacaoModel> buscarAreaAtuacaoByNome (String nome);
+    List<AreaAtuacaoModel> buscarTodasAsAreasAtuacao ();
 }

@@ -1,17 +1,13 @@
 package com.api.scilink.services.auth;
 
-import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.cientista.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
 import com.api.scilink.exceptions.auth.CpfJaCadastradoException;
 import com.api.scilink.exceptions.auth.EmailJaCadastradoException;
 import com.api.scilink.exceptions.auth.LattesJaCadastradoException;
-import com.api.scilink.exceptions.auth.TelefoneJaCadastradoException;
 import com.api.scilink.exceptions.titulacao.TitulacaoNaoEncontradaException;
 import com.api.scilink.models.CientistaModel;
-import com.api.scilink.models.RedeSocialModel;
-import com.api.scilink.models.TitulacaoModel;
 import com.api.scilink.repositories.CientistaRepository;
-import com.api.scilink.repositories.TelefoneRepository;
 import com.api.scilink.services.areaAtuacao.AreaAtuacaoServiceImpl;
 import com.api.scilink.services.areaAtuacaoCientista.AreaAtuacaoCientistaServiceImpl;
 import com.api.scilink.services.formacao.FormacaoServiceImpl;
@@ -25,7 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDetailsService {
@@ -62,7 +57,6 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
         return new CientistaModel(cientistaModel.getNome(), cientistaModel.getCpf(), cientistaModel.getSenha());
     }
 
-    //Tenta localizar o cientista, caso não encontre joga a exceção CpfNotFoundException.
     @Override
     @Transactional
     public CientistaModel loadUserByCpf (String cpf) {
@@ -75,7 +69,7 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
 
     @Override
     @Transactional
-    public CientistaModel saveCientista (CientistaModel cientistaModel) {
+    public void saveCientista (CientistaModel cientistaModel) {
         if (cientistaRepository.existsByCpf(cientistaModel.getCpf())) {
             printLogErro("O Cpf informado já está cadastrado!");
             throw new CpfJaCadastradoException();
@@ -89,8 +83,8 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
             throw new LattesJaCadastradoException();
         }
 
-        printLogInfo("Cientista cadastrado!");
         cientistaRepository.save(cientistaModel);
+        printLogInfo("Cientista cadastrado!");
 
         CientistaModel cientistaModelTemp = cientistaRepository
                 .findCientistaModelByCpf(cientistaModel.getCpf()).get();
@@ -131,8 +125,6 @@ public class AuthServiceImpl extends LogInfoUtil implements AuthService, UserDet
                 formacaoServiceImpl.cadastrarFormacaoModel(formacaoModel);
             });
         }
-
-        return cientistaModel;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.api.scilink.handlers;
 
 import com.api.scilink.controllers.AuthController;
-import com.api.scilink.exceptions.CpfNaoEncontradoException;
+import com.api.scilink.exceptions.cientista.CpfNaoEncontradoException;
 import com.api.scilink.exceptions.areaAtuacao.AreaAtuacaoNaoEncontradaException;
 import com.api.scilink.exceptions.cientista.CientistaNaoEncontradoException;
 import com.api.scilink.exceptions.auth.*;

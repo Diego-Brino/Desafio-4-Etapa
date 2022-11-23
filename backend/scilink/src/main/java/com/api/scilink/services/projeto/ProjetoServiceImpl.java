@@ -1,6 +1,7 @@
 package com.api.scilink.services.projeto;
 
 import com.api.scilink.exceptions.projeto.NenhumProjetoCadastradoException;
+import com.api.scilink.exceptions.projeto.NenhumProjetoEncontradoException;
 import com.api.scilink.models.CientistaModel;
 import com.api.scilink.models.ProjetoModel;
 import com.api.scilink.repositories.ProjetoRepository;
@@ -18,29 +19,52 @@ public class ProjetoServiceImpl extends LogInfoUtil implements ProjetoService {
     }
 
     @Override
-    public List<ProjetoModel> buscarTodosOsProjetosPublicos () {
-        if (projetoRepository.findAllByPublico(1).isEmpty()) {
-            printLogInfo("Nenhum projeto cadastrado no sistema!");
-            throw new NenhumProjetoCadastradoException();
-        }
-        printLogInfo("Retornando lista de todos os projetos públicos");
-        return projetoRepository.findAllByPublico(1);
+    public ProjetoModel buscarProjetoPorId(Integer id) {
+        return projetoRepository.findByIdProjeto(id)
+                .orElseThrow(NenhumProjetoEncontradoException::new);
     }
 
     @Override
-    public List<ProjetoModel> buscarTodosOsMeusProjetos (CientistaModel cientistaModel) {
-        if (projetoRepository.findAllByCientista(cientistaModel).isEmpty()) {
+    public List<ProjetoModel> buscarTodosOsMeusProjetos(CientistaModel cientistaModel) {
+        if (projetoRepository.findAllByCientista(cientistaModel).isPresent()) {
             printLogInfo(cientistaModel.getNome() + " não possui nenhum projeto cadastrado");
             throw new NenhumProjetoCadastradoException();
         }
         printLogInfo("Retornando lista de todos os projetos do cientista " + cientistaModel.getNome());
-        return projetoRepository.findAllByCientista(cientistaModel);
+        return projetoRepository.findAllByCientista(cientistaModel).get();
+    }
+
+    @Override
+    public List<ProjetoModel> buscarTodosOsProjetosPublicos () {
+        if (projetoRepository.findAllByPublico(1).isPresent()) {
+            printLogInfo("Nenhum projeto cadastrado no sistema!");
+            throw new NenhumProjetoCadastradoException();
+        }
+        printLogInfo("Retornando lista de todos os projetos públicos");
+        return projetoRepository.findAllByPublico(1).get();
+    }
+
+    @Override
+    public List<ProjetoModel> buscarTodosOsMeusProjetosPublicosOuPrivados(CientistaModel cientistaModel, Integer publico) {
+        if (projetoRepository.findAllByCientistaAndPublico(cientistaModel, publico).isPresent()) {
+            printLogInfo(cientistaModel.getNome() + " não possui nenhum projeto público cadastrado");
+            throw new NenhumProjetoCadastradoException();
+        }
+        printLogInfo("Retornando lista de todos os projetos do cientista " + cientistaModel.getNome());
+        return projetoRepository.findAllByCientistaAndPublico(cientistaModel, publico).get();
     }
 
     @Override
     @Transactional
     public void cadastrarProjeto (ProjetoModel projetoModel) {
-        printLogInfo("Projeto cadastrado!");
         projetoRepository.save(projetoModel);
+        printLogInfo("Projeto cadastrado!");
+    }
+
+    @Override
+    @Transactional
+    public void editarProjeto (ProjetoModel projetoModel) {
+        projetoRepository.save(projetoModel);
+        printLogInfo("Projeto editado!");
     }
 }

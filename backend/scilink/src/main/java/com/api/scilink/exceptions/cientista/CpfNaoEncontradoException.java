@@ -1,4 +1,4 @@
-package com.api.scilink.exceptions;
+package com.api.scilink.exceptions.cientista;
 
 public class CpfNaoEncontradoException extends RuntimeException {
     public CpfNaoEncontradoException() {
