@@ -26,7 +26,7 @@ public class ProjetoServiceImpl extends LogInfoUtil implements ProjetoService {
 
     @Override
     public List<ProjetoModel> buscarTodosOsMeusProjetos(CientistaModel cientistaModel) {
-        if (projetoRepository.findAllByCientista(cientistaModel).isPresent()) {
+        if (projetoRepository.findAllByCientista(cientistaModel).isEmpty()) {
             printLogInfo(cientistaModel.getNome() + " não possui nenhum projeto cadastrado");
             throw new NenhumProjetoCadastradoException();
         }
@@ -36,7 +36,7 @@ public class ProjetoServiceImpl extends LogInfoUtil implements ProjetoService {
 
     @Override
     public List<ProjetoModel> buscarTodosOsProjetosPublicos () {
-        if (projetoRepository.findAllByPublico(1).isPresent()) {
+        if (projetoRepository.findAllByPublico(1).isEmpty()) {
             printLogInfo("Nenhum projeto cadastrado no sistema!");
             throw new NenhumProjetoCadastradoException();
         }
@@ -46,7 +46,7 @@ public class ProjetoServiceImpl extends LogInfoUtil implements ProjetoService {
 
     @Override
     public List<ProjetoModel> buscarTodosOsMeusProjetosPublicosOuPrivados(CientistaModel cientistaModel, Integer publico) {
-        if (projetoRepository.findAllByCientistaAndPublico(cientistaModel, publico).isPresent()) {
+        if (projetoRepository.findAllByCientistaAndPublico(cientistaModel, publico).isEmpty()) {
             printLogInfo(cientistaModel.getNome() + " não possui nenhum projeto público cadastrado");
             throw new NenhumProjetoCadastradoException();
         }
