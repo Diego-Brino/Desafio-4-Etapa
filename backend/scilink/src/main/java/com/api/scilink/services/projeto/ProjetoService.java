@@ -12,4 +12,5 @@ public interface ProjetoService {
     List<ProjetoModel> buscarTodosOsMeusProjetosPublicosOuPrivados (CientistaModel cientistaModel, Integer publico);
     void cadastrarProjeto (ProjetoModel projetoModel);
     void editarProjeto (ProjetoModel projetoModel);
+    void deletarProjeto (Integer id);
 }

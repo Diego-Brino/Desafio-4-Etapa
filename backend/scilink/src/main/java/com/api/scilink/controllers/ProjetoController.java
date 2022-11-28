@@ -95,6 +95,22 @@ public class ProjetoController extends LogInfoUtil {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Permissão para alteração de projeto negada!");
     }
 
+    @DeleteMapping("/{idProjeto}")
+    public ResponseEntity<?> deletarProjeto (@RequestHeader("Authorization") String token,
+                                             @PathVariable(value = "idProjeto") Integer idProjeto) {
+        ProjetoModel projetoModel = projetoServiceImpl.buscarProjetoPorId(idProjeto);
+        CientistaModel cientistaModel = cientistaServiceImpl.findCientistaByCpf(jwtTokenUtil.getUsernameFromToken(token));
+
+        if (projetoModel.getCientista().equals(cientistaModel)) {
+            printLogInfo("Iniciando deleção de projeto!");
+
+            projetoServiceImpl.deletarProjeto(idProjeto);
+            return ResponseEntity.status(HttpStatus.OK).body("Projeto deletado com sucesso!");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Permissão para deleção de projeto negada!");
+    }
+
     private List<ProjetoDto> _retornaListaProjetosDto (CientistaModel cientistaModel, String tipoDeBusca) {
         if (tipoDeBusca.equals("publico")) {
             return projetoServiceImpl.buscarTodosOsMeusProjetosPublicosOuPrivados(cientistaModel, 1).stream().map(projetoModel -> {

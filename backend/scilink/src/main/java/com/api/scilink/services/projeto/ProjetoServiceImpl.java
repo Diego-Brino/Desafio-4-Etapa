@@ -67,4 +67,11 @@ public class ProjetoServiceImpl extends LogInfoUtil implements ProjetoService {
         projetoRepository.save(projetoModel);
         printLogInfo("Projeto editado!");
     }
+
+    @Override
+    @Transactional
+    public void deletarProjeto(Integer id) {
+        projetoRepository.deleteByIdProjeto(id);
+        printLogInfo("Projeto deletado!");
+    }
 }

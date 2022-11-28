@@ -12,4 +12,5 @@ public interface ProjetoRepository extends JpaRepository<ProjetoModel, Integer> 
     Optional<List<ProjetoModel>> findAllByPublico (Integer publico);
     Optional<List<ProjetoModel>> findAllByCientista (CientistaModel cientistaModel);
     Optional<List<ProjetoModel>> findAllByCientistaAndPublico (CientistaModel cientistaModel, Integer publico);
+    void deleteByIdProjeto (Integer id);
 }
