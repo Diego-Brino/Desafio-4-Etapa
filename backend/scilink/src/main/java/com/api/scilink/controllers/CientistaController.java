@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/cientistas")
+@RequestMapping("/cientistas") //TODO - Criar visualização de perfil / Editar / EndPoint para area de atuação, curso, titulação
 public class CientistaController extends LogInfoUtil {
     private final CientistaServiceImpl cientistaServiceImpl;
     private final JwtTokenUtil jwtTokenUtil;

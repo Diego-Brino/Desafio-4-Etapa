@@ -34,6 +34,13 @@ theme = createTheme({
 theme = createTheme(theme, {
   components: {
     MuiLink: {
+      styleOverrides: {
+        root: {
+          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+        },
+      },
       variants: [
         {
           props: { variant: "primary" },
@@ -66,17 +73,17 @@ theme = createTheme(theme, {
         },
       },
     },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          color: theme.palette.text.primary,
-        },
-      },
-    },
     MuiCheckbox: {
       styleOverrides: {
         root: {
           color: theme.palette.primary.main,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: '120px'
         },
       },
     },

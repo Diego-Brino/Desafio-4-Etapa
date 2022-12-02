@@ -36,7 +36,7 @@ export default function TitulacoesField(props) {
       {response != null && (
         <Paper>
           <Stack direction="row">
-            <FormControl sx={{ flex: 20 }}>
+            <FormControl sx={{ flex: 15 }}>
               <InputLabel variant="filled">Titulação</InputLabel>
               <Select
                 variant="filled"
@@ -123,7 +123,7 @@ export default function TitulacoesField(props) {
                             dataTermino: "",
                           },
                         ];
-                      props.formik.setFieldValue("titulacoes", array);
+                      props.formik.setFieldValue("formacoes", array);
                     }}
                   />
                 );

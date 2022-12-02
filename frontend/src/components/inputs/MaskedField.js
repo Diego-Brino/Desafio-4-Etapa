@@ -6,11 +6,13 @@ function MaskedField(props) {
 
     return (
         <InputMask
+            disabled={props.disabled}
             mask={props.mask}
             maskChar={''}
             value={props.value}
             onChange={props.onChange}>
             {() => <TextField
+                disabled={props.disabled}
                 helperText={props.helperText != null ? props.helperText : ' '}
                 error={props.error}
                 required={props.required}

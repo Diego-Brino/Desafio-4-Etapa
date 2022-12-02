@@ -11,7 +11,8 @@ import useFetch from "../../hooks/useFetch";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import CadastrarFormStepRedesSociais from "./CadastrarFormStepRedesSociais";
-import {removeMaskCpf} from "../../utils/utils";
+import { removeMaskCpf } from "../../utils/utils";
+import axios from "axios";
 
 function CadastrarForm() {
   const theme = useTheme();
@@ -24,12 +25,12 @@ function CadastrarForm() {
   const validationSchemaStepGeneral = yup.object({
     cpf: yup
       .string()
+      .min(11, "Campo CPF é inválido!")
       .required("Campo CPF é obrigatório!"),
     senha: yup.string().required("Campo Senha é obrigatório!"),
     lattes: yup
       .string()
-      .required("Campo Lattes é obrigatório!")
-      .url("Campo Lattes inválido!"),
+      .required("Campo Lattes é obrigatório!"),
     email: yup
       .string()
       .required("Campo Email é obrigatório!")
@@ -105,7 +106,7 @@ function CadastrarForm() {
       ],
     },
     onSubmit: (values) => {
-      values.cpf = removeMaskCpf(values.cpf)
+      values.cpf = removeMaskCpf(values.cpf);
       handleSubmit(values);
     },
     validationSchema: validationSchemaStepGeneral,
@@ -122,7 +123,52 @@ function CadastrarForm() {
     false
   );
 
-  const handleSubmit = () => {
+  const validateCpf = () => {
+    return axios.post(`http://localhost:8080/auth/${formik.values.cpf}?tipoValidacao=cpf`)
+      .then((res) => {
+        return true;
+      })
+      .catch((err) => {
+        let data = err.response.data;
+        formik.setErrors({
+          cpf: data.attribute === "cpf" ? data.message : formik.errors.cpf,
+        });
+        return false;
+      })
+  }
+  const validateEmail = () => {
+    return axios.post(`http://localhost:8080/auth/${formik.values.email}?tipoValidacao=email`)
+      .then((res) => {
+        return true;
+      })
+      .catch((err) => {
+        let data = err.response.data;
+        formik.setErrors({
+          email: data.attribute === "email" ? data.message : formik.errors.email,
+        });
+        return false;
+      })
+
+  }
+  const validateLattes = () => {
+    return axios.post(`http://localhost:8080/auth/${formik.values.lattes}?tipoValidacao=lattes`)
+      .then((res) => {
+        return true;
+      })
+      .catch((err) => {
+        let data = err.response.data;
+        formik.setErrors({
+          lattes: data.attribute === "lattes" ? data.message : formik.errors.lattes,
+        });
+        return false;
+      })
+
+  }
+
+  const handleSubmit = async () => {
+    if (step === 0 && (!await validateCpf() || !await validateEmail() || !await validateLattes())) {
+      return;
+    }
     if (step !== 2) {
       setStep(step + 1);
       return;
@@ -130,7 +176,7 @@ function CadastrarForm() {
 
     fetchData()
       .then((res) => {
-        navigate("/meus-projetos");
+        navigate("/projetos");
       })
       .catch((err) => {
         let data = err.response.data;
@@ -138,27 +184,19 @@ function CadastrarForm() {
       });
   };
 
-  //region styles
-  const sxFormWrapper = {
-    width: [layout === "desktop" ? "682px" : "100%"],
-    maxWidth: [layout === "desktop" ? "initial" : "350px"],
-    padding: "25px 25px",
-  };
-  const sxFormTitle = {
-    textAlign: "center",
-    fontWeight: "bold",
-  };
-  //endregion
-
   return (
-    <Box sx={sxFormWrapper}>
+    <Box
+      width={[layout === "desktop" ? "calc(700px - 17px - 17px)" : "100%"]}
+      maxWidth={[layout === "desktop" ? "initial" : "350px"]}
+      padding={"25px 25px"}
+    >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.25 } }}
       >
         <form onSubmit={formik.handleSubmit}>
           <Stack spacing={4}>
-            <Typography sx={sxFormTitle} variant="h3">
+            <Typography variant="h3" fontWeight="bold" textAlign="center">
               Cadastro
             </Typography>
             {step === 0 && (
@@ -168,7 +206,10 @@ function CadastrarForm() {
               <CadastrarFormStepSelect formik={formik} setStep={setStep} />
             )}
             {step === 2 && (
-              <CadastrarFormStepRedesSociais formik={formik} setStep={setStep} />
+              <CadastrarFormStepRedesSociais
+                formik={formik}
+                setStep={setStep}
+              />
             )}
           </Stack>
         </form>
