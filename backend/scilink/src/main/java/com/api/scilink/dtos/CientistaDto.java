@@ -39,7 +39,6 @@ public class CientistaDto {
 
     @NotBlank(message = "A Senha é obrigatória!")
     @Size(max = 10, message = "A senha deve conter no máximo 10 caracteres!")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     private List<ProjetoDto> projetos;
