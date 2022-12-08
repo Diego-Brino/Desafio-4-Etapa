@@ -165,7 +165,7 @@ function CadastrarForm() {
 
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values) => {
     if (step === 0 && (!await validateCpf() || !await validateEmail() || !await validateLattes())) {
       return;
     }
@@ -174,7 +174,13 @@ function CadastrarForm() {
       return;
     }
 
-    fetchData()
+    if(values.formacoes[0].nome == "")
+      values.formacoes = []
+
+    if(values.areasAtuacao[0].nome == "")
+      values.areasAtuacao = []
+
+    axios.post("http://localhost:8080/auth/cadastrar", values)
       .then((res) => {
         navigate("/projetos");
       })

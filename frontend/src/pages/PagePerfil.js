@@ -33,6 +33,8 @@ function PagePerfil() {
   const outlet = useOutletContext();
   const token = useSelector((state) => state.token.value);
 
+  const [loading, setLoading] = useState(true);
+
   const validationSchemaStepGeneral = yup.object({
     cpf: yup
       .string()
@@ -80,8 +82,18 @@ function PagePerfil() {
         },
       ],
       dataNascimento: "",
-      areasAtuacao: [],
-      formacoes: [],
+      areasAtuacao: [
+        {
+          nome: "",
+        },
+      ],
+      formacoes: [
+        {
+          nome: "",
+          dataInicio: "",
+          dataTermino: "",
+        },
+      ],
       redesSociais: [
         {
           endereco: "",
@@ -114,11 +126,10 @@ function PagePerfil() {
   });
 
   const handleSubmit = (values) => {
-
-    values.dataNascimento = moment(values.dataNascimento, "YYYY-MM-DD").format("DD/MM/YYYY")
-    values.senha = 'teste'
-
-    console.log(values.dataNascimento )
+    values.dataNascimento = moment(values.dataNascimento, "YYYY-MM-DD").format(
+      "DD/MM/YYYY"
+    );
+    values.senha = "teste";
 
     axios
       .put(
@@ -138,7 +149,7 @@ function PagePerfil() {
       });
   };
 
-  const { response, error, loading, fetchData } = useFetch(
+  const { response, error, aloading, fetchData } = useFetch(
     {
       method: "GET",
       url: `http://localhost:8080/cientistas/${parseJwt(token).sub}`,
@@ -154,7 +165,11 @@ function PagePerfil() {
   useEffect(() => {
     fetchData()
       .then((res) => {
-        formik.setFieldValue("idCientista", res.data.idCientista.toString(), false);
+        formik.setFieldValue(
+          "idCientista",
+          res.data.idCientista.toString(),
+          false
+        );
         formik.setFieldValue("cpf", res.data.cpf, false);
         formik.setFieldValue("lattes", res.data.lattes, false);
         formik.setFieldValue("email", res.data.email, false);
@@ -163,14 +178,16 @@ function PagePerfil() {
           res.data.emailAlternativo,
           false
         );
-        formik.setFieldValue(
-          "telefones.0",
-          {
-            ddd: res.data.telefones[0].ddd,
-            numero: res.data.telefones[0].numero,
-          },
-          false
-        );
+        if (res.telefones != undefined) {
+          formik.setFieldValue(
+            "telefones.0",
+            {
+              ddd: res.data.telefones[0].ddd,
+              numero: res.data.telefones[0].numero,
+            },
+            false
+          );
+        }
         formik.setFieldValue("senha", res.data.senha, false);
         formik.setFieldValue("nome", res.data.nome, false);
         formik.setFieldValue(
@@ -178,23 +195,56 @@ function PagePerfil() {
           moment(res.data.dataNascimento, "DD/MM/YYYY").format("YYYY-MM-DD"),
           false
         );
-        formik.setFieldValue(
-          "areasAtuacao",
-          res.data.areasAtuacao.map((v) => (v = { nome: v.nome })),
-          false
-        );
-        formik.setFieldValue(
-          "formacoes",
-          res.data.formacoes.map(
-            (v) =>
-              (v = {
-                nome: v.nome,
-                dataInicio: v.dataInicio,
-                dataTermino: v.dataTermino,
-              })
-          ),
-          false
-        );
+
+        if(res.data.areasAtuacao.length == 0){
+          formik.setFieldValue(
+            "areasAtuacao",
+            [
+              {
+                nome: "",
+              },
+            ],
+            false
+          );
+        } else {
+          formik.setFieldValue(
+            "areasAtuacao",
+            res.data.areasAtuacao.map(
+              (v) =>
+                (v = {
+                  nome: v.nome,
+                })
+            ),
+            false
+          );
+        }
+
+        if(res.data.formacoes.length == 0){
+          formik.setFieldValue(
+            "formacoes",
+            [
+              {
+                nome: "",
+                dataInicio: "",
+                dataTermino: "",
+              },
+            ],
+            false
+          );
+        } else {
+          formik.setFieldValue(
+            "formacoes",
+            res.data.formacoes.map(
+              (v) =>
+                (v = {
+                  nome: v.nome,
+                  dataInicio: v.dataInicio,
+                  dataTermino: v.dataTermino,
+                })
+            ),
+            false
+          );
+        }
         if (res.data.redesSociais[0] != null)
           formik.setFieldValue(
             "redesSociais.0",
@@ -228,7 +278,8 @@ function PagePerfil() {
             {
               tipo: res.data.redesSociais[3].tipo,
               endereco: res.data.redesSociais[3].endereco,
-            },            false
+            },
+            false
           );
         if (res.data.redesSociais[4] != null)
           formik.setFieldValue(
@@ -242,6 +293,9 @@ function PagePerfil() {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false)
       });
   }, []);
 
@@ -273,231 +327,236 @@ function PagePerfil() {
 
   return (
     <>
-      <Paper sx={sxHeadingWrapper}>
-        {layout === "mobile" && (
-          <IconButton
-            onClick={() => {
-              outlet.setOpen(!outlet.open);
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-        )}
-        <Typography variant="h4" sx={sxHeading}>
-          Perfil
-        </Typography>
-      </Paper>
-      <Divider />
-      <Paper sx={sxContentMain}>
-        <form onSubmit={formik.handleSubmit}>
-          <Grid container spacing={2} sx={sxGridContainer}>
-            <Grid item xs={12} md={12} lg={12} xl={6}>
-              <Grid container spacing={2}>
+      {
+        !loading &&
+        <>
+          <Paper sx={sxHeadingWrapper}>
+            {layout === "mobile" && (
+              <IconButton
+                onClick={() => {
+                  outlet.setOpen(!outlet.open);
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+            <Typography variant="h4" sx={sxHeading}>
+              Perfil
+            </Typography>
+          </Paper>
+          <Divider />
+          <Paper sx={sxContentMain}>
+            <form onSubmit={formik.handleSubmit}>
+              <Grid container spacing={2} sx={sxGridContainer}>
+                <Grid item xs={12} md={12} lg={12} xl={6}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography variant="h5" sx={sxColumnHeading}>
+                        Dados Básicos
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <Stack spacing={2}>
+                        <MaskedField
+                          disabled={true}
+                          mask="999.999.999-99"
+                          value={formik.values.cpf}
+                          name="cpf"
+                          label="CPF *"
+                          onChange={formik.handleChange}
+                          autoFocus={true}
+                          inputProps={{ maxLength: 14 }}
+                          error={Boolean(formik.errors.cpf)}
+                          helperText={formik.errors.cpf}
+                        />
+                        <TextField
+                          disabled={true}
+                          value={formik.values.lattes}
+                          name="lattes"
+                          label="Lattes *"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          inputProps={{ maxLength: 50 }}
+                          error={Boolean(formik.errors.lattes)}
+                          helperText={
+                            formik.errors.lattes != null
+                              ? formik.errors.lattes
+                              : " "
+                          }
+                        />
+                        <TextField
+                          disabled={true}
+                          value={formik.values.email}
+                          name="email"
+                          label="Email *"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          inputProps={{ maxLength: 50 }}
+                          error={Boolean(formik.errors.email)}
+                          helperText={
+                            formik.errors.email != null ? formik.errors.email : " "
+                          }
+                        />
+                      </Stack>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <Stack spacing={2}>
+                        <TextField
+                          value={formik.values.nome}
+                          name="nome"
+                          label="Nome"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          inputProps={{ maxLength: 50 }}
+                          helperText={
+                            formik.errors.nome != null ? formik.errors.nome : " "
+                          }
+                        />
+                        <TextField
+                          value={formik.values.dataNascimento}
+                          name="dataNascimento"
+                          label="Data de Nascimento"
+                          InputLabelProps={{ shrink: true }}
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          type="date"
+                          helperText={
+                            formik.errors.dataNascimento != null
+                              ? formik.errors.dataNascimento
+                              : " "
+                          }
+                        />
+                        <TextField
+                          value={formik.values.emailAlternativo}
+                          name="emailAlternativo"
+                          label="Email Secundário"
+                          onChange={formik.handleChange}
+                          variant="filled"
+                          inputProps={{ maxLength: 50 }}
+                          error={Boolean(formik.errors.emailAlternativo)}
+                          helperText={
+                            formik.errors.emailAlternativo != null
+                              ? formik.errors.emailAlternativo
+                              : " "
+                          }
+                        />
+                        <MaskedField
+                          mask={"(99)99999-9999"}
+                          value={
+                            formik.values.telefones[0].ddd +
+                            formik.values.telefones[0].numero
+                          }
+                          name="telefones.0"
+                          label="Telefone"
+                          inputProps={{ maxLength: 14 }}
+                          error={Boolean(formik.errors.telefones)}
+                          helperText={
+                            formik.errors.telefones !== undefined
+                              ? formik.errors.telefones
+                              : " "
+                          }
+                          onChange={(e) => {
+                            formik.handleChange;
+                            let str = removeMaskTelefone(e.target.value);
+                            let ddd = str.substring(0, 2);
+                            let numero = str.substring(2, 11);
+                            formik.setFieldValue("telefones.0.ddd", ddd, true);
+                            formik.setFieldValue(
+                              "telefones.0.numero",
+                              numero,
+                              true
+                            );
+                          }}
+                        />
+                      </Stack>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} md={12} lg={12} xl={12}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography variant="h5" sx={sxColumnHeading}>
+                        Titulações
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <TitulacoesField formik={formik} />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <AreasAtuacaoField formik={formik} />
+                    </Grid>
+                  </Grid>
+                </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5" sx={sxColumnHeading}>
-                    Dados Básicos
+                    Redes Sociais
                   </Typography>
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
+                <Grid item xs={12} lg={6}>
                   <Stack spacing={2}>
-                    <MaskedField
-                      disabled={true}
-                      mask="999.999.999-99"
-                      value={formik.values.cpf}
-                      name="cpf"
-                      label="CPF *"
-                      onChange={formik.handleChange}
-                      autoFocus={true}
-                      inputProps={{ maxLength: 14 }}
-                      error={Boolean(formik.errors.cpf)}
-                      helperText={formik.errors.cpf}
-                    />
                     <TextField
-                      disabled={true}
-                      value={formik.values.lattes}
-                      name="lattes"
-                      label="Lattes *"
+                      value={formik.values.redesSociais[0].endereco}
+                      name="redesSociais.0.endereco"
+                      label="Instagram"
                       variant="filled"
                       onChange={formik.handleChange}
                       inputProps={{ maxLength: 50 }}
-                      error={Boolean(formik.errors.lattes)}
-                      helperText={
-                        formik.errors.lattes != null
-                          ? formik.errors.lattes
-                          : " "
-                      }
                     />
                     <TextField
-                      disabled={true}
-                      value={formik.values.email}
-                      name="email"
-                      label="Email *"
+                      value={formik.values.redesSociais[1].endereco}
+                      name="redesSociais.1.endereco"
+                      label="Facebook"
                       variant="filled"
                       onChange={formik.handleChange}
                       inputProps={{ maxLength: 50 }}
-                      error={Boolean(formik.errors.email)}
-                      helperText={
-                        formik.errors.email != null ? formik.errors.email : " "
-                      }
+                    />
+                    <TextField
+                      value={formik.values.redesSociais[2].endereco}
+                      name="redesSociais.2.endereco"
+                      label="Linkedin"
+                      variant="filled"
+                      onChange={formik.handleChange}
+                      inputProps={{ maxLength: 50 }}
                     />
                   </Stack>
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
+                <Grid item xs={12} lg={6}>
                   <Stack spacing={2}>
                     <TextField
-                      value={formik.values.nome}
-                      name="nome"
-                      label="Nome"
+                      value={formik.values.redesSociais[3].endereco}
+                      name="redesSociais.3.endereco"
+                      label="Youtube"
                       variant="filled"
                       onChange={formik.handleChange}
                       inputProps={{ maxLength: 50 }}
-                      helperText={
-                        formik.errors.nome != null ? formik.errors.nome : " "
-                      }
                     />
                     <TextField
-                      value={formik.values.dataNascimento}
-                      name="dataNascimento"
-                      label="Data de Nascimento"
-                      InputLabelProps={{ shrink: true }}
+                      value={formik.values.redesSociais[4].endereco}
+                      name="redesSociais.4.endereco"
+                      label="TikTok"
                       variant="filled"
                       onChange={formik.handleChange}
-                      type="date"
-                      helperText={
-                        formik.errors.dataNascimento != null
-                          ? formik.errors.dataNascimento
-                          : " "
-                      }
-                    />
-                    <TextField
-                      value={formik.values.emailAlternativo}
-                      name="emailAlternativo"
-                      label="Email Secundário"
-                      onChange={formik.handleChange}
-                      variant="filled"
                       inputProps={{ maxLength: 50 }}
-                      error={Boolean(formik.errors.emailAlternativo)}
-                      helperText={
-                        formik.errors.emailAlternativo != null
-                          ? formik.errors.emailAlternativo
-                          : " "
-                      }
-                    />
-                    <MaskedField
-                      mask={"(99)99999-9999"}
-                      value={
-                        formik.values.telefones[0].ddd +
-                        formik.values.telefones[0].numero
-                      }
-                      name="telefones.0"
-                      label="Telefone"
-                      inputProps={{ maxLength: 14 }}
-                      error={Boolean(formik.errors.telefones)}
-                      helperText={
-                        formik.errors.telefones !== undefined
-                          ? formik.errors.telefones
-                          : " "
-                      }
-                      onChange={(e) => {
-                        formik.handleChange;
-                        let str = removeMaskTelefone(e.target.value);
-                        let ddd = str.substring(0, 2);
-                        let numero = str.substring(2, 11);
-                        formik.setFieldValue("telefones.0.ddd", ddd, true);
-                        formik.setFieldValue(
-                          "telefones.0.numero",
-                          numero,
-                          true
-                        );
-                      }}
                     />
                   </Stack>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item xs={12} md={12} lg={12} xl={12}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Typography variant="h5" sx={sxColumnHeading}>
-                    Titulações
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <TitulacoesField formik={formik} />
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <AreasAtuacaoField formik={formik} />
-                </Grid>
+              <Grid item xs={12} sx={{ padding: theme.spacing(2) }}>
+                <Button
+                  sx={{
+                    paddingX: theme.spacing(2),
+                    backgroundColor: theme.palette.tertiary.main,
+                  }}
+                  type="submit"
+                  onClick={() => console.log("dddd")}
+                >
+                  <Typography>Salvar</Typography>
+                </Button>
               </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h5" sx={sxColumnHeading}>
-                Redes Sociais
-              </Typography>
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <Stack spacing={2}>
-                <TextField
-                  value={formik.values.redesSociais[0].endereco}
-                  name="redesSociais.0.endereco"
-                  label="Instagram"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  inputProps={{ maxLength: 50 }}
-                />
-                <TextField
-                  value={formik.values.redesSociais[1].endereco}
-                  name="redesSociais.1.endereco"
-                  label="Facebook"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  inputProps={{ maxLength: 50 }}
-                />
-                <TextField
-                  value={formik.values.redesSociais[2].endereco}
-                  name="redesSociais.2.endereco"
-                  label="Linkedin"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  inputProps={{ maxLength: 50 }}
-                />
-              </Stack>
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <Stack spacing={2}>
-                <TextField
-                  value={formik.values.redesSociais[3].endereco}
-                  name="redesSociais.3.endereco"
-                  label="Youtube"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  inputProps={{ maxLength: 50 }}
-                />
-                <TextField
-                  value={formik.values.redesSociais[4].endereco}
-                  name="redesSociais.4.endereco"
-                  label="TikTok"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  inputProps={{ maxLength: 50 }}
-                />
-              </Stack>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sx={{ padding: theme.spacing(2) }}>
-            <Button
-              sx={{
-                paddingX: theme.spacing(2),
-                backgroundColor: theme.palette.tertiary.main,
-              }}
-              type="submit"
-              onClick={() => console.log("dddd")}
-            >
-              <Typography>Salvar</Typography>
-            </Button>
-          </Grid>
-        </form>
-      </Paper>
+            </form>
+          </Paper>
+        </>
+      }
     </>
   );
 }
